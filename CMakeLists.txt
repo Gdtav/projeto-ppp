@@ -3,5 +3,5 @@ project(Projeto)
 
 set(CMAKE_C_STANDARD 99)
 
-set(SOURCE_FILES main.c Libraries/Exames.h)
+set(SOURCE_FILES main.c Libraries/Exames.h Menus.c Menus.h)
 add_executable(Projeto ${SOURCE_FILES})
