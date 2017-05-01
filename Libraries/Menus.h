@@ -6,3 +6,5 @@
 #define PROJETO_MENUS_H
 
 #endif //PROJETO_MENUS_H
+
+void menuPrincipal(void);
