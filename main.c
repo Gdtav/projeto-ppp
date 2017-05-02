@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include "Libraries/Exames.h"
+#include "Libraries/Menus.h"
 
 int main() {
-    printf("Hello, World!\n");
+
+    menuPrincipal();
     return 0;
 }
