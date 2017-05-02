@@ -8,3 +8,5 @@
 #endif //PROJETO_MENUS_H
 
 void menuPrincipal(void);
+
+void menuAlunos(void);
