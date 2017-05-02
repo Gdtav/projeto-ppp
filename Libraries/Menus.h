@@ -10,3 +10,5 @@
 void menuPrincipal(void);
 
 void menuAlunos(void);
+
+void menuDisciplinas(void);
