@@ -10,16 +10,10 @@ void menuPrincipal(){
     printf("Bem vindo ao gestor de exames do DEI. \n Por favor insira a opcao desejada:\n");
     printf("1 - Gerir alunos\n");
     printf("2 - gerir disciplinas\n");
-    printf("3 - Criar novo exame\n");
-    printf("4 - Eliminar exames realizados\n");
-    printf("5 - Listar exames\n");
-    printf("6 - Gerir inscricoes de alunos\n");
-    printf("7 - Listar alunos inscritos num exame\n");
-    printf("8 - Listar exames de um aluno\n");
-    printf("9 - Gerir salas de exames\n");
+    printf("3 - Gerir exames\n");
     scanf("%d", &opcao);
-    while (opcao < 1 || opcao > 9) {
-        printf("Por favor, insira o numero da operacao desejada (de 1 a 9):");
+    while (opcao < 1 || opcao > 3) {
+        printf("Por favor, insira o numero da operacao desejada (de 1 a 3):");
         scanf("%d", &opcao);
     }
     switch (opcao){
@@ -42,6 +36,7 @@ void menuAlunos(){
     printf("1 - adicionar aluno\n");
     printf("2 - modificar aluno\n");
     printf("3 - eliminar aluno\n");
+    printf("4 - Listar exames do aluno\n");
     scanf("%d", &opcao);
     while (opcao < 1 || opcao > 3) {
         printf("Por favor, insira o numero da operacao desejada (de 1 a 3):");
@@ -62,3 +57,19 @@ void menuDisciplinas(){
     }
 }
 
+
+void menuExames(){
+    int opcao;
+    printf("Gestao de exames \n Insira o numero da opcao desejada:\n");
+    printf("1 - criar/eliminar exame\n");
+    printf("2 - configurar salas\n");
+    printf("3 - eliminar exames realizados\n");
+    printf("4 - listar exames\n");
+    printf("5 - gerir inscricoes de alunos\n");
+    printf("6 - listar alunos inscritos em exame\n");
+    scanf("%d", &opcao);
+    while (opcao < 1 || opcao > 3) {
+        printf("Por favor, insira o numero da operacao desejada (de 1 a 3):");
+        scanf("%d", &opcao);
+    }
+}

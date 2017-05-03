@@ -86,7 +86,7 @@ typedef struct exame{
     Hora hora;
     int duracao;// em minutos
     char *sala;
-    Lista_Ptr_Alunos alunos;
+    Lista_Ptr_Alunos alunos; //adicionar funcao para contar nos da lista
 } Exame;
 
 typedef struct no_aluno{
@@ -101,6 +101,7 @@ typedef struct no_exame{
     Lista_Exames next;
 } No_Exame;
 
+<<<<<<< HEAD
 int verificaNum(Lista_Alunos, int);
 
 void procuraAluno (Lista_Alunos, Aluno, Lista_Alunos *, Lista_Alunos *);
@@ -108,5 +109,7 @@ void procuraAluno (Lista_Alunos, Aluno, Lista_Alunos *, Lista_Alunos *);
 Lista_Alunos insereAluno(Lista_Alunos, Aluno);
 
 Lista_Alunos criaAluno(Lista_Alunos);
+=======
+>>>>>>> f1a3e51b0e7d31bdb8444a10cc748079d7190065
 
 #endif //PROJETO_EXAMES_H
