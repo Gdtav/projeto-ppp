@@ -70,7 +70,7 @@ typedef struct exame{
     Hora hora;
     int duracao;// em minutos
     char *sala;
-    Lista_Ptr_Alunos alunos;
+    Lista_Ptr_Alunos alunos; //adicionar funcao para contar nos da lista
 } Exame;
 
 typedef struct no_aluno{
@@ -84,5 +84,6 @@ typedef struct no_exame{
     Lista_Exames prev;
     Lista_Exames next;
 } Item_Exame;
+
 
 #endif //PROJETO_EXAMES_H
