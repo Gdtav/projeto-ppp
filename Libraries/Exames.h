@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct {
     int dia;
@@ -71,6 +72,7 @@ typedef struct no_ptr_exame{
 } Item_Ptr_Exame;
 
 typedef struct aluno{
+    char *nome;
     int num, ano;
     char *curso;
     char regime;// n -> normal, t -> trabalhador-estudante, a -> atleta, d -> dirigente associativo, e -> aluno de Erasmus
@@ -98,5 +100,13 @@ typedef struct no_exame{
     Lista_Exames prev;
     Lista_Exames next;
 } No_Exame;
+
+int verificaNum(Lista_Alunos, int);
+
+void procuraAluno (Lista_Alunos, Aluno, Lista_Alunos *, Lista_Alunos *);
+
+Lista_Alunos insereAluno(Lista_Alunos, Aluno);
+
+Lista_Alunos criaAluno(Lista_Alunos);
 
 #endif //PROJETO_EXAMES_H
