@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include "Menus.h"
+#include "Exames.h"
 
 void menuPrincipal(){
     int opcao;
