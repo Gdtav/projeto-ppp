@@ -14,3 +14,7 @@ void menuAlunos(void);
 void menuDisciplinas(void);
 
 void menuExames(void);
+
+void menuSalas(void);
+
+void menuInscricoes(void);
