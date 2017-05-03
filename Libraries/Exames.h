@@ -9,6 +9,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define TAM_STR 100
+
 typedef struct {
     int dia;
     int mes;

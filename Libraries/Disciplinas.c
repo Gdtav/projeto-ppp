@@ -5,5 +5,6 @@
 #include "Disciplinas.h"
 
 Lista_Disciplinas criaDisciplina(){
-
+    Disciplina nova;
+    char *nome = malloc()
 }

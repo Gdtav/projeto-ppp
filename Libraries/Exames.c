@@ -2,7 +2,7 @@
 // Created by Utilizador on 29/04/2017.
 //
 #include "Exames.h"
-#define TAM_STR 100
+
 
 int verificaNum(Lista_Alunos lst, int num){
     Lista_Alunos ptr = lst;
