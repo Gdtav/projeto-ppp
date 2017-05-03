@@ -71,6 +71,8 @@ Lista_Alunos insereAluno(Lista_Alunos lst, Aluno aluno){
             lst = no;
         }
     }
+    else
+        printf("Erro de memoria. Nao foi possivel adicionar aluno.")
     return lst;
 }
 
