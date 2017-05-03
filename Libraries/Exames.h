@@ -24,19 +24,33 @@ typedef struct {
     char *docente;
 } Disciplina;
 
-typedef struct l_d *Lista_Disciplinas;
+typedef struct {
+    char *nome;
+    int livre; //0 -> ocupada, 1 -> livre
+    int lotacao;
+} Sala;
 
-typedef struct l_d{
+typedef struct no_disc *Lista_Disciplinas;
+
+typedef struct no_disc{
     Disciplina disciplina;
     Lista_Disciplinas prev;
     Lista_Disciplinas next;
-} Item_disciplinas;
+} No_Disciplina;
+
+typedef struct no_s *Lista_Salas;
+
+typedef struct no_s{
+    Sala sala;
+    Lista_Salas prev;
+    Lista_Salas next;
+} No_Sala;
 
 typedef struct no_aluno *Lista_Alunos; // definir o no de uma suposta lista de alunos
 
 typedef struct aluno *Ptr_Aluno; // definir ponteiro para um tipo de dados a definir com "aluno"
 
-typedef struct no_ptr_exame *Lista_Ptr_Alunos;
+typedef struct no_ptr_aluno *Lista_Ptr_Alunos;
 
 typedef struct no_exame *Lista_Exames; // definir o no de uma suposta lista de alunos
 
@@ -59,7 +73,7 @@ typedef struct no_ptr_exame{
 typedef struct aluno{
     int num, ano;
     char *curso;
-    char regime;// n -> normal, t -> trabalhador-estudante, a -> atleta, d -> dirigente associativo, e -> aluno de Erasmus)
+    char regime;// n -> normal, t -> trabalhador-estudante, a -> atleta, d -> dirigente associativo, e -> aluno de Erasmus
     Lista_Ptr_Exames exames;
 } Aluno;
 
@@ -77,13 +91,13 @@ typedef struct no_aluno{
     Aluno aluno;
     Lista_Alunos prev;
     Lista_Alunos next;
-} Item_Aluno;
+} No_Aluno;
 
 typedef struct no_exame{
     Exame exame;
     Lista_Exames prev;
     Lista_Exames next;
-} Item_Exame;
+} No_Exame;
 
 
 #endif //PROJETO_EXAMES_H
