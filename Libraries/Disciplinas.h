@@ -2,12 +2,12 @@
 // Created by guilh on 03/05/2017.
 //
 
-#include "Exames.h"
-
 #ifndef PROJETO_DISCIPLINAS_H
 #define PROJETO_DISCIPLINAS_H
 
 #endif //PROJETO_DISCIPLINAS_H
+
+#include "Estruturas.h"
 
 Lista_Disciplinas criaDisciplina(Lista_Disciplinas);
 
