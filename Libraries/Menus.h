@@ -7,9 +7,6 @@
 
 #endif //PROJETO_MENUS_H
 
-#include "Disciplinas.h"
-#include "Exames.h"
-
 void menuPrincipal(void);
 
 void menuAlunos(void);

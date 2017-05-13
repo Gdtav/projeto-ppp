@@ -7,6 +7,8 @@
 
 #endif //PROJETO_ESTRUTURAS_H
 
+#define TAM_STR 100
+
 typedef struct {
     int dia;
     int mes;

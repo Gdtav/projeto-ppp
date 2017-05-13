@@ -4,6 +4,8 @@
 
 #include <stdio.h>
 #include "Menus.h"
+#include "Alunos.h"
+#include "Disciplinas.h"
 #include "Exames.h"
 
 void menuPrincipal(){
