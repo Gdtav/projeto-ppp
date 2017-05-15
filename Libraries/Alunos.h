@@ -5,8 +5,6 @@
 #ifndef PROJETO_ALUNOS_H
 #define PROJETO_ALUNOS_H
 
-#endif //PROJETO_ALUNOS_H
-
 #include "Estruturas.h"
 
 Lista_Alunos pesquisaNum(Lista_Alunos , int );
@@ -20,3 +18,5 @@ Lista_Alunos criaAluno(Lista_Alunos );
 void modificaAluno(Lista_Alunos );
 
 Lista_Alunos eliminaAluno(Lista_Alunos );
+
+#endif //PROJETO_ALUNOS_H

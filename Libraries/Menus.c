@@ -2,7 +2,6 @@
 // Created by guilh on 01/05/2017.
 //
 
-#include <stdio.h>
 #include "Menus.h"
 #include "Alunos.h"
 #include "Disciplinas.h"
@@ -28,7 +27,7 @@ void menuPrincipal(){
             case 4: return;
             default: break;
         }
-    } while (TRUE);
+    } while (1);
 }
 
 void menuAlunos(){

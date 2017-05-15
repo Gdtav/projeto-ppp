@@ -5,8 +5,6 @@
 #ifndef PROJETO_MENUS_H
 #define PROJETO_MENUS_H
 
-#endif //PROJETO_MENUS_H
-
 void menuPrincipal(void);
 
 void menuAlunos(void);
@@ -18,3 +16,5 @@ void menuExames(void);
 void menuSalas(void);
 
 void menuInscricoes(void);
+
+#endif //PROJETO_MENUS_H

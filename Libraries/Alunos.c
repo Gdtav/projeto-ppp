@@ -15,12 +15,12 @@ Lista_Alunos pesquisaNum(Lista_Alunos lst, int num){
 void procuraAluno (Lista_Alunos lst, Aluno chave, Lista_Alunos *ant, Lista_Alunos *act)
 {
     *ant = NULL; *act = lst;
-    while ((*act) != NULL && strcmp((*act)->aluno.nome, chave.nome) < 0)
+    while ((*act) != NULL && strcmpi((*act)->aluno.nome, chave.nome) < 0)
     {
         *ant = *act;
         *act = (*act)->next;
     }
-    if ((*act) != NULL && strcmp((*act)->aluno.nome, chave.nome) != 0)
+    if ((*act) != NULL && strcmpi((*act)->aluno.nome, chave.nome) != 0)
         *act = NULL; /* Se elemento não encontrado*/
 }
 

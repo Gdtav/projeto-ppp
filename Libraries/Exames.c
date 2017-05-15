@@ -1,32 +1,4 @@
-//
-// Created by Utilizador on 29/04/2017.
-//
 #include "Exames.h"
-#include "Alunos.h"
-
-int date_cmp (Data d1, Data d2){
-    if (d1.ano < d2.ano)
-        return -1;
-    else if(d1.ano > d2.ano)
-        return 1;
-    if (d1.mes < d2.mes)
-        return -1;
-    else if(d1.mes > d2.mes)
-        return 1;
-    if (d1.dia < d2.dia)
-        return -1;
-    else if(d1.dia > d2.dia)
-        return 1;
-    return 0;
-}
-
-void imprimeData(Data d){
-    printf("%d/%d/%d", d.dia, d.mes, d.ano);
-}
-
-void imprimeHora(Hora h){
-    printf("%d:%d", h.horas, h.minutos);
-}
 
 void imprimeExame(Exame exame){
     printf("Disciplina: %s\n", exame.disciplina->nome);
@@ -46,7 +18,7 @@ void imprimeExame(Exame exame){
     printf("\nHora: ");
     imprimeHora(exame.hora);
     printf("\nDuracao: %d\n", exame.duracao);
-    printf("Sala: %s\n", exame.sala);
+
 }
 
 void imprimeExamesAluno(Lista_Alunos lst){
