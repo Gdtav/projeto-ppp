@@ -5,7 +5,9 @@
 #ifndef PROJETO_ESTRUTURAS_H
 #define PROJETO_ESTRUTURAS_H
 
-#endif //PROJETO_ESTRUTURAS_H
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 #define TAM_STR 100
 
@@ -25,12 +27,6 @@ typedef struct {
     char *docente;
 } Disciplina;
 
-typedef struct {
-    char *nome;
-    int livre; //0 -> ocupada, 1 -> livre
-    int lotacao;
-} Sala;
-
 typedef struct no_disc *Lista_Disciplinas;
 
 typedef struct no_disc{
@@ -42,10 +38,18 @@ typedef struct no_disc{
 typedef struct no_s *Lista_Salas;
 
 typedef struct no_s{
-    Sala sala;
+    char *sala;
     Lista_Salas prev;
     Lista_Salas next;
 } No_Sala;
+
+typedef struct no_ptr_s *Lista_Ptr_Salas;
+
+typedef struct no_ptr_s{
+    char *sala;
+    Lista_Ptr_Salas prev;
+    Lista_Ptr_Salas next;
+} No_Ptr_Sala;
 
 typedef struct no_aluno *Lista_Alunos; // definir o no de uma suposta lista de alunos
 
@@ -85,7 +89,7 @@ typedef struct exame{
     Data data;
     Hora hora;
     int duracao;// em minutos
-    char *sala;
+    Lista_Ptr_Salas salas;
     Lista_Ptr_Alunos alunos; //adicionar funcao para contar nos da lista
 } Exame;
 
@@ -100,3 +104,5 @@ typedef struct no_exame{
     Lista_Exames prev;
     Lista_Exames next;
 } No_Exame;
+
+#endif //PROJETO_ESTRUTURAS_H
