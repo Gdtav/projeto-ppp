@@ -74,33 +74,6 @@ void menuDisciplinas(){
     }
 }
 
-void menuExames(){
-    int opcao;
-    printf("Gestao de exames \n Insira o numero da opcao desejada:\n");
-    printf("1 - Criar exame\n");
-    printf("2 - Configurar salas\n");
-    printf("3 - Eliminar exames realizados\n");
-    printf("4 - Listar exames\n");
-    printf("5 - Gerir inscricoes de alunos\n");
-    printf("6 - Listar alunos inscritos em exame\n");
-    printf("7 - Voltar\n");
-    scanf("%d", &opcao);
-    while (opcao < 1 || opcao > 7) {
-        printf("Por favor, insira o numero da operacao desejada (de 1 a 7):");
-        scanf("%d", &opcao);
-    }
-    switch (opcao){
-        case 1: criaExame(); break;
-        case 2: menuSalas(); break;
-        case 3: eliminaExamesAntigos(); break;
-        case 4: imprimeExames(); break;
-        case 5: menuInscricoes(); break;
-        case 6: imprimeAlunosInscritos(); break;
-        case 7: return;
-        default: break;
-    }
-}
-
 void menuSalas(){
     int opcao;
     printf("Gestao de salas \n Por favor insira a opcao desejada:\n");
@@ -138,3 +111,31 @@ void menuInscricoes(){
         default: break;
     }
 }
+
+void menuExames(){
+    int opcao;
+    printf("Gestao de exames \n Insira o numero da opcao desejada:\n");
+    printf("1 - Criar exame\n");
+    printf("2 - Configurar salas\n");
+    printf("3 - Eliminar exames realizados\n");
+    printf("4 - Listar exames\n");
+    printf("5 - Gerir inscricoes de alunos\n");
+    printf("6 - Listar alunos inscritos em exame\n");
+    printf("7 - Voltar\n");
+    scanf("%d", &opcao);
+    while (opcao < 1 || opcao > 7) {
+        printf("Por favor, insira o numero da operacao desejada (de 1 a 7):");
+        scanf("%d", &opcao);
+    }
+    switch (opcao){
+        case 1: criaExame(); break;
+        case 2: menuSalas(); break;
+        case 3: eliminaExamesAntigos(); break;
+        case 4: imprimeExames(); break;
+        case 5: menuInscricoes(); break;
+        case 6: imprimeAlunosInscritos(); break;
+        case 7: return;
+        default: break;
+    }
+}
+

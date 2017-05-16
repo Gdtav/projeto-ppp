@@ -12,4 +12,6 @@ void imprimeExamesAluno(Lista_Alunos );
 
 Lista_Exames criaExame(Lista_Exames , Lista_Disciplinas );
 
+void inscreve
+
 #endif //PROJETO_EXAMES_H
