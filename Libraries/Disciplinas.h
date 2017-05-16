@@ -7,6 +7,12 @@
 
 #include "Estruturas.h"
 
+void imprimeDisciplinas(Lista_Disciplinas );
+
+Lista_Disciplinas pesquisaDisciplinas(Lista_Disciplinas , char* );
+
+Lista_Disciplinas insereDisciplina(Lista_Disciplinas , Disciplina );
+
 Lista_Disciplinas criaDisciplina(Lista_Disciplinas);
 
 Lista_Disciplinas modificaDisciplina(Lista_Disciplinas);

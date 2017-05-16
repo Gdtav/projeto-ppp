@@ -36,22 +36,53 @@ void imprimeExamesAluno(Lista_Alunos lst){
         imprimeExame(*(ptr->exame));
 }
 
-Lista_Exames criaExame(Lista_Exames exames){
-    char *disciplina = malloc(TAM_STR * sizeof(char));
-    char epoca;
+Lista_Exames criaExame(Lista_Exames exames, Lista_Disciplinas disciplinas){
+    Exame novo;
+    Lista_Disciplinas disc = NULL;
+    char epoca, dummy;
     Data data;
     Hora hora;
     int duracao;
-    printf("Disciplina do exame: ");
-    fflush(stdin);
-    gets(disciplina);
+    Lista_Salas salas = NULL, ptr = NULL;
+    ptr = salas;
+    char *str = malloc(TAM_STR * sizeof(char));
+    while (disc == NULL) {
+        printf("Disciplina do exame: ");
+        fflush(stdin);
+        gets(str);
+        disc = pesquisaDisciplinas(disciplinas, str);
+        if (disc)
+            novo.disciplina = disc;
+        else
+            printf("Disciplina nao existe na base de dados!\n");
+    }
     fflush(stdin);
     printf("Epoca(n -> Normal, \nr-> Recurso, \ne-> Especial): ");
     scanf("%c", &epoca);
+    while (epoca != 'n' && epoca != 'r' && epoca != 'e'){
+        printf("Epoca invalida!\n");
+        fflush(stdin);
+        printf("Epoca(n -> Normal, \nr-> Recurso, \ne-> Especial): ");
+        scanf("%c", &epoca);
+    }
     printf("Data do exame: ");
     data = leData();
     printf("Hora do exame: ");
     hora = leHora();
     printf("Duracao do exame(minutos): ");
     scanf("%d", &duracao);
+    printf("Salas ('/' para terminar): \n");
+    gets(str);
+    scanf("%c", &dummy);
+    while (*str != '/'){
+        Lista_Salas no = (Lista_Salas) malloc(sizeof(No_Sala));
+        no->nome = malloc(TAM_STR * sizeof(char));
+        strcpy(no->nome, str);
+        no->next = NULL;
+        no->prev = ptr;
+        ptr = no;
+        if (salas == NULL)
+            salas = ptr;
+        gets(str);
+    }
 }

@@ -12,7 +12,7 @@ void imprimeDisciplinas(Lista_Disciplinas disciplinas){
 
 Lista_Disciplinas pesquisaDisciplinas(Lista_Disciplinas disciplinas, char* nome){
     Lista_Disciplinas ptr = disciplinas;
-    while (strcmp(ptr->disciplina.nome,nome))
+    while (ptr && strcmp(ptr->disciplina.nome,nome))
         ptr = ptr->next;
     return ptr;
 }

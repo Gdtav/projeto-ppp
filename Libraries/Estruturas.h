@@ -85,7 +85,7 @@ typedef struct aluno{
 } Aluno;
 
 typedef struct exame{
-    Disciplina *disciplina;
+    Lista_Disciplinas disciplina;
     char epoca;// n -> Normal, r-> Recurso, e-> Especial
     Data data;
     Hora hora;
