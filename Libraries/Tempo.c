@@ -41,6 +41,18 @@ int verifConflito(Hora h1, Hora h2, int dur1, int dur2){
     return 1;
 }
 
+Data leData(){
+    Data d;
+    scanf("%d/%d/%d", &d.dia, &d.mes, &d.ano);
+    return d;
+}
+
+Hora leHora(){
+    Hora h;
+    scanf("%d:%d", &h.horas, &h.minutos);
+    return h;
+}
+
 void imprimeData(Data d){
     printf("%d/%d/%d", d.dia, d.mes, d.ano);
 }

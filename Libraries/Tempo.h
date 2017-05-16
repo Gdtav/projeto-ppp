@@ -15,6 +15,10 @@ Hora adicionaMinutos (Hora , int );
 
 int verifConflito(Hora , Hora , int , int );
 
+Data leData();
+
+Hora leHora();
+
 void imprimeData(Data );
 
 void imprimeHora(Hora );

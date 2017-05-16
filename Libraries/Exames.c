@@ -35,3 +35,23 @@ void imprimeExamesAluno(Lista_Alunos lst){
     for (ptr = no->aluno.exames; ptr != NULL; ptr = ptr->next)
         imprimeExame(*(ptr->exame));
 }
+
+Lista_Exames criaExame(Lista_Exames exames){
+    char *disciplina = malloc(TAM_STR * sizeof(char));
+    char epoca;
+    Data data;
+    Hora hora;
+    int duracao;
+    printf("Disciplina do exame: ");
+    fflush(stdin);
+    gets(disciplina);
+    fflush(stdin);
+    printf("Epoca(n -> Normal, \nr-> Recurso, \ne-> Especial): ");
+    scanf("%c", &epoca);
+    printf("Data do exame: ");
+    data = leData();
+    printf("Hora do exame: ");
+    hora = leHora();
+    printf("Duracao do exame(minutos): ");
+    scanf("%d", &duracao);
+}

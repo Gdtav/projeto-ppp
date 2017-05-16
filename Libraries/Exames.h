@@ -3,15 +3,12 @@
 
 #include "Estruturas.h"
 #include "Alunos.h"
-
-int date_cmp (Data , Data );
-
-void imprimeData(Data );
-
-void imprimeHora(Hora );
+#include "Tempo.h"
 
 void imprimeExame(Exame );
 
 void imprimeExamesAluno(Lista_Alunos );
+
+Lista_Exames criaExame(Lista_Exames );
 
 #endif //PROJETO_EXAMES_H

@@ -38,7 +38,7 @@ typedef struct no_disc{
 typedef struct no_s *Lista_Salas;
 
 typedef struct no_s{
-    char *sala;
+    char *nome;
     Lista_Salas prev;
     Lista_Salas next;
 } No_Sala;
@@ -46,7 +46,8 @@ typedef struct no_s{
 typedef struct no_ptr_s *Lista_Ptr_Salas;
 
 typedef struct no_ptr_s{
-    char *sala;
+    Lista_Salas sala;
+    int lotacao;
     Lista_Ptr_Salas prev;
     Lista_Ptr_Salas next;
 } No_Ptr_Sala;
