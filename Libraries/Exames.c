@@ -18,7 +18,6 @@ void imprimeExame(Exame exame){
     printf("\nHora: ");
     imprimeHora(exame.hora);
     printf("\nDuracao: %d\n", exame.duracao);
-
 }
 
 void imprimeExamesAluno(Lista_Alunos lst){
@@ -85,4 +84,56 @@ Lista_Exames criaExame(Lista_Exames exames, Lista_Disciplinas disciplinas){
             salas = ptr;
         gets(str);
     }
+}
+
+Lista_Exames eliminaExamesAntigos(Lista_Exames exames){
+    Lista_Exames ptr;
+    Data data;
+    printf("Por favor insira a data até onde quer eliminar (inclusive):\n");
+    data = leData();
+    int lista_vazia;
+    for (ptr = exames; ptr != NULL; ptr = ptr->next) {
+        if (cmpData(data,ptr->exame.data) >= 0){
+            ptr->prev->next = ptr->next;
+            ptr->next->prev = ptr->prev;
+            lista_vazia = 0;
+            Lista_Ptr_Alunos temp;
+            while (lista_vazia == 0){
+                if (ptr->exame.alunos == NULL)
+                    lista_vazia = 1;
+                temp = ptr->exame.alunos;
+                ptr->exame.alunos = ptr->exame.alunos->next;
+                free(temp);
+            }
+            lista_vazia = 0;
+            Lista_Ptr_Salas temp2;
+            while (lista_vazia == 0){
+                if (ptr->exame.salas == NULL)
+                    lista_vazia = 1;
+                temp2 = ptr->exame.salas;
+                ptr->exame.salas = ptr->exame.salas->next;
+                free(temp2);
+            }
+        }
+    }
+    return exames;
+}
+
+void imprimeExames(Lista_Exames exame){
+    Lista_Exames ptr = exame;
+    for (ptr;  ptr != NULL ; ptr = ptr->next) {
+        imprimeExame(ptr->exame);
+    }
+}
+
+void imprimeAlunosInscritos(Lista_Exames exames) {
+    Lista_Ptr_Alunos ptr;
+    for (ptr = exames->exame.alunos; ptr != NULL; ptr = ptr->next) {
+        printf(ptr->aluno->nome);
+    }
+}
+
+Lista_Ptr_Alunos inscreveAluno(Lista_Ptr_Alunos alunos){
+
+>>>>>>> 939cf486ff629dc303fb6d1a02ecf4b7768f4087
 }

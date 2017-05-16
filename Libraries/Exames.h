@@ -14,4 +14,10 @@ Lista_Exames criaExame(Lista_Exames , Lista_Disciplinas );
 
 void inscreve
 
+Lista_Exames eliminaExamesAntigos(Lista_Exames );
+
+void imprimeExames(Lista_Exames );
+
+void imprimeAlunosInscritos(Lista_Exames );
+
 #endif //PROJETO_EXAMES_H
