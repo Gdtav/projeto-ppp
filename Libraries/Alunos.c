@@ -154,7 +154,7 @@ Lista_Alunos criaAluno(Lista_Alunos lst) {
 
 void modificaAluno(Lista_Alunos lst) {
     int num, escolha = 0;
-    char *reg;
+    char *reg = (char *) malloc(2 * sizeof(char));
     Lista_Alunos aluno;
     printf("Numero do aluno a modificar: ");
     while (scanf("%d", &num) == 0)
