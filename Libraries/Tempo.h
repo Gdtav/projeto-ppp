@@ -7,20 +7,20 @@
 
 #include "Estruturas.h"
 
-int cmpData (Data , Data );
+int cmpData(Data, Data);
 
-int cmpHora(Hora , Hora );
+int cmpHora(Hora, Hora);
 
-Hora adicionaMinutos (Hora , int );
+Hora adicionaMinutos(Hora, int);
 
-int verifConflito(Hora , Hora , int , int );
+int verifConflito(Hora, Hora, int, int);
 
 Data leData();
 
 Hora leHora();
 
-void imprimeData(Data );
+void imprimeData(Data);
 
-void imprimeHora(Hora );
+void imprimeHora(Hora);
 
 #endif //PROJETO_TEMPO_H

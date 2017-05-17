@@ -3,25 +3,25 @@
 //
 #include "Disciplinas.h"
 
-void imprimeDisciplinas(Lista_Disciplinas disciplinas){
+void imprimeDisciplinas(Lista_Disciplinas disciplinas) {
     Lista_Disciplinas ptr = disciplinas;
     int i = 0;
     for (ptr; ptr != NULL; ptr = ptr->next, i++)
         printf("%d - %s \n", i, ptr->disciplina.nome);
 }
 
-Lista_Disciplinas pesquisaDisciplinas(Lista_Disciplinas disciplinas, char* nome){
+Lista_Disciplinas pesquisaDisciplinas(Lista_Disciplinas disciplinas, char *nome) {
     Lista_Disciplinas ptr = disciplinas;
-    while (ptr && strcmp(ptr->disciplina.nome,nome))
+    while (ptr && strcmp(ptr->disciplina.nome, nome))
         ptr = ptr->next;
     return ptr;
 }
 
-Lista_Disciplinas insereDisciplina(Lista_Disciplinas disciplinas, Disciplina nova){
+Lista_Disciplinas insereDisciplina(Lista_Disciplinas disciplinas, Disciplina nova) {
     Lista_Disciplinas no;
     Lista_Disciplinas act;
     no = (Lista_Disciplinas) malloc(sizeof(No_Disciplina));
-    if (no != NULL){
+    if (no != NULL) {
         no->disciplina = nova;
         act = disciplinas;
         while (act->next != NULL)
@@ -33,7 +33,7 @@ Lista_Disciplinas insereDisciplina(Lista_Disciplinas disciplinas, Disciplina nov
     return disciplinas;
 }
 
-Lista_Disciplinas criaDisciplina(Lista_Disciplinas disciplinas){
+Lista_Disciplinas criaDisciplina(Lista_Disciplinas disciplinas) {
     Disciplina nova;
     char *nome = malloc(TAM_STR * sizeof(char));
     char *docente = malloc(TAM_STR * sizeof(char));
@@ -45,18 +45,18 @@ Lista_Disciplinas criaDisciplina(Lista_Disciplinas disciplinas){
     fflush(stdin);
     gets(docente);
     nova.docente = docente;
-    disciplinas = insereDisciplina(disciplinas,nova);
+    disciplinas = insereDisciplina(disciplinas, nova);
     return disciplinas;
 }
 
-Lista_Disciplinas eliminaDisciplina(Lista_Disciplinas disciplinas){
+Lista_Disciplinas eliminaDisciplina(Lista_Disciplinas disciplinas) {
     Lista_Disciplinas no;
     printf("Insira o nome da disciplina que deseja eliminar:\n");
     imprimeDisciplinas(disciplinas);
-    char* nome = (char*) malloc(TAM_STR * sizeof(char));
+    char *nome = (char *) malloc(TAM_STR * sizeof(char));
     fflush(stdin);
     gets(nome);
-    no = pesquisaDisciplinas(disciplinas,nome);
+    no = pesquisaDisciplinas(disciplinas, nome);
     if (no == NULL) {
         printf("Essa disciplina nao existe. Abortando...");
         return disciplinas;
@@ -71,15 +71,15 @@ Lista_Disciplinas eliminaDisciplina(Lista_Disciplinas disciplinas){
     return disciplinas;
 }
 
-Lista_Disciplinas modificaDisciplina(Lista_Disciplinas disciplinas){
+Lista_Disciplinas modificaDisciplina(Lista_Disciplinas disciplinas) {
     Lista_Disciplinas no;
     printf("Insira o nome da disciplina que deseja modificar:\n");
     imprimeDisciplinas(disciplinas);
-    char* nome = (char*) malloc(TAM_STR * sizeof(char));
-    char* docente = (char*) malloc(TAM_STR * sizeof(char));
+    char *nome = (char *) malloc(TAM_STR * sizeof(char));
+    char *docente = (char *) malloc(TAM_STR * sizeof(char));
     fflush(stdin);
     gets(nome);
-    no = pesquisaDisciplinas(disciplinas,nome);
+    no = pesquisaDisciplinas(disciplinas, nome);
     if (no == NULL) {
         printf("Essa disciplina nao existe. Abortando...");
         return disciplinas;
