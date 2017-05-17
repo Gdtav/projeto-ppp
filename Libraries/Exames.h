@@ -6,18 +6,52 @@
 #include "Tempo.h"
 #include "Disciplinas.h"
 
-void imprimeExame(Exame );
+Lista_Exames pesquisaNumExame(Lista_Exames, int);
 
-void imprimeExamesAluno(Lista_Alunos );
+Lista_Ptr_Exames pesquisaNumPtrExame(Lista_Ptr_Exames, int);
 
-Lista_Exames criaExame(Lista_Exames , Lista_Disciplinas );
+void procuraExame(Lista_Exames, Exame, Lista_Exames *, Lista_Exames *);
 
+<<<<<<< HEAD
 Lista_Ptr_Alunos inscreveAluno(Lista_Ptr_Alunos , Lista_Alunos, Lista_Exames );
+=======
+void procuraPtrExame(Lista_Ptr_Exames, Exame, Lista_Ptr_Exames *, Lista_Ptr_Exames *);
+>>>>>>> 93d28749320df11c65905cb5386beb8c26e5b132
 
-Lista_Exames eliminaExamesAntigos(Lista_Exames );
+void procuraSala(Lista_Salas, char *, Lista_Salas *, Lista_Salas *);
 
-void imprimeExames(Lista_Exames );
+Lista_Exames insereExame(Lista_Exames, Exame);
 
-void imprimeAlunosInscritos(Lista_Exames );
+Lista_Ptr_Exames inserePtrExame(Lista_Ptr_Exames, Lista_Exames);
+
+Lista_Salas insereSala(Lista_Salas, char *);
+
+Lista_Salas destroiListaSalas(Lista_Salas);
+
+Lista_Ptr_Exames destroiListaPtrExames(Lista_Ptr_Exames);
+
+Lista_Exames destroiListaExames(Lista_Exames);
+
+void atribuiSalas(Lista_Exames);
+
+Lista_Exames criaExame(Lista_Exames, Lista_Disciplinas);
+
+Lista_Ptr_Exames eliminaPtrExame(Lista_Ptr_Exames, int);
+
+Lista_Exames eliminaExame(Lista_Exames);
+
+Lista_Exames eliminaExamesAntigos(Lista_Exames);
+
+void imprimeExame(Exame);
+
+void imprimeExames(Lista_Exames);
+
+void imprimeAlunosInscritos(Exame);
+
+void imprimeExamesAluno(Lista_Alunos);
+
+void inscreveAluno(Lista_Exames, Lista_Alunos);
+
+void removeInscricao(Lista_Exames);
 
 #endif //PROJETO_EXAMES_H
