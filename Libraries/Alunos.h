@@ -16,7 +16,7 @@ void procuraAluno(Lista_Alunos, Aluno, Lista_Alunos *, Lista_Alunos *);
 
 void procuraPtrAluno(Lista_Ptr_Alunos, Aluno, Lista_Ptr_Alunos *, Lista_Ptr_Alunos *);
 
-Lista_Alunos insereAluno(Lista_Alunos, Aluno;
+Lista_Alunos insereAluno(Lista_Alunos, Aluno);
 
 Lista_Ptr_Alunos inserePtrAluno(Lista_Ptr_Alunos, Lista_Alunos);
 

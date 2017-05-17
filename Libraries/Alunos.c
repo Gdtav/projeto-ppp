@@ -266,18 +266,3 @@ void imprimeAlunos(Lista_Alunos alunos) {
         imprimeAluno(ptr->aluno);
     }
 }
-
-void imprimeExamesAluno(Lista_Alunos lst) {
-    Lista_Ptr_Exames ptr;
-    int num;
-    Lista_Alunos no;
-    printf("Numero do aluno: ");
-    scanf("%d", &num);
-    no = pesquisaNumAluno(lst, num);
-    if (no == NULL) {
-        printf("Nao existe aluno na base de dados com esse numero! Abortando...\n");
-        return;
-    }
-    for (ptr = no->aluno.exames; ptr; ptr = ptr->next)
-        imp
-}

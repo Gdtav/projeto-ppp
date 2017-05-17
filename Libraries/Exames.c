@@ -1,19 +1,5 @@
 #include "Exames.h"
 
-<<<<<<< HEAD
-void imprimeExame(Exame exame){
-    printf("Disciplina: %s\n", exame.disciplina->disciplina.nome);
-    printf("Epoca: ");
-    switch(exame.epoca){
-        case 'n': printf("Normal\n");
-            break;
-        case 'r': printf("Recurso\n");
-            break;
-        case 'e': printf("Especial\n");
-            break;
-        default: printf("Epoca introduzida invalida! Modifique este exame!\n");
-            break;
-=======
 Lista_Exames pesquisaNumExame(Lista_Exames lst, int num) {
     Lista_Exames ptr = lst;
     Lista_Exames find;
@@ -26,7 +12,7 @@ Lista_Ptr_Exames pesquisaNumPtrExame(Lista_Ptr_Exames lst, int num) {
     Lista_Ptr_Exames ptr = lst;
     Lista_Ptr_Exames find;
     for (find = NULL; ptr != NULL && find == NULL; ptr = ptr->next)
-        find = (ptr->exame->num == num) ? ptr : NULL;
+        find = (ptr->exame->exame.num == num) ? ptr : NULL;
     return find;
 }
 
@@ -37,7 +23,6 @@ void procuraExame(Lista_Exames lst, Exame chave, Lista_Exames *ant, Lista_Exames
            (cmpData((*act)->exame.data, chave.data) < 0 || cmpHora((*act)->exame.hora, chave.hora) < 0)) {
         *ant = *act;
         *act = (*act)->next;
->>>>>>> 93d28749320df11c65905cb5386beb8c26e5b132
     }
     if ((*act) != NULL &&
         (cmpData((*act)->exame.data, chave.data) != 0 || cmpHora((*act)->exame.hora, chave.hora) != 0))
@@ -48,12 +33,12 @@ void procuraPtrExame(Lista_Ptr_Exames lst, Exame chave, Lista_Ptr_Exames *ant, L
     *ant = NULL;
     *act = lst;
     while ((*act) != NULL &&
-           (cmpData((*act)->exame->data, chave.data) < 0 || cmpHora((*act)->exame->hora, chave.hora) < 0)) {
+           (cmpData((*act)->exame->exame.data, chave.data) < 0 || cmpHora((*act)->exame->exame.hora, chave.hora) < 0)) {
         *ant = *act;
         *act = (*act)->next;
     }
     if ((*act) != NULL &&
-        (cmpData((*act)->exame->data, chave.data) != 0 || cmpHora((*act)->exame->hora, chave.hora) != 0))
+        (cmpData((*act)->exame->exame.data, chave.data) != 0 || cmpHora((*act)->exame->exame.hora, chave.hora) != 0))
         *act = NULL; /* Se elemento não encontrado*/
 }
 
@@ -229,14 +214,9 @@ void atribuiSalas(Lista_Exames exame) {
 
 Lista_Exames criaExame(Lista_Exames exames, Lista_Disciplinas disciplinas) {
     Exame novo;
-    Lista_Exames ptr;
     Lista_Disciplinas disc = NULL;
-    char epoca, dummy;
-    Data data;
-    Hora hora;
+    char epoca;
     int duracao;
-    Lista_Salas salas = NULL, ptr = NULL;
-    ptr = salas;
     char *str = malloc(TAM_STR * sizeof(char));
     while (disc == NULL) {
         printf("Disciplina do exame: ");
@@ -257,10 +237,11 @@ Lista_Exames criaExame(Lista_Exames exames, Lista_Disciplinas disciplinas) {
         printf("Epoca(n -> Normal, \nr-> Recurso, \ne-> Especial): ");
         scanf("%c", &epoca);
     }
+    novo.epoca = epoca;
     printf("Data do exame: ");
-    data = leData();
+    novo.data = leData();
     printf("Hora do exame: ");
-    hora = leHora();
+    novo.hora = leHora();
     printf("Duracao do exame(minutos): ");
     scanf("%d", &duracao);
     exames = insereExame(exames, novo);
@@ -268,7 +249,7 @@ Lista_Exames criaExame(Lista_Exames exames, Lista_Disciplinas disciplinas) {
 }
 
 Lista_Ptr_Exames eliminaPtrExame(Lista_Ptr_Exames lst, int num) {
-    Lista_Ptr_Exames ant, temp;
+    Lista_Ptr_Exames ant;
     Lista_Ptr_Exames exame = pesquisaNumPtrExame(lst, num);
     if (exame != NULL) {
         ant = exame->prev;
@@ -280,11 +261,7 @@ Lista_Ptr_Exames eliminaPtrExame(Lista_Ptr_Exames lst, int num) {
             lst = exame->next;
         free(exame);
     }
-<<<<<<< HEAD
-    return exames;
-=======
     return lst;
->>>>>>> 93d28749320df11c65905cb5386beb8c26e5b132
 }
 
 Lista_Exames eliminaExame(Lista_Exames lst) {
@@ -313,6 +290,7 @@ Lista_Exames eliminaExame(Lista_Exames lst) {
     return lst;
 }
 
+/*
 Lista_Exames eliminaExamesAntigos(Lista_Exames exames) {
     Lista_Exames ptr;
     Data data;
@@ -338,6 +316,7 @@ Lista_Exames eliminaExamesAntigos(Lista_Exames exames) {
     }
     return exames;
 }
+*/
 
 void imprimeExame(Exame exame) {
     printf("Numero: %d\n", exame.num);
@@ -373,7 +352,7 @@ void imprimeExames(Lista_Exames exames) {
 
 void imprimeAlunosInscritos(Exame exame) {
     Lista_Ptr_Alunos ptr;
-    for (ptr = alunos; ptr; ptr = ptr->next) {
+    for (ptr = exame.alunos; ptr; ptr = ptr->next) {
         printf("%d - %s\n", ptr->aluno->aluno.num, ptr->aluno->aluno.nome);
     }
 }
@@ -395,23 +374,6 @@ void imprimeExamesAluno(Lista_Alunos lst) {
     }
 }
 
-<<<<<<< HEAD
-Lista_Ptr_Alunos inscreveAluno(Lista_Ptr_Alunos alunos, Lista_Alunos alunos1, Lista_Exames exame){
-    int aluno;
-    Lista_Alunos aln;
-    printf("Insira o numero do aluno a inscrever:\n");
-    scanf("%d", &aluno);
-    aln = pesquisaNum(alunos1, aluno);
-    if (aln->aluno.regime == 'n' && exame->exame.epoca == 'e'){
-        printf("Este aluno não pode ser inscrito nesta época. Abortando...");
-        return alunos;
-    }
-    Lista_Ptr_Alunos ptr = alunos;
-    while(ptr->next != NULL)
-        ptr = ptr->next;
-    ptr->next->aluno = aln;
-    //ACABAR ESTA FUNCAO :..: REVER PTR_ALUNOS VS LISTA_ALUNOS
-=======
 void inscreveAluno(Lista_Exames exames, Lista_Alunos alunos) {
     int num;
     Lista_Exames exame;
@@ -469,5 +431,4 @@ void removeInscricao(Lista_Exames exames) {
     aluno = pesquisaNumPtrAluno(exame->exame.alunos, num_a);
     aluno->aluno->aluno.exames = eliminaPtrExame(aluno->aluno->aluno.exames, num_e);
     exame->exame.alunos = eliminaPtrAluno(exame->exame.alunos, num_a);
->>>>>>> 93d28749320df11c65905cb5386beb8c26e5b132
 }

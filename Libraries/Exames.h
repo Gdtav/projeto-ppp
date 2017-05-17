@@ -12,11 +12,7 @@ Lista_Ptr_Exames pesquisaNumPtrExame(Lista_Ptr_Exames, int);
 
 void procuraExame(Lista_Exames, Exame, Lista_Exames *, Lista_Exames *);
 
-<<<<<<< HEAD
-Lista_Ptr_Alunos inscreveAluno(Lista_Ptr_Alunos , Lista_Alunos, Lista_Exames );
-=======
 void procuraPtrExame(Lista_Ptr_Exames, Exame, Lista_Ptr_Exames *, Lista_Ptr_Exames *);
->>>>>>> 93d28749320df11c65905cb5386beb8c26e5b132
 
 void procuraSala(Lista_Salas, char *, Lista_Salas *, Lista_Salas *);
 
