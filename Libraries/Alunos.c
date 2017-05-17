@@ -191,7 +191,7 @@ void modificaAluno(Lista_Alunos lst) {
 }
 
 Lista_Ptr_Alunos eliminaPtrAluno(Lista_Ptr_Alunos lst, int num) {
-    Lista_Ptr_Alunos ant, temp;
+    Lista_Ptr_Alunos ant;
     Lista_Ptr_Alunos aluno = pesquisaNumPtrAluno(lst, num);
     if (aluno != NULL) {
         ant = aluno->prev;
@@ -237,7 +237,7 @@ void imprimeAluno(Aluno aluno) {
     printf("Nome: %s\n", aluno.nome);
     printf("Curso: %s\n", aluno.curso);
     printf("Matriculas: %d\n", aluno.ano);
-    printf("Regime: ")
+    printf("Regime: ");
     switch (aluno.regime) {
         case 'n':
             printf("Normal\n");

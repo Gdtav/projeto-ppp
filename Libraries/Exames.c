@@ -287,33 +287,18 @@ Lista_Exames eliminaExame(Lista_Exames lst, int num) {
     return lst;
 }
 
-/*
 Lista_Exames eliminaExamesAntigos(Lista_Exames exames) {
     Lista_Exames ptr;
     Data data;
     printf("Por favor insira a data até onde quer eliminar (inclusive):\n");
     data = leData();
-    for (ptr = exames; ptr != NULL; ptr = ptr->next) {
+    for (ptr = exames; ptr; ptr = ptr->next) {
         if (cmpData(data, ptr->exame.data) >= 0) {
-            ptr->prev->next = ptr->next;
-            ptr->next->prev = ptr->prev;
-            Lista_Ptr_Alunos temp;
-            while (ptr->exame.salas) {
-                temp = ptr->exame.alunos;
-                ptr->exame.alunos = ptr->exame.alunos->next;
-                free(temp);
-            }
-            Lista_Ptr_Salas temp2;
-            while (ptr->exame.salas) {
-                temp2 = ptr->exame.salas;
-                ptr->exame.salas = ptr->exame.salas->next;
-                free(temp2);
+                exames = eliminaExame(exames, ptr->exame.num);
             }
         }
-    }
     return exames;
 }
-*/
 
 void imprimeExame(Exame exame) {
     printf("Numero: %d\n", exame.num);
