@@ -416,5 +416,30 @@ void removeInscricao(Lista_Exames exames) {
 }
 
 void verificaSalasSuficientes(Lista_Exames exames){
-    //ACABAR
+    Lista_Exames ptr = exames;
+    Lista_Ptr_Alunos ptr_alunos;
+    int exame, extra, resto;
+    int inscricoes = 0;
+    int salas = 0;
+    printf("Insira o numero do exame a verificar:\n");
+    while (scanf("%d", &exame) == 0)
+        printf("Por favor insira um NUMERO:\n");
+    while (ptr->exame.num != exame)
+        ptr = ptr->next;
+    for (ptr_alunos = ptr->exame.alunos; ptr_alunos != NULL; ptr_alunos = ptr_alunos->next) {
+        inscricoes++;
+    }
+    while (ptr->exame.salas != NULL) {
+        salas++;
+        ptr->exame.salas = ptr->exame.salas->next;
+    }
+    if (salas * 30 < inscricoes) {
+        extra = (inscricoes - salas * 30) / 30;
+        resto = (inscricoes - salas * 30) % 30;
+        if (resto > 0)
+            extra++;
+        printf("Não há salas suficientes! Por favor acrescente mais %d salas\n", extra);
+    }
+    else
+        printf("Estao atribuidas salas suficientes para o numero de inscritos.\n");
 }
