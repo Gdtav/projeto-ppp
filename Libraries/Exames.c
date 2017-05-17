@@ -264,12 +264,9 @@ Lista_Ptr_Exames eliminaPtrExame(Lista_Ptr_Exames lst, int num) {
     return lst;
 }
 
-Lista_Exames eliminaExame(Lista_Exames lst) {
-    int num;
+Lista_Exames eliminaExame(Lista_Exames lst, int num) {
     Lista_Exames exame;
     Lista_Ptr_Alunos ptr;
-    printf("Numero do exame a eliminar: ");
-    scanf("%d", &num);
     exame = pesquisaNumExame(lst, num);
     if (exame == NULL) {
         printf("Nao existe exame na base de dados com esse numero! Abortando...\n");

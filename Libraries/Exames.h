@@ -34,7 +34,7 @@ Lista_Exames criaExame(Lista_Exames, Lista_Disciplinas);
 
 Lista_Ptr_Exames eliminaPtrExame(Lista_Ptr_Exames, int);
 
-Lista_Exames eliminaExame(Lista_Exames);
+Lista_Exames eliminaExame(Lista_Exames, int);
 
 Lista_Exames eliminaExamesAntigos(Lista_Exames);
 
