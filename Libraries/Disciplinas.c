@@ -3,21 +3,21 @@
 //
 #include "Disciplinas.h"
 
-void imprimeDisciplinas(Lista_Disciplinas disciplinas) {
+void imprimeDisciplinas(Lista_Disciplinas disciplinas){
     Lista_Disciplinas ptr = disciplinas;
     int i = 0;
     for (ptr; ptr != NULL; ptr = ptr->next, i++)
         printf("%d - %s \n", i, ptr->disciplina.nome);
 }
 
-Lista_Disciplinas pesquisaDisciplinas(Lista_Disciplinas disciplinas, char *nome) {
+Lista_Disciplinas pesquisaDisciplinas(Lista_Disciplinas disciplinas, char *nome){
     Lista_Disciplinas ptr = disciplinas;
     while (ptr && strcmp(ptr->disciplina.nome, nome))
         ptr = ptr->next;
     return ptr;
 }
 
-Lista_Disciplinas insereDisciplina(Lista_Disciplinas disciplinas, Disciplina nova) {
+Lista_Disciplinas insereDisciplina(Lista_Disciplinas disciplinas, Disciplina nova){
     Lista_Disciplinas no;
     Lista_Disciplinas act;
     no = (Lista_Disciplinas) malloc(sizeof(No_Disciplina));
@@ -33,7 +33,7 @@ Lista_Disciplinas insereDisciplina(Lista_Disciplinas disciplinas, Disciplina nov
     return disciplinas;
 }
 
-Lista_Disciplinas criaDisciplina(Lista_Disciplinas disciplinas) {
+Lista_Disciplinas criaDisciplina(Lista_Disciplinas disciplinas){
     Disciplina nova;
     char *nome = malloc(TAM_STR * sizeof(char));
     char *docente = malloc(TAM_STR * sizeof(char));
@@ -49,8 +49,9 @@ Lista_Disciplinas criaDisciplina(Lista_Disciplinas disciplinas) {
     return disciplinas;
 }
 
-Lista_Disciplinas eliminaDisciplina(Lista_Disciplinas disciplinas) {
+Lista_Disciplinas eliminaDisciplina(Lista_Disciplinas disciplinas, Lista_Exames *exames){
     Lista_Disciplinas no;
+    Lista_Exames ptr;
     printf("Insira o nome da disciplina que deseja eliminar:\n");
     imprimeDisciplinas(disciplinas);
     char *nome = (char *) malloc(TAM_STR * sizeof(char));
@@ -61,17 +62,24 @@ Lista_Disciplinas eliminaDisciplina(Lista_Disciplinas disciplinas) {
         printf("Essa disciplina nao existe. Abortando...");
         return disciplinas;
     }
+    for (ptr = (*exames); ptr; ptr = ptr->next) {
+        if (ptr->exame.disciplina == no) {
+            *exames = eliminaExame(*exames, ptr->exame.num);
+        }
+    }
     if (no->next != NULL)
         no->next->prev = no->prev;
     if (no->prev != NULL)
         no->prev->next = no->next;
     else
         disciplinas = no->next;
+    free(no->disciplina.nome);
+    free(no->disciplina.docente);
     free(no);
     return disciplinas;
 }
 
-Lista_Disciplinas modificaDisciplina(Lista_Disciplinas disciplinas) {
+Lista_Disciplinas modificaDisciplina(Lista_Disciplinas disciplinas){
     Lista_Disciplinas no;
     printf("Insira o nome da disciplina que deseja modificar:\n");
     imprimeDisciplinas(disciplinas);

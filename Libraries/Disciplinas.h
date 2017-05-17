@@ -17,6 +17,6 @@ Lista_Disciplinas criaDisciplina(Lista_Disciplinas);
 
 Lista_Disciplinas modificaDisciplina(Lista_Disciplinas);
 
-Lista_Disciplinas eliminaDisciplina(Lista_Disciplinas);
+Lista_Disciplinas eliminaDisciplina(Lista_Disciplinas, Lista_Exames *);
 
 #endif //PROJETO_DISCIPLINAS_H

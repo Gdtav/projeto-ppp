@@ -51,3 +51,5 @@ void inscreveAluno(Lista_Exames, Lista_Alunos);
 void removeInscricao(Lista_Exames);
 
 #endif //PROJETO_EXAMES_H
+
+void verificaSalasSuficientes(Lista_Exames );

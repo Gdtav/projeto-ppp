@@ -429,3 +429,7 @@ void removeInscricao(Lista_Exames exames) {
     aluno->aluno->aluno.exames = eliminaPtrExame(aluno->aluno->aluno.exames, num_e);
     exame->exame.alunos = eliminaPtrAluno(exame->exame.alunos, num_a);
 }
+
+void verificaSalasSuficientes(Lista_Exames exames){
+    //ACABAR
+}

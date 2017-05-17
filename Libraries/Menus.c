@@ -4,37 +4,6 @@
 
 #include "Menus.h"
 
-void menuPrincipal() {
-    int opcao;
-    do {
-        printf("Bem vindo ao gestor de exames do DEI. \n Por favor insira a opcao desejada:\n");
-        printf("1 - Gerir alunos\n");
-        printf("2 - gerir disciplinas\n");
-        printf("3 - Gerir exames\n");
-        printf("4 - Sair\n");
-        scanf("%d", &opcao);
-        while (opcao < 1 || opcao > 4) {
-            printf("Por favor, insira o numero da operacao desejada (de 1 a 4):");
-            scanf("%d", &opcao);
-        }
-        switch (opcao) {
-            case 1:
-                menuAlunos();
-                break;
-            case 2:
-                menuDisciplinas();
-                break;
-            case 3:
-                menuExames();
-                break;
-            case 4:
-                return;
-            default:
-                break;
-        }
-    } while (1);
-}
-
 void menuAlunos(Lista_Alunos alunos) {
     int opcao = 0;
     while (opcao != 5) {
@@ -101,9 +70,8 @@ void menuSalas(Lista_Exames exame) {
     int opcao;
     printf("Gestao de salas \n Por favor insira a opcao desejada:\n");
     printf("1 - Atribuir salas a exame\n");
-    printf("2 - Remover Salas de exame\n");
-    printf("3 - Verificar suficiência de salas\n");
-    printf("4 - Voltar\n");
+    printf("2 - Verificar salas suficientes\n");
+    printf("3 - Voltar\n");
     scanf("%d", &opcao);
     while (opcao < 1 || opcao > 3) {
         printf("Por favor, insira o numero da operacao desejada (de 1 a 3):");
@@ -114,10 +82,9 @@ void menuSalas(Lista_Exames exame) {
             atribuiSalas();
             break;
         case 2:
-            imprimeSalasVazias();
+            verificaSalasSuficientes();
             break;
         case 3:
-        case 4:
             return;
         default:
             break;
@@ -140,7 +107,7 @@ void menuInscricoes() {
             inscreveAluno();
             break;
         case 2:
-            removeAluno();
+            removeInscricao();
             break;
         case 3:
             return;
@@ -190,3 +157,33 @@ void menuExames() {
     }
 }
 
+void menuPrincipal() {
+    int opcao;
+    do {
+        printf("Bem vindo ao gestor de exames do DEI. \n Por favor insira a opcao desejada:\n");
+        printf("1 - Gerir alunos\n");
+        printf("2 - gerir disciplinas\n");
+        printf("3 - Gerir exames\n");
+        printf("4 - Sair\n");
+        scanf("%d", &opcao);
+        while (opcao < 1 || opcao > 4) {
+            printf("Por favor, insira o numero da operacao desejada (de 1 a 4):");
+            scanf("%d", &opcao);
+        }
+        switch (opcao) {
+            case 1:
+                menuAlunos();
+                break;
+            case 2:
+                menuDisciplinas();
+                break;
+            case 3:
+                menuExames();
+                break;
+            case 4:
+                return;
+            default:
+                break;
+        }
+    } while (1);
+}

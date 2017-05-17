@@ -9,16 +9,16 @@
 #include "Exames.h"
 #include "Alunos.h"
 #include "Disciplinas.h"
-#include "Tempo.h
+#include "Tempo.h"
 
 
-void menuAlunos(Lista_Alunos);
+void menuAlunos(Lista_Alunos );
 
 void menuDisciplinas(void);
 
 void menuExames(void);
 
-void menuSalas(Lista_Exames);
+void menuSalas(Lista_Exames );
 
 void menuInscricoes(void);
 
