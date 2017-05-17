@@ -12,7 +12,7 @@ void imprimeExamesAluno(Lista_Alunos );
 
 Lista_Exames criaExame(Lista_Exames , Lista_Disciplinas );
 
-void inscreve
+Lista_Ptr_Alunos inscreveAluno(Lista_Ptr_Alunos , Lista_Alunos, Lista_Exames );
 
 Lista_Exames eliminaExamesAntigos(Lista_Exames );
 

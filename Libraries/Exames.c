@@ -1,7 +1,7 @@
 #include "Exames.h"
 
 void imprimeExame(Exame exame){
-    printf("Disciplina: %s\n", exame.disciplina->nome);
+    printf("Disciplina: %s\n", exame.disciplina->disciplina.nome);
     printf("Epoca: ");
     switch(exame.epoca){
         case 'n': printf("Normal\n");
@@ -84,6 +84,7 @@ Lista_Exames criaExame(Lista_Exames exames, Lista_Disciplinas disciplinas){
             salas = ptr;
         gets(str);
     }
+    return exames;
 }
 
 Lista_Exames eliminaExamesAntigos(Lista_Exames exames){
@@ -133,7 +134,19 @@ void imprimeAlunosInscritos(Lista_Exames exames) {
     }
 }
 
-Lista_Ptr_Alunos inscreveAluno(Lista_Ptr_Alunos alunos){
-
->>>>>>> 939cf486ff629dc303fb6d1a02ecf4b7768f4087
+Lista_Ptr_Alunos inscreveAluno(Lista_Ptr_Alunos alunos, Lista_Alunos alunos1, Lista_Exames exame){
+    int aluno;
+    Lista_Alunos aln;
+    printf("Insira o numero do aluno a inscrever:\n");
+    scanf("%d", &aluno);
+    aln = pesquisaNum(alunos1, aluno);
+    if (aln->aluno.regime == 'n' && exame->exame.epoca == 'e'){
+        printf("Este aluno não pode ser inscrito nesta época. Abortando...");
+        return alunos;
+    }
+    Lista_Ptr_Alunos ptr = alunos;
+    while(ptr->next != NULL)
+        ptr = ptr->next;
+    ptr->next->aluno = aln;
+    //ACABAR ESTA FUNCAO :..: REVER PTR_ALUNOS VS LISTA_ALUNOS
 }

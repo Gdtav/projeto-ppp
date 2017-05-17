@@ -81,7 +81,7 @@ void menuSalas(){
     printf("2 - Listar Salas vazias\n");
     printf("3 - Voltar\n");
     scanf("%d", &opcao);
-    while (opcao < 1 || opcao > 7) {
+    while (opcao < 1 || opcao > 3) {
         printf("Por favor, insira o numero da operacao desejada (de 1 a 3):");
         scanf("%d", &opcao);
     }
@@ -100,7 +100,7 @@ void menuInscricoes(){
     printf("2 - Remover aluno de exame\n");
     printf("3 - Voltar\n");
     scanf("%d", &opcao);
-    while (opcao < 1 || opcao > 7) {
+    while (opcao < 1 || opcao > 3) {
         printf("Por favor, insira o numero da operacao desejada (de 1 a 3):");
         scanf("%d", &opcao);
     }
