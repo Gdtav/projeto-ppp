@@ -39,12 +39,9 @@ typedef struct no_s *Lista_Salas;
 
 typedef struct no_s {
     char *nome;
-    int lotacao;
     Lista_Salas prev;
     Lista_Salas next;
 } No_Sala;
-
-typedef struct no_ptr_s *Lista_Ptr_Salas;
 
 typedef struct no_aluno *Lista_Alunos; // definir o no de uma suposta lista de alunos
 

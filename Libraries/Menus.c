@@ -3,9 +3,6 @@
 //
 
 #include "Menus.h"
-#include "Alunos.h"
-#include "Disciplinas.h"
-#include "Exames.h"
 
 void menuPrincipal() {
     int opcao;
@@ -38,36 +35,36 @@ void menuPrincipal() {
     } while (1);
 }
 
-void menuAlunos() {
-    int opcao;
-    printf("Gestao de alunos \n Insira o numero da opcao desejada:\n");
-    printf("1 - Adicionar aluno\n");
-    printf("2 - Modificar aluno\n");
-    printf("3 - Eliminar aluno\n");
-    printf("4 - Listar exames do aluno\n");
-    printf("5 - Voltar\n");
-    scanf("%d", &opcao);
-    while (opcao < 1 || opcao > 5) {
-        printf("Por favor, insira o numero da operacao desejada (de 1 a 5):");
+void menuAlunos(Lista_Alunos alunos) {
+    int opcao = 0;
+    while (opcao != 5) {
+        printf("Gestao de alunos \n Insira o numero da opcao desejada:\n");
+        printf("1 - Adicionar aluno\n");
+        printf("2 - Modificar aluno\n");
+        printf("3 - Eliminar aluno\n");
+        printf("4 - Listar exames do aluno\n");
+        printf("5 - Voltar\n");
         scanf("%d", &opcao);
-    }
-    switch (opcao) {
-        case 1:
-            criaAluno();
-            break;
-        case 2:
-            modificaAluno();
-            break;
-        case 3:
-            eliminaAluno();
-            break;
-        case 4:
-            imprimeExamesAluno();
-            break;
-        case 5:
-            return;
-        default:
-            break;
+        while (opcao < 1 || opcao > 5) {
+            printf("Por favor, insira o numero da operacao desejada (de 1 a 5):");
+            scanf("%d", &opcao);
+        }
+        switch (opcao) {
+            case 1:
+                alunos = criaAluno(alunos);
+                break;
+            case 2:
+                modificaAluno(alunos);
+                break;
+            case 3:
+                eliminaAluno();
+                break;
+            case 4:
+                imprimeExamesAluno();
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -100,12 +97,13 @@ void menuDisciplinas() {
     }
 }
 
-void menuSalas() {
+void menuSalas(Lista_Exames exame) {
     int opcao;
     printf("Gestao de salas \n Por favor insira a opcao desejada:\n");
     printf("1 - Atribuir salas a exame\n");
-    printf("2 - Listar Salas vazias\n");
-    printf("3 - Voltar\n");
+    printf("2 - Remover Salas de exame\n");
+    printf("3 - Verificar suficiência de salas\n");
+    printf("4 - Voltar\n");
     scanf("%d", &opcao);
     while (opcao < 1 || opcao > 7) {
         printf("Por favor, insira o numero da operacao desejada (de 1 a 3):");
@@ -119,6 +117,7 @@ void menuSalas() {
             imprimeSalasVazias();
             break;
         case 3:
+        case 4:
             return;
         default:
             break;

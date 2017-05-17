@@ -20,9 +20,15 @@ Lista_Alunos insereAluno(Lista_Alunos, Aluno;
 
 Lista_Ptr_Alunos inserePtrAluno(Lista_Ptr_Alunos, Lista_Alunos);
 
+Lista_Ptr_Alunos destroiListaPtrAlunos(Lista_Ptr_Alunos);
+
+Lista_Alunos destroiListaAlunos(Lista_Alunos);
+
 Lista_Alunos criaAluno(Lista_Alunos);
 
 void modificaAluno(Lista_Alunos);
+
+Lista_Ptr_Alunos eliminaPtrAluno(Lista_Ptr_Alunos, int);
 
 Lista_Alunos eliminaAluno(Lista_Alunos);
 

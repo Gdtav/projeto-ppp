@@ -135,8 +135,41 @@ Lista_Salas insereSala(Lista_Salas lst, char *sala) {
     return lst;
 }
 
+Lista_Salas destroiListaSalas(Lista_Salas lst) {
+    Lista_Salas temp_ptr;
+    while (lst) {
+        temp_ptr = lst;
+        lst = lst->next;
+        free(temp_ptr->nome);
+        free(temp_ptr);
+    }
+    return NULL;
+}
+
+Lista_Ptr_Exames destroiListaPtrExames(Lista_Ptr_Exames lst) {
+    Lista_Ptr_Exames temp_ptr;
+    while (lst) {
+        temp_ptr = lst;
+        lst = lst->next;
+        free(temp_ptr);
+    }
+    return NULL;
+}
+
+Lista_Exames destroiListaExames(Lista_Exames lst) {
+    Lista_Exames temp_ptr;
+    while (lst) {
+        temp_ptr = lst;
+        lst = lst->next;
+        temp_ptr->exame.salas = destroiListaSalas(temp_ptr->exame.salas);
+        temp_ptr->exame.alunos = destroiListaPtrAlunos(temp_ptr->exame.alunos);
+        free(temp_ptr);
+    }
+    return NULL;
+}
+
 void atribuiSalas(Lista_Exames exame) {
-    Lista_Salas salas = NULL;
+    Lista_Salas salas = exame->exame.salas;
     Lista_Salas ptr_s;
     Lista_Exames ptr_e;
     char *str = (char *) malloc(TAM_STR * sizeof(char));
@@ -215,7 +248,50 @@ Lista_Exames criaExame(Lista_Exames exames, Lista_Disciplinas disciplinas) {
     hora = leHora();
     printf("Duracao do exame(minutos): ");
     scanf("%d", &duracao);
+    exames = insereExame(exames, novo);
+    return exames;
+}
 
+Lista_Ptr_Exames eliminaPtrExame(Lista_Ptr_Exames lst, int num) {
+    Lista_Ptr_Exames ant, temp;
+    Lista_Ptr_Exames exame = pesquisaNumPtrExame(lst, num);
+    if (exame != NULL) {
+        ant = exame->prev;
+        if (exame->next != NULL)
+            exame->next->prev = ant;
+        if (ant != NULL)
+            ant->next = exame->next;
+        else
+            lst = exame->next;
+        free(exame);
+    }
+    return lst;
+}
+
+Lista_Exames eliminaExame(Lista_Exames lst) {
+    int num;
+    Lista_Exames exame;
+    Lista_Ptr_Alunos ptr;
+    printf("Numero do exame a eliminar: ");
+    scanf("%d", &num);
+    exame = pesquisaNumExame(lst, num);
+    if (exame == NULL) {
+        printf("Nao existe exame na base de dados com esse numero! Abortando...\n");
+        return lst;
+    }
+    if (exame->next != NULL)
+        exame->next->prev = exame->prev;
+    if (exame->prev != NULL)
+        exame->prev->next = exame->next;
+    else
+        lst = exame->next;
+    for (ptr = exame->exame.alunos; ptr; ptr = ptr->next) {
+        ptr->aluno->aluno.exames = eliminaPtrExame(ptr->aluno->aluno.exames, exame->exame.num);
+    }
+    exame->exame.salas = destroiListaSalas(exame->exame.salas);
+    exame->exame.alunos = destroiListaPtrAlunos(exame->exame.alunos);
+    free(ptr);
+    return lst;
 }
 
 Lista_Exames eliminaExamesAntigos(Lista_Exames exames) {
@@ -276,7 +352,7 @@ void imprimeExames(Lista_Exames exames) {
     }
 }
 
-void imprimeAlunosInscritos(Lista_Ptr_Alunos alunos) {
+void imprimeAlunosInscritos(Exame exame) {
     Lista_Ptr_Alunos ptr;
     for (ptr = alunos; ptr; ptr = ptr->next) {
         printf("%d - %s\n", ptr->aluno->aluno.num, ptr->aluno->aluno.nome);
@@ -307,7 +383,7 @@ void inscreveAluno(Lista_Exames exames, Lista_Alunos alunos) {
     imprimeExames(exames);
     printf("Numero do exame: ");
     scanf("%d", &num);
-    if (pesquisaNumExame(exames, num) == NULL) {
+    while (pesquisaNumExame(exames, num) == NULL) {
         printf("Nao existe exame na base de dados com esse numero!\n");
         printf("Numero do exame: ");
         scanf("%d", &num);
@@ -316,7 +392,7 @@ void inscreveAluno(Lista_Exames exames, Lista_Alunos alunos) {
     imprimeAlunos(alunos);
     printf("Numero do aluno a inscrever: ");
     scanf("%d", &num);
-    if (pesquisaNumAluno(alunos, num) == NULL) {
+    while (pesquisaNumAluno(alunos, num) == NULL) {
         printf("Nao existe aluno na base de dados com esse numero!\n");
         printf("Numero do aluno a inscrever: ");
         scanf("%d", &num);
@@ -328,4 +404,33 @@ void inscreveAluno(Lista_Exames exames, Lista_Alunos alunos) {
     }
     inserePtrExame(aluno->aluno.exames, exame);
     inserePtrAluno(exame->exame.alunos, aluno);
+}
+
+void removeInscricao(Lista_Exames exames) {
+    int num_e, num_a;
+    Lista_Exames exame;
+    Lista_Ptr_Alunos aluno;
+    imprimeExames(exames);
+    printf("Numero do exame: ");
+    scanf("%d", &num_e);
+    while (pesquisaNumExame(exames, num_e) == NULL) {
+        printf("Nao existe exame na base de dados com esse numero!\n");
+        printf("Numero do exame: ");
+        scanf("%d", &num_e);
+    }
+    exame = pesquisaNumExame(exames, num_e);
+    printf("Exame escolhido: \n\n");
+    imprimeExame(exame->exame);
+    printf("Alunos inscritos:\n");
+    imprimeAlunosInscritos(exame->exame);
+    printf("\nNumero do aluno a inscrever: ");
+    scanf("%d", &num_a);
+    while (pesquisaNumPtrAluno(exame->exame.alunos, num_a) == NULL) {
+        printf("Nao existe aluno na base de dados com esse numero!\n");
+        printf("Numero do aluno a inscrever: ");
+        scanf("%d", &num_a);
+    }
+    aluno = pesquisaNumPtrAluno(exame->exame.alunos, num_a);
+    aluno->aluno->aluno.exames = eliminaPtrExame(aluno->aluno->aluno.exames, num_e);
+    exame->exame.alunos = eliminaPtrAluno(exame->exame.alunos, num_a);
 }

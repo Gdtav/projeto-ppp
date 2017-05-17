@@ -96,6 +96,29 @@ Lista_Ptr_Alunos inserePtrAluno(Lista_Ptr_Alunos lst, Lista_Alunos aluno) {
     return lst;
 }
 
+Lista_Ptr_Alunos destroiListaPtrAlunos(Lista_Ptr_Alunos lst) {
+    Lista_Ptr_Alunos temp_ptr;
+    while (lst) {
+        temp_ptr = lst;
+        lst = lst->next;
+        free(temp_ptr);
+    }
+    return NULL;
+}
+
+Lista_Alunos destroiListaAlunos(Lista_Alunos lst) {
+    Lista_Alunos temp_ptr;
+    while (lst) {
+        temp_ptr = lst;
+        lst = lst->next;
+        temp_ptr->aluno.exames = destroiListaPtrExames(temp_ptr->aluno.exames);
+        free(temp_ptr->aluno.curso);
+        free(temp_ptr->aluno.nome);
+        free(temp_ptr);
+    }
+    return NULL;
+}
+
 Lista_Alunos criaAluno(Lista_Alunos lst) {
     Aluno novo;
     char *nome = malloc(TAM_STR * sizeof(char));
@@ -167,23 +190,45 @@ void modificaAluno(Lista_Alunos lst) {
     }
 }
 
+Lista_Ptr_Alunos eliminaPtrAluno(Lista_Ptr_Alunos lst, int num) {
+    Lista_Ptr_Alunos ant, temp;
+    Lista_Ptr_Alunos aluno = pesquisaNumPtrAluno(lst, num);
+    if (aluno != NULL) {
+        ant = aluno->prev;
+        if (aluno->next != NULL)
+            aluno->next->prev = ant;
+        if (ant != NULL)
+            ant->next = aluno->next;
+        else
+            lst = aluno->next;
+        free(aluno);
+    }
+    return lst;
+}
+
 Lista_Alunos eliminaAluno(Lista_Alunos lst) {
     int num;
-    Lista_Alunos no;
+    Lista_Alunos aluno;
+    Lista_Ptr_Exames ptr;
     printf("Numero do aluno a eliminar: ");
     scanf("%d", &num);
-    no = pesquisaNumAluno(lst, num);
-    if (no == NULL) {
+    aluno = pesquisaNumAluno(lst, num);
+    if (aluno == NULL) {
         printf("Nao existe aluno na base de dados com esse numero! Abortando...\n");
         return lst;
     }
-    if (no->next != NULL)
-        no->next->prev = no->prev;
-    if (no->prev != NULL)
-        no->prev->next = no->next;
+    if (aluno->next != NULL)
+        aluno->next->prev = aluno->prev;
+    if (aluno->prev != NULL)
+        aluno->prev->next = aluno->next;
     else
-        lst = no->next;
-    free(no);
+        lst = aluno->next;
+    for (ptr = aluno->aluno.exames; ptr; ptr = ptr->next) {
+        ptr->exame->exame.alunos = eliminaPtrAluno(ptr->exame->exame.alunos, aluno->aluno.num);
+    }
+    free(aluno->aluno.curso);
+    free(aluno->aluno.nome);
+    free(aluno);
     return lst;
 }
 
