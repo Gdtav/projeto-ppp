@@ -122,27 +122,31 @@ Lista_Alunos destroiListaAlunos(Lista_Alunos lst) {
 Lista_Alunos criaAluno(Lista_Alunos lst) {
     Aluno novo;
     char *nome = malloc(TAM_STR * sizeof(char));
-    int num, ano;
     char *curso = malloc(TAM_STR * sizeof(char));
-    char regime;
+    char *regime = malloc(2 * sizeof(char));
+    int num, ano;
     printf("Nome do aluno: ");
     fflush(stdin);
     gets(nome);
     novo.nome = nome;
     fflush(stdin);
     printf("Numero do aluno: ");
-    scanf("%d", &num);
+    while (scanf("%d", &num) == 0){
+        printf("Insira um NUMERO: ");
+    }
     novo.num = num;
     printf("Numero de matriculas: ");
-    scanf("%d", &ano);
+    while (scanf("%d", &ano) == 0)
+        printf("Insira um NUMERO: ");
     novo.ano = ano;
     printf("Curso do aluno: ");
     gets(curso);
     novo.curso = curso;
     fflush(stdin);
     printf("Regime do aluno\n(n -> normal,\nt -> trabalhador-estudante,\na -> atleta,\nd -> dirigente associativo,\ne -> aluno de Erasmus): ");
-    scanf("%c", &regime);
-    novo.regime = regime;
+    while(gets(regime) == NULL || *(regime + 1) != 0 || (*regime != 'n' || *regime !='t' || *regime != 'a' || *regime != 'd' || *regime != 'e'))
+        printf("Insira 'n', 't', 'a', 'd' ou 'e': ");
+    novo.regime = *regime;
     novo.exames = NULL;
     lst = insereAluno(lst, novo);
     return lst;
@@ -150,36 +154,43 @@ Lista_Alunos criaAluno(Lista_Alunos lst) {
 
 void modificaAluno(Lista_Alunos lst) {
     int num, escolha = 0;
-    Lista_Alunos no;
+    char *reg;
+    Lista_Alunos aluno;
     printf("Numero do aluno a modificar: ");
-    scanf("%d", &num);
-    no = pesquisaNumAluno(lst, num);
-    if (no == NULL) {
+    while (scanf("%d", &num) == 0)
+        printf("Insira um NUMERO: ");
+    aluno = pesquisaNumAluno(lst, num);
+    if (aluno == NULL) {
         printf("Nao existe aluno na base de dados com esse numero! Abortando...\n");
         return;
     }
     while (escolha != 5) {
         printf("\nModificar:\n1 - Nome\n2 - Matriculas\n3 - Curso\n4 - Regime\n\n5 - Voltar\n\nEscolha a opcao: ");
-        scanf("%d", &escolha);
+        while (scanf("%d", &escolha) == 0)
+            printf("Insira um NUMERO: ");
         fflush(stdin);
         switch (escolha) {
             case 1:
                 printf("Introduza o novo nome: ");
-                gets(no->aluno.nome);
+                gets(aluno->aluno.nome);
                 fflush(stdin);
                 break;
             case 2:
                 printf("Introduza o numero de matriculas: ");
-                scanf("%d", &(no->aluno.ano));
+                while (scanf("%d", &(aluno->aluno.ano)) == 0)
+                    printf("Insira um NUMERO: ");
                 break;
             case 3:
                 printf("Introduza o nome do curso: ");
-                gets(no->aluno.curso);
+                while(gets(aluno->aluno.curso) == 0)
+                    printf("Introduza um NOME: ");
                 fflush(stdin);
                 break;
             case 4:
+                reg = &(aluno->aluno.regime);
                 printf("Introduza o regime do aluno\n(n -> normal,\nt -> trabalhador-estudante,\na -> atleta,\nd -> dirigente associativo,\ne -> aluno de Erasmus): ");
-                scanf("%c", &(no->aluno.regime));
+                while(gets(reg) == NULL || *(reg + 1) != 0 || (*reg != 'n' || *reg !='t' || *reg != 'a' || *reg != 'd' || *reg != 'e'))
+                    printf("Insira 'n', 't', 'a', 'd' ou 'e': ");
                 break;
             case 5:
                 break;
@@ -211,7 +222,8 @@ Lista_Alunos eliminaAluno(Lista_Alunos lst) {
     Lista_Alunos aluno;
     Lista_Ptr_Exames ptr;
     printf("Numero do aluno a eliminar: ");
-    scanf("%d", &num);
+    while (scanf("%d", &num) == 0)
+        printf("Insira um NUMERO: ");
     aluno = pesquisaNumAluno(lst, num);
     if (aluno == NULL) {
         printf("Nao existe aluno na base de dados com esse numero! Abortando...\n");
