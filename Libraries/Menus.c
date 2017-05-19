@@ -26,10 +26,10 @@ void menuAlunos(Lista_Alunos alunos) {
                 modificaAluno(alunos);
                 break;
             case 3:
-                eliminaAluno();
+                eliminaAluno(alunos);
                 break;
             case 4:
-                imprimeExamesAluno();
+                imprimeExamesAluno(alunos);
                 break;
             default:
                 break;
@@ -51,13 +51,13 @@ void menuDisciplinas() {
     }
     switch (opcao) {
         case 1:
-            criaDisciplina();
+            criaDisciplina(disciplinas);
             break;
         case 2:
-            modificaDisciplina();
+            modificaDisciplina(disciplinas);
             break;
         case 3:
-            eliminaDisciplina();
+            eliminaDisciplina(disciplinas, &exames);
             break;
         case 4:
             return;
@@ -66,7 +66,7 @@ void menuDisciplinas() {
     }
 }
 
-void menuSalas(Lista_Exames exame) {
+void menuSalas(Lista_Exames exames) {
     int opcao;
     printf("Gestao de salas \n Por favor insira a opcao desejada:\n");
     printf("1 - Atribuir salas a exame\n");
@@ -79,10 +79,10 @@ void menuSalas(Lista_Exames exame) {
     }
     switch (opcao) {
         case 1:
-            atribuiSalas();
+            atribuiSalas(exames);
             break;
         case 2:
-            verificaSalasSuficientes();
+            verificaSalasSuficientes(exames);
             break;
         case 3:
             return;
@@ -104,10 +104,10 @@ void menuInscricoes() {
     }
     switch (opcao) {
         case 1:
-            inscreveAluno();
+            inscreveAluno(exames, alunos);
             break;
         case 2:
-            removeInscricao();
+            removeInscricao(exames);
             break;
         case 3:
             return;
@@ -117,7 +117,7 @@ void menuInscricoes() {
 }
 
 void menuExames() {
-    int opcao;
+    int opcao, num;
     printf("Gestao de exames \n Insira o numero da opcao desejada:\n");
     printf("1 - Criar exame\n");
     printf("2 - Configurar salas\n");
@@ -133,22 +133,26 @@ void menuExames() {
     }
     switch (opcao) {
         case 1:
-            criaExame();
+            criaExame(exames,disciplinas);
             break;
         case 2:
-            menuSalas();
+            menuSalas(exames);
             break;
         case 3:
-            eliminaExamesAntigos();
+            eliminaExamesAntigos(exames);
             break;
         case 4:
-            imprimeExames();
+            imprimeExames(exames);
             break;
         case 5:
             menuInscricoes();
             break;
         case 6:
-            imprimeAlunosInscritos();
+            imprimeExames(exames);
+            printf("Insira o numero do exame que pretende ver:\n");
+            while (scanf("%d", &num) == 0)
+                printf("Insira um NUMERO:\n");
+            imprimeAlunosInscritos(pesquisaNumExame(exames, num)->exame);
             break;
         case 7:
             return;
@@ -172,7 +176,7 @@ void menuPrincipal() {
         }
         switch (opcao) {
             case 1:
-                menuAlunos();
+                menuAlunos(alunos);
                 break;
             case 2:
                 menuDisciplinas();
