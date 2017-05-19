@@ -33,6 +33,18 @@ Lista_Disciplinas insereDisciplina(Lista_Disciplinas disciplinas, Disciplina nov
     return disciplinas;
 }
 
+Lista_Disciplinas destroiListaDisciplinas(Lista_Disciplinas lst) {
+    Lista_Disciplinas temp_ptr;
+    while (lst) {
+        temp_ptr = lst;
+        lst = lst->next;
+        free(temp_ptr->disciplina.docente);
+        free(temp_ptr->disciplina.nome);
+        free(temp_ptr);
+    }
+    return NULL;
+}
+
 Lista_Disciplinas criaDisciplina(Lista_Disciplinas disciplinas){
     Disciplina nova;
     char *nome = malloc(TAM_STR * sizeof(char));
