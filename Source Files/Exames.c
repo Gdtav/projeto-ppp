@@ -156,7 +156,7 @@ Lista_Ptr_Exames destroiListaPtrExames(Lista_Ptr_Exames lst) {
     return NULL;
 }
 
-Lista_Exames destroiListaExames(Lista_Exames lst) {
+/*Lista_Exames destroiListaExames(Lista_Exames lst) {
     Lista_Exames temp_ptr;
     while (lst) {
         temp_ptr = lst;
@@ -166,7 +166,7 @@ Lista_Exames destroiListaExames(Lista_Exames lst) {
         free(temp_ptr);
     }
     return NULL;
-}
+}*/
 
 void atribuiSalas(Lista_Exames exame) {
     Lista_Salas salas = exame->exame.salas;

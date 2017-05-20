@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "Libraries/Menus.h"
-#include "Libraries/Estruturas.h"
+#include "Source Files/Menus.h"
+#include "Source Files/Estruturas.h"
 
 int main() {
     FILE *f_exames;

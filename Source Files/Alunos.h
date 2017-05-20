@@ -36,6 +36,4 @@ void imprimeAluno(Aluno);
 
 void imprimeAlunos(Lista_Alunos);
 
-void imprimeExamesAluno(Lista_Alunos);
-
 #endif //PROJETO_ALUNOS_H

@@ -4,7 +4,7 @@
 
 #include "Menus.h"
 
-void menuAlunos(Lista_Alunos alunos) {
+void menuAlunos(Lista_Alunos alunos){
     int opcao = 0;
     while (opcao != 5) {
         printf("Gestao de alunos \n Insira o numero da opcao desejada:\n");
@@ -31,13 +31,15 @@ void menuAlunos(Lista_Alunos alunos) {
             case 4:
                 imprimeExamesAluno(alunos);
                 break;
+            case 5:
+                return;
             default:
                 break;
         }
     }
 }
 
-void menuDisciplinas() {
+void menuDisciplinas(){
     int opcao;
     printf("Gestao de disciplinas \n Insira o numero da opcao desejada:\n");
     printf("1 - Adicionar disciplina\n");
@@ -66,7 +68,7 @@ void menuDisciplinas() {
     }
 }
 
-void menuSalas(Lista_Exames exames) {
+void menuSalas(Lista_Exames exames){
     int opcao;
     printf("Gestao de salas \n Por favor insira a opcao desejada:\n");
     printf("1 - Atribuir salas a exame\n");
@@ -91,7 +93,7 @@ void menuSalas(Lista_Exames exames) {
     }
 }
 
-void menuInscricoes() {
+void menuInscricoes(){
     int opcao;
     printf("Gestao de inscricoes \n Por favor insira a opcao desejada:\n");
     printf("1 - Adicionar aluno a exame\n");
@@ -116,7 +118,7 @@ void menuInscricoes() {
     }
 }
 
-void menuExames() {
+void menuExames(){
     int opcao, num;
     printf("Gestao de exames \n Insira o numero da opcao desejada:\n");
     printf("1 - Criar exame\n");
@@ -133,7 +135,7 @@ void menuExames() {
     }
     switch (opcao) {
         case 1:
-            criaExame(exames,disciplinas);
+            criaExame(exames, disciplinas);
             break;
         case 2:
             menuSalas(exames);
@@ -161,7 +163,7 @@ void menuExames() {
     }
 }
 
-void menuPrincipal() {
+void menuPrincipal(){
     int opcao;
     do {
         printf("Bem vindo ao gestor de exames do DEI. \n Por favor insira a opcao desejada:\n");

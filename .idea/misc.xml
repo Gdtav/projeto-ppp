@@ -2,8 +2,8 @@
 <project version="4">
   <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$" />
   <component name="CidrRootsConfiguration">
-    <libraryRoots>
-      <file path="$PROJECT_DIR$/Libraries" />
-    </libraryRoots>
+    <sourceRoots>
+      <file path="$PROJECT_DIR$/Source Files" />
+    </sourceRoots>
   </component>
 </project>

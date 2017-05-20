@@ -6,6 +6,7 @@
 #define PROJETO_DISCIPLINAS_H
 
 #include "Estruturas.h"
+#include "Exames.h"
 
 void imprimeDisciplinas(Lista_Disciplinas);
 
