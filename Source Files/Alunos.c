@@ -131,9 +131,9 @@ Lista_Alunos criaAluno(Lista_Alunos lst) {
     novo.nome = nome;
     fflush(stdin);
     printf("Numero do aluno: ");
-    while (scanf("%d", &num) == 0){
-        printf("Insira um NUMERO: ");
-    }
+    while (scanf("%d", &num) == 0){     //
+        printf("Insira um NUMERO: ");   //  ESTA PROTECAO NAO FUNCIONA
+    }                                   //
     novo.num = num;
     printf("Numero de matriculas: ");
     while (scanf("%d", &ano) == 0)
