@@ -9,6 +9,9 @@ int main() {
     f_exames = fopen("Ficheiros/Exames.txt","a");
     f_alunos = fopen("Ficheiros/Alunos.txt","a");
     f_disciplinas = fopen("Ficheiros/Disciplinas.txt","a");
+    exames = NULL;
+    alunos = NULL;
+    disciplinas = NULL;
     menuPrincipal();
     return 0;
 }

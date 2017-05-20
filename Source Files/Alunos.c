@@ -139,12 +139,13 @@ Lista_Alunos criaAluno(Lista_Alunos lst) {
     while (scanf("%d", &ano) == 0)
         printf("Insira um NUMERO: ");
     novo.ano = ano;
+    fflush(stdin);
     printf("Curso do aluno: ");
     gets(curso);
     novo.curso = curso;
     fflush(stdin);
     printf("Regime do aluno\n(n -> normal,\nt -> trabalhador-estudante,\na -> atleta,\nd -> dirigente associativo,\ne -> aluno de Erasmus): ");
-    while(gets(regime) == NULL || *(regime + 1) != 0 || (*regime != 'n' || *regime !='t' || *regime != 'a' || *regime != 'd' || *regime != 'e'))
+    while(gets(regime) == NULL || regime != "n" || regime != "t" || regime != "a" || regime != "d" || regime != "e")
         printf("Insira 'n', 't', 'a', 'd' ou 'e': ");
     novo.regime = *regime;
     novo.exames = NULL;
