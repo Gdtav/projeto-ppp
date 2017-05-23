@@ -15,8 +15,8 @@ void menuAlunos(Lista_Alunos alunos){
         printf("5 - Listar todos os alunos\n");
         printf("6 - Voltar\n");
         scanf("%d", &opcao);
-        while (opcao < 1 || opcao > 5) {
-            printf("Por favor, insira o numero da operacao desejada (de 1 a 5):");
+        while (opcao < 1 || opcao > 6) {
+            printf("Por favor, insira o numero da operacao desejada (de 1 a 6):");
             scanf("%d", &opcao);
         }
         switch (opcao) {
@@ -51,8 +51,8 @@ void menuDisciplinas(){
     printf("4 - Listar todas as disciplinas\n");
     printf("5 - Voltar\n");
     scanf("%d", &opcao);
-    while (opcao < 1 || opcao > 4) {
-        printf("Por favor, insira o numero da operacao desejada (de 1 a 4):");
+    while (opcao < 1 || opcao > 5) {
+        printf("Por favor, insira o numero da operacao desejada (de 1 a 5):");
         scanf("%d", &opcao);
     }
     switch (opcao) {

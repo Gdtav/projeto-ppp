@@ -1,17 +1,23 @@
 #include <stdio.h>
 #include "Source Files/Menus.h"
 #include "Source Files/Estruturas.h"
+#include "Source Files/Ficheiros.h"
 
 int main() {
     FILE *f_exames;
     FILE *f_alunos;
     FILE *f_disciplinas;
-    f_exames = fopen("Ficheiros/Exames.txt","a");
-    f_alunos = fopen("Ficheiros/Alunos.txt","a");
-    f_disciplinas = fopen("Ficheiros/Disciplinas.txt","a");
+    f_exames = fopen("D:\\projeto-ppp\\Ficheiros\\Exames.txt","r");
+    f_alunos = fopen("D:\\projeto-ppp\\Ficheiros\\Alunos.txt","r");
+    f_disciplinas = fopen("D:\\projeto-ppp\\Ficheiros\\Disciplinas.txt","r");
+    if (f_exames == NULL || f_alunos == NULL || f_disciplinas == NULL) {
+        printf("Erro. Nao foi possível aceder aos dados. Pressione enter para sair");
+        if (getc(stdin))
+            return -1;
+    }
     exames = NULL;
     alunos = NULL;
-    disciplinas = NULL;
+    disciplinas = leFicheiroDisciplinas(disciplinas,f_disciplinas);
     menuPrincipal();
     return 0;
 }
