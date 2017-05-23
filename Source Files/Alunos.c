@@ -23,11 +23,11 @@ Lista_Ptr_Alunos pesquisaNumPtrAluno(Lista_Ptr_Alunos lst, int num) {
 void procuraAluno(Lista_Alunos lst, Aluno chave, Lista_Alunos *ant, Lista_Alunos *act) {
     *ant = NULL;
     *act = lst;
-    while ((*act) != NULL && strcmpi((*act)->aluno.nome, chave.nome) < 0) {
+    while ((*act) != NULL && (*act)->aluno.num < chave.num) {
         *ant = *act;
         *act = (*act)->next;
     }
-    if ((*act) != NULL && strcmpi((*act)->aluno.nome, chave.nome) != 0)
+    if ((*act) != NULL && (*act)->aluno.num != chave.num)
         *act = NULL; /* Se elemento não encontrado*/
 }
 
@@ -131,13 +131,10 @@ Lista_Alunos criaAluno(Lista_Alunos lst) {
     novo.nome = nome;
     fflush(stdin);
     printf("Numero do aluno: ");
-    while (scanf("%d", &num) == 0){     //
-        printf("Insira um NUMERO: ");   //  ESTA PROTECAO NAO FUNCIONA
-    }                                   //
+    p_scan_numAluno(lst, &num);
     novo.num = num;
     printf("Numero de matriculas: ");
-    while (scanf("%d", &ano) == 0)
-        printf("Insira um NUMERO: ");
+    p_scan_int(&ano);
     novo.ano = ano;
     fflush(stdin);
     printf("Curso do aluno: ");
@@ -145,7 +142,7 @@ Lista_Alunos criaAluno(Lista_Alunos lst) {
     novo.curso = curso;
     fflush(stdin);
     printf("Regime do aluno\n(n -> normal,\nt -> trabalhador-estudante,\na -> atleta,\nd -> dirigente associativo,\ne -> aluno de Erasmus): ");
-    while(gets(regime) == NULL || regime != "n" || regime != "t" || regime != "a" || regime != "d" || regime != "e")
+    while(gets(regime) == NULL || (*regime != 'n' && *regime != 't' && *regime != 'a' && *regime != 'd' && *regime != 'e'))
         printf("Insira 'n', 't', 'a', 'd' ou 'e': ");
     novo.regime = *regime;
     novo.exames = NULL;
@@ -154,47 +151,51 @@ Lista_Alunos criaAluno(Lista_Alunos lst) {
 }
 
 void modificaAluno(Lista_Alunos lst) {
+    int s_check = 1, test = 0;
+    Lista_Alunos e_check = NULL;
     int num, escolha = 0;
     char *reg = (char *) malloc(2 * sizeof(char));
     Lista_Alunos aluno;
     printf("Numero do aluno a modificar: ");
-    while (scanf("%d", &num) == 0)
-        printf("Insira um NUMERO: ");
+    p_scan_int(&num);
     aluno = pesquisaNumAluno(lst, num);
     if (aluno == NULL) {
         printf("Nao existe aluno na base de dados com esse numero! Abortando...\n");
         return;
     }
     while (escolha != 5) {
-        printf("\nModificar:\n1 - Nome\n2 - Matriculas\n3 - Curso\n4 - Regime\n\n5 - Voltar\n\nEscolha a opcao: ");
+        printf("\nModificar:\n1 - Numero\n2 - Nome\n3 - Matriculas\n4 - Curso\n5 - Regime\n\n6 - Voltar\n\nEscolha a opcao: ");
         while (scanf("%d", &escolha) == 0)
             printf("Insira um NUMERO: ");
         fflush(stdin);
         switch (escolha) {
             case 1:
+                printf("Numero do aluno: ");
+                p_scan_numAluno(lst, &num);
+                aluno->aluno.num = num; // implementar codigo para reorganizar lista de alunos
+            case 2:
                 printf("Introduza o novo nome: ");
                 gets(aluno->aluno.nome);
                 fflush(stdin);
                 break;
-            case 2:
-                printf("Introduza o numero de matriculas: ");
-                while (scanf("%d", &(aluno->aluno.ano)) == 0)
-                    printf("Insira um NUMERO: ");
-                break;
             case 3:
+                printf("Introduza o numero de matriculas: ");
+                p_scan_int(&(aluno->aluno.ano));
+                break;
+            case 4:
                 printf("Introduza o nome do curso: ");
                 while(gets(aluno->aluno.curso) == 0)
                     printf("Introduza um NOME: ");
                 fflush(stdin);
                 break;
-            case 4:
+            case 5:
                 reg = &(aluno->aluno.regime);
                 printf("Introduza o regime do aluno\n(n -> normal,\nt -> trabalhador-estudante,\na -> atleta,\nd -> dirigente associativo,\ne -> aluno de Erasmus): ");
                 while(gets(reg) == NULL || *(reg + 1) != 0 || (*reg != 'n' || *reg !='t' || *reg != 'a' || *reg != 'd' || *reg != 'e'))
                     printf("Insira 'n', 't', 'a', 'd' ou 'e': ");
                 break;
-            case 5:
-                break;
+            case 6:
+                return;
             default:
                 printf("Opcao invalida! Escolha outra opcao...\n");
                 break;

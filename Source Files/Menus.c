@@ -12,7 +12,8 @@ void menuAlunos(Lista_Alunos alunos){
         printf("2 - Modificar aluno\n");
         printf("3 - Eliminar aluno\n");
         printf("4 - Listar exames do aluno\n");
-        printf("5 - Voltar\n");
+        printf("5 - Listar todos os alunos\n");
+        printf("6 - Voltar\n");
         scanf("%d", &opcao);
         while (opcao < 1 || opcao > 5) {
             printf("Por favor, insira o numero da operacao desejada (de 1 a 5):");
@@ -32,6 +33,8 @@ void menuAlunos(Lista_Alunos alunos){
                 imprimeExamesAluno(alunos);
                 break;
             case 5:
+                imprimeAlunos(alunos);
+            case 6:
                 return;
             default:
                 break;
@@ -45,7 +48,8 @@ void menuDisciplinas(){
     printf("1 - Adicionar disciplina\n");
     printf("2 - Modificar disciplina\n");
     printf("3 - Eliminar disciplina\n");
-    printf("4 - Voltar\n");
+    printf("4 - Listar todas as disciplinas\n");
+    printf("5 - Voltar\n");
     scanf("%d", &opcao);
     while (opcao < 1 || opcao > 4) {
         printf("Por favor, insira o numero da operacao desejada (de 1 a 4):");
@@ -53,15 +57,18 @@ void menuDisciplinas(){
     }
     switch (opcao) {
         case 1:
-            criaDisciplina(disciplinas);
+            disciplinas = criaDisciplina(disciplinas);
             break;
         case 2:
             modificaDisciplina(disciplinas);
             break;
         case 3:
-            eliminaDisciplina(disciplinas, &exames);
+            disciplinas = eliminaDisciplina(disciplinas, &exames);
             break;
         case 4:
+            imprimeDisciplinas(disciplinas);
+            break;
+        case 5:
             return;
         default:
             break;
@@ -135,13 +142,13 @@ void menuExames(){
     }
     switch (opcao) {
         case 1:
-            criaExame(exames, disciplinas);
+            exames = criaExame(exames, disciplinas);
             break;
         case 2:
             menuSalas(exames);
             break;
         case 3:
-            eliminaExamesAntigos(exames);
+            exames = eliminaExamesAntigos(exames);
             break;
         case 4:
             imprimeExames(exames);

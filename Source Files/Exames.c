@@ -216,17 +216,25 @@ Lista_Exames criaExame(Lista_Exames exames, Lista_Disciplinas disciplinas) {
     Exame novo;
     Lista_Disciplinas disc = NULL;
     char *epoca = (char *) malloc(2 * sizeof(char));
-    int duracao;
+    int num, duracao;
     char *str = malloc(TAM_STR * sizeof(char));
+    printf("Numero do exame: ");
+    while (scanf("%d", &num) == 0)
+        printf("Insira um NUMERO: ");
+    novo.num = num;
     while (disc == NULL) {
+        printf("Disciplinas:\n");
+        imprimeDisciplinas(disciplinas);
         printf("Disciplina do exame: ");
         fflush(stdin);
         gets(str);
         disc = pesquisaDisciplinas(disciplinas, str);
         if (disc)
             novo.disciplina = disc;
-        else
-            printf("Disciplina nao existe na base de dados!\n");
+        else {
+            printf("Disciplina nao existe na base de dados! Abortando...\n");
+            return exames;
+        }
     }
     fflush(stdin);
     printf("Epoca(n -> Normal, \nr-> Recurso, \ne-> Especial): ");
@@ -240,6 +248,7 @@ Lista_Exames criaExame(Lista_Exames exames, Lista_Disciplinas disciplinas) {
     printf("Duracao do exame(minutos): ");
     while (scanf("%d", &duracao) == 0)
         printf("Insira um NUMERO: ");
+    novo.duracao = duracao;
     exames = insereExame(exames, novo);
     return exames;
 }

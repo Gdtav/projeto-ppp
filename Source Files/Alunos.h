@@ -7,6 +7,7 @@
 
 #include "Estruturas.h"
 #include "Exames.h"
+#include "Protecoes.h"
 
 Lista_Alunos pesquisaNumAluno(Lista_Alunos, int);
 

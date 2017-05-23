@@ -2,33 +2,46 @@
 // Created by guilh on 03/05/2017.
 //
 #include "Disciplinas.h"
+#include "Estruturas.h"
 
 void imprimeDisciplinas(Lista_Disciplinas disciplinas){
     Lista_Disciplinas ptr = disciplinas;
     int i = 0;
-    for (ptr; ptr != NULL; ptr = ptr->next, i++)
-        printf("%d - %s \n", i, ptr->disciplina.nome);
+    for (ptr; ptr; ptr = ptr->next, i++)
+        printf("%d)\nNome - %s\nDocente responsavel - %s\n", i + 1, ptr->disciplina.nome, ptr->disciplina.docente);
 }
 
 Lista_Disciplinas pesquisaDisciplinas(Lista_Disciplinas disciplinas, char *nome){
     Lista_Disciplinas ptr = disciplinas;
-    while (ptr && strcmp(ptr->disciplina.nome, nome))
+    while (ptr && (strcmp(ptr->disciplina.nome, nome) != 0))
         ptr = ptr->next;
     return ptr;
 }
 
 Lista_Disciplinas insereDisciplina(Lista_Disciplinas disciplinas, Disciplina nova){
-    Lista_Disciplinas no;
+    Lista_Disciplinas no = NULL;
     Lista_Disciplinas act;
     no = (Lista_Disciplinas) malloc(sizeof(No_Disciplina));
-    if (no != NULL) {
-        no->disciplina = nova;
-        act = disciplinas;
-        while (act->next != NULL)
-            act = act->next;
-        act->next = no;
-        no->prev = act;
-        no->next = NULL;
+    if (no) {
+        if(pesquisaDisciplinas(disciplinas, nova.nome)) {
+            printf("Disciplina ja existe! Abortando...");
+            return disciplinas;
+        }
+        else{
+            no->disciplina = nova;
+            act = disciplinas;
+            if (act) {
+                while (act->next)
+                    act = act->next;
+                act->next = no;
+                no->prev = act;
+                no->next = NULL;
+            } else {
+                no->prev = NULL;
+                no->next = NULL;
+                disciplinas = no;
+            }
+        }
     }
     return disciplinas;
 }
