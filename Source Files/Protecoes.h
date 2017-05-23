@@ -13,8 +13,19 @@
 #include "Disciplinas.h"
 #include "Tempo.h"
 
-void p_scan_int(int *);
+int p_scan_int();
 
-void p_scan_numAluno(Lista_Alunos , int *);
+int p_scan_numAluno(Lista_Alunos );
 
+int p_scan_numExame(Lista_Exames );
+
+void p_scan_nome(char *);
+
+char p_scan_char();
+
+char p_scan_char_cond(char *);
+
+Data p_leData();
+
+Hora p_leHora();
 #endif //PROJETO_PROTECOES_H

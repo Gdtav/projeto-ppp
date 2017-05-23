@@ -30,7 +30,7 @@ Lista_Exames destroiListaExames(Lista_Exames);
 
 void atribuiSalas(Lista_Exames);
 
-Lista_Exames criaExame(Lista_Exames, Lista_Disciplinas);
+Lista_Exames criaExame(Lista_Exames, Lista_Disciplinas *);
 
 Lista_Ptr_Exames eliminaPtrExame(Lista_Ptr_Exames, int);
 

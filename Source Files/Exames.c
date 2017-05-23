@@ -1,4 +1,5 @@
 #include "Exames.h"
+#include "Estruturas.h"
 
 Lista_Exames pesquisaNumExame(Lista_Exames lst, int num) {
     Lista_Exames ptr = lst;
@@ -212,28 +213,46 @@ void atribuiSalas(Lista_Exames exame) {
     }
 }
 
-Lista_Exames criaExame(Lista_Exames exames, Lista_Disciplinas disciplinas) {
+Lista_Exames criaExame(Lista_Exames exames, Lista_Disciplinas *disciplinas) {
     Exame novo;
     Lista_Disciplinas disc = NULL;
     char *epoca = (char *) malloc(2 * sizeof(char));
     int num, duracao;
     char *str = malloc(TAM_STR * sizeof(char));
     printf("Numero do exame: ");
-    while (scanf("%d", &num) == 0)
-        printf("Insira um NUMERO: ");
-    novo.num = num;
+    novo.num = p_scan_numExame(exames);
+    printf("Disciplinas:\n");
+    imprimeDisciplinas(*disciplinas);
     while (disc == NULL) {
-        printf("Disciplinas:\n");
-        imprimeDisciplinas(disciplinas);
         printf("Disciplina do exame: ");
         fflush(stdin);
         gets(str);
-        disc = pesquisaDisciplinas(disciplinas, str);
+        disc = pesquisaDisciplinas(*disciplinas, str);
         if (disc)
             novo.disciplina = disc;
         else {
-            printf("Disciplina nao existe na base de dados! Abortando...\n");
-            return exames;
+            char c;
+            Disciplina d;
+            char *docente;
+            printf("Disciplina nao existe na base de dados! Deseja cria-la?");
+            c = p_scan_char_cond("snSN");
+            switch(c) {
+                case 's':
+                case 'S':
+                    d.nome = str;
+                    d.docente = malloc(TAM_STR * sizeof(char));
+                    printf("Nome do docente");
+                    p_scan_nome(d.docente);
+                    *disciplinas = insereDisciplina(*disciplinas, d);
+                    disc = *disciplinas;
+                    break;
+                case 'n':
+                case 'N':
+                    disc = NULL;
+                    break;
+                default:
+                    break;
+            }
         }
     }
     fflush(stdin);

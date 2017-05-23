@@ -142,7 +142,7 @@ void menuExames(){
     }
     switch (opcao) {
         case 1:
-            exames = criaExame(exames, disciplinas);
+            exames = criaExame(exames, &disciplinas);
             break;
         case 2:
             menuSalas(exames);

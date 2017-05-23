@@ -123,46 +123,35 @@ Lista_Alunos criaAluno(Lista_Alunos lst) {
     Aluno novo;
     char *nome = malloc(TAM_STR * sizeof(char));
     char *curso = malloc(TAM_STR * sizeof(char));
-    char *regime = malloc(2 * sizeof(char));
-    int num, ano;
     printf("Nome do aluno: ");
     fflush(stdin);
-    gets(nome);
+    p_scan_nome(nome);
     novo.nome = nome;
-    fflush(stdin);
     printf("Numero do aluno: ");
-    p_scan_numAluno(lst, &num);
-    novo.num = num;
+    novo.num = p_scan_numAluno(lst);
     printf("Numero de matriculas: ");
-    p_scan_int(&ano);
-    novo.ano = ano;
-    fflush(stdin);
+    novo.ano = p_scan_int();
     printf("Curso do aluno: ");
-    gets(curso);
-    novo.curso = curso;
     fflush(stdin);
+    p_scan_nome(curso);
+    novo.curso = curso;
     printf("Regime do aluno\n(n -> normal,\nt -> trabalhador-estudante,\na -> atleta,\nd -> dirigente associativo,\ne -> aluno de Erasmus): ");
-    while(gets(regime) == NULL || (*regime != 'n' && *regime != 't' && *regime != 'a' && *regime != 'd' && *regime != 'e'))
-        printf("Insira 'n', 't', 'a', 'd' ou 'e': ");
-    novo.regime = *regime;
+    novo.regime = p_scan_char_cond("dante");
     novo.exames = NULL;
     lst = insereAluno(lst, novo);
     return lst;
 }
 
 void modificaAluno(Lista_Alunos lst) {
-    int s_check = 1, test = 0;
-    Lista_Alunos e_check = NULL;
+    Lista_Alunos aluno, ant, act;
     int num, escolha = 0;
-    char *reg = (char *) malloc(2 * sizeof(char));
-    Lista_Alunos aluno;
-    printf("Numero do aluno a modificar: ");
-    p_scan_int(&num);
-    aluno = pesquisaNumAluno(lst, num);
-    if (aluno == NULL) {
-        printf("Nao existe aluno na base de dados com esse numero! Abortando...\n");
+    if(lst == NULL) {
+        printf("Nao ha alunos na base de dados! Abortando...\n");
         return;
     }
+    printf("Numero do aluno a modificar: ");
+    num = p_scan_numAluno(lst);
+    aluno = pesquisaNumAluno(lst, num);
     while (escolha != 5) {
         printf("\nModificar:\n1 - Numero\n2 - Nome\n3 - Matriculas\n4 - Curso\n5 - Regime\n\n6 - Voltar\n\nEscolha a opcao: ");
         while (scanf("%d", &escolha) == 0)
@@ -171,28 +160,28 @@ void modificaAluno(Lista_Alunos lst) {
         switch (escolha) {
             case 1:
                 printf("Numero do aluno: ");
-                p_scan_numAluno(lst, &num);
-                aluno->aluno.num = num; // implementar codigo para reorganizar lista de alunos
+                aluno->aluno.num = p_scan_numAluno(lst);
+                procuraAluno(lst, aluno->aluno, &ant, &act);
+                aluno->prev->next = aluno->next;
+                aluno->next->prev = aluno->prev;
+                aluno->prev = ant;
+                aluno->next = ant->next;
+                ant->next->prev = aluno;
+                ant->next = aluno;
             case 2:
                 printf("Introduza o novo nome: ");
-                gets(aluno->aluno.nome);
-                fflush(stdin);
+                p_scan_nome(aluno->aluno.nome);
                 break;
             case 3:
                 printf("Introduza o numero de matriculas: ");
-                p_scan_int(&(aluno->aluno.ano));
+                aluno->aluno.ano = p_scan_int();
                 break;
             case 4:
                 printf("Introduza o nome do curso: ");
-                while(gets(aluno->aluno.curso) == 0)
-                    printf("Introduza um NOME: ");
-                fflush(stdin);
+                p_scan_nome(aluno->aluno.curso);
                 break;
             case 5:
-                reg = &(aluno->aluno.regime);
-                printf("Introduza o regime do aluno\n(n -> normal,\nt -> trabalhador-estudante,\na -> atleta,\nd -> dirigente associativo,\ne -> aluno de Erasmus): ");
-                while(gets(reg) == NULL || *(reg + 1) != 0 || (*reg != 'n' || *reg !='t' || *reg != 'a' || *reg != 'd' || *reg != 'e'))
-                    printf("Insira 'n', 't', 'a', 'd' ou 'e': ");
+                aluno->aluno.regime = p_scan_char_cond("dante");
                 break;
             case 6:
                 return;
@@ -224,13 +213,8 @@ Lista_Alunos eliminaAluno(Lista_Alunos lst) {
     Lista_Alunos aluno;
     Lista_Ptr_Exames ptr;
     printf("Numero do aluno a eliminar: ");
-    while (scanf("%d", &num) == 0)
-        printf("Insira um NUMERO: ");
+    num = p_scan_numAluno(lst);
     aluno = pesquisaNumAluno(lst, num);
-    if (aluno == NULL) {
-        printf("Nao existe aluno na base de dados com esse numero! Abortando...\n");
-        return lst;
-    }
     if (aluno->next != NULL)
         aluno->next->prev = aluno->prev;
     if (aluno->prev != NULL)
