@@ -7,9 +7,12 @@ int main() {
     FILE *f_exames;
     FILE *f_alunos;
     FILE *f_disciplinas;
-    f_exames = fopen("D:\\projeto-ppp\\Ficheiros\\Exames.txt","r");
-    f_alunos = fopen("D:\\projeto-ppp\\Ficheiros\\Alunos.txt","r");
-    f_disciplinas = fopen("D:\\projeto-ppp\\Ficheiros\\Disciplinas.txt","r");
+    Lista_Exames exames = NULL;
+    Lista_Alunos alunos = NULL;
+    Lista_Disciplinas disciplinas = NULL;
+    f_exames = fopen("Ficheiros/Exames.txt","r");
+    f_alunos = fopen("Ficheiros/Alunos.txt","r");
+    f_disciplinas = fopen("Ficheiros/Disciplinas.txt","r");
     if (f_exames == NULL || f_alunos == NULL || f_disciplinas == NULL) {
         printf("Erro. Nao foi possível aceder aos dados. Pressione enter para sair");
         if (getc(stdin))
@@ -18,6 +21,7 @@ int main() {
     exames = NULL;
     alunos = NULL;
     disciplinas = leFicheiroDisciplinas(disciplinas,f_disciplinas);
-    menuPrincipal();
+    disciplinas = NULL;
+    menuPrincipal(&alunos, &exames, &disciplinas);
     return 0;
 }

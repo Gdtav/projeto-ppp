@@ -4,9 +4,9 @@
 
 #include "Menus.h"
 
-void menuAlunos(Lista_Alunos alunos){
+void menuAlunos(Lista_Alunos *alunos){
     int opcao = 0;
-    while (opcao != 5) {
+    while (opcao != 6) {
         printf("Gestao de alunos \n Insira o numero da opcao desejada:\n");
         printf("1 - Adicionar aluno\n");
         printf("2 - Modificar aluno\n");
@@ -21,19 +21,20 @@ void menuAlunos(Lista_Alunos alunos){
         }
         switch (opcao) {
             case 1:
-                alunos = criaAluno(alunos);
+                *alunos = criaAluno(*alunos);
                 break;
             case 2:
-                modificaAluno(alunos);
+                *alunos = modificaAluno(*alunos);
                 break;
             case 3:
-                eliminaAluno(alunos);
+                *alunos = eliminaAluno(*alunos);
                 break;
             case 4:
-                imprimeExamesAluno(alunos);
+                imprimeExamesAluno(*alunos);
                 break;
             case 5:
-                imprimeAlunos(alunos);
+                imprimeAlunos(*alunos);
+                break;
             case 6:
                 return;
             default:
@@ -42,7 +43,7 @@ void menuAlunos(Lista_Alunos alunos){
     }
 }
 
-void menuDisciplinas(){
+void menuDisciplinas(Lista_Disciplinas *disciplinas, Lista_Exames *exames){
     int opcao;
     printf("Gestao de disciplinas \n Insira o numero da opcao desejada:\n");
     printf("1 - Adicionar disciplina\n");
@@ -57,16 +58,16 @@ void menuDisciplinas(){
     }
     switch (opcao) {
         case 1:
-            disciplinas = criaDisciplina(disciplinas);
+            *disciplinas = criaDisciplina(*disciplinas);
             break;
         case 2:
-            modificaDisciplina(disciplinas);
+            modificaDisciplina(*disciplinas);
             break;
         case 3:
-            disciplinas = eliminaDisciplina(disciplinas, &exames);
+            *disciplinas = eliminaDisciplina(*disciplinas, exames);
             break;
         case 4:
-            imprimeDisciplinas(disciplinas);
+            imprimeDisciplinas(*disciplinas);
             break;
         case 5:
             return;
@@ -100,7 +101,7 @@ void menuSalas(Lista_Exames exames){
     }
 }
 
-void menuInscricoes(){
+void menuInscricoes(Lista_Exames exames, Lista_Alunos alunos){
     int opcao;
     printf("Gestao de inscricoes \n Por favor insira a opcao desejada:\n");
     printf("1 - Adicionar aluno a exame\n");
@@ -125,7 +126,7 @@ void menuInscricoes(){
     }
 }
 
-void menuExames(){
+void menuExames(Lista_Alunos alunos, Lista_Exames *exames, Lista_Disciplinas *disciplinas){
     int opcao, num;
     printf("Gestao de exames \n Insira o numero da opcao desejada:\n");
     printf("1 - Criar exame\n");
@@ -142,26 +143,26 @@ void menuExames(){
     }
     switch (opcao) {
         case 1:
-            exames = criaExame(exames, &disciplinas);
+            *exames = criaExame(*exames, disciplinas);
             break;
         case 2:
-            menuSalas(exames);
+            menuSalas(*exames);
             break;
         case 3:
-            exames = eliminaExamesAntigos(exames);
+            *exames = eliminaExamesAntigos(*exames);
             break;
         case 4:
-            imprimeExames(exames);
+            imprimeExames(*exames);
             break;
         case 5:
-            menuInscricoes();
+            menuInscricoes(*exames, alunos);
             break;
         case 6:
-            imprimeExames(exames);
+            imprimeExames(*exames);
             printf("Insira o numero do exame que pretende ver:\n");
             while (scanf("%d", &num) == 0)
                 printf("Insira um NUMERO:\n");
-            imprimeAlunosInscritos(pesquisaNumExame(exames, num)->exame);
+            imprimeAlunosInscritos(pesquisaNumExame(*exames, num)->exame);
             break;
         case 7:
             return;
@@ -170,7 +171,7 @@ void menuExames(){
     }
 }
 
-void menuPrincipal(){
+void menuPrincipal(Lista_Alunos *alunos, Lista_Exames *exames, Lista_Disciplinas *disciplinas){
     int opcao;
     do {
         printf("Bem vindo ao gestor de exames do DEI. \n Por favor insira a opcao desejada:\n");
@@ -188,10 +189,10 @@ void menuPrincipal(){
                 menuAlunos(alunos);
                 break;
             case 2:
-                menuDisciplinas();
+                menuDisciplinas(disciplinas, exames);
                 break;
             case 3:
-                menuExames();
+                menuExames(*alunos, exames, disciplinas);
                 break;
             case 4:
                 return;

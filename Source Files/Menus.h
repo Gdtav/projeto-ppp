@@ -12,16 +12,16 @@
 #include "Tempo.h"
 
 
-void menuAlunos(Lista_Alunos );
+void menuAlunos(Lista_Alunos *);
 
-void menuDisciplinas(void);
+void menuDisciplinas(Lista_Disciplinas *, Lista_Exames *);
 
-void menuExames(void);
+void menuExames(Lista_Alunos , Lista_Exames *, Lista_Disciplinas *);
 
 void menuSalas(Lista_Exames );
 
-void menuInscricoes(void);
+void menuInscricoes(Lista_Exames , Lista_Alunos );
 
-void menuPrincipal(void);
+void menuPrincipal(Lista_Alunos *, Lista_Exames *, Lista_Disciplinas *);
 
 #endif //PROJETO_MENUS_H

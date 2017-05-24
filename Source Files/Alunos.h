@@ -27,7 +27,7 @@ Lista_Alunos destroiListaAlunos(Lista_Alunos);
 
 Lista_Alunos criaAluno(Lista_Alunos);
 
-void modificaAluno(Lista_Alunos);
+Lista_Alunos modificaAluno(Lista_Alunos);
 
 Lista_Ptr_Alunos eliminaPtrAluno(Lista_Ptr_Alunos, int);
 

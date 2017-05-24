@@ -94,8 +94,4 @@ typedef struct no_exame {
     Lista_Exames next;
 } No_Exame;
 
-Lista_Exames exames;
-Lista_Alunos alunos;
-Lista_Disciplinas disciplinas;
-
 #endif //PROJETO_ESTRUTURAS_H

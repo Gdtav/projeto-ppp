@@ -23,10 +23,10 @@ int p_scan_numAluno(Lista_Alunos alunos) {
     e_check = pesquisaNumAluno(alunos, num);
     fflush(stdin);
     while (s_check == 0 || e_check || test != '\n') {
-        if (s_check || test != '\n')
+        if (s_check == 0 || test != '\n')
             printf("Insira um NUMERO: ");   //  ESTA PROTECAO JÁ FUNCIONA :O
         else if (e_check)
-            printf("Ja existe um aluno com esse numero! Insira outro");
+            printf("Ja existe um aluno com esse numero! Insira outro: ");
         s_check = scanf("%d", &num);
         test = getchar();
         e_check = pesquisaNumAluno(alunos, num);

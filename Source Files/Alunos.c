@@ -142,56 +142,6 @@ Lista_Alunos criaAluno(Lista_Alunos lst) {
     return lst;
 }
 
-void modificaAluno(Lista_Alunos lst) {
-    Lista_Alunos aluno, ant, act;
-    int num, escolha = 0;
-    if(lst == NULL) {
-        printf("Nao ha alunos na base de dados! Abortando...\n");
-        return;
-    }
-    printf("Numero do aluno a modificar: ");
-    num = p_scan_numAluno(lst);
-    aluno = pesquisaNumAluno(lst, num);
-    while (escolha != 5) {
-        printf("\nModificar:\n1 - Numero\n2 - Nome\n3 - Matriculas\n4 - Curso\n5 - Regime\n\n6 - Voltar\n\nEscolha a opcao: ");
-        while (scanf("%d", &escolha) == 0)
-            printf("Insira um NUMERO: ");
-        fflush(stdin);
-        switch (escolha) {
-            case 1:
-                printf("Numero do aluno: ");
-                aluno->aluno.num = p_scan_numAluno(lst);
-                procuraAluno(lst, aluno->aluno, &ant, &act);
-                aluno->prev->next = aluno->next;
-                aluno->next->prev = aluno->prev;
-                aluno->prev = ant;
-                aluno->next = ant->next;
-                ant->next->prev = aluno;
-                ant->next = aluno;
-            case 2:
-                printf("Introduza o novo nome: ");
-                p_scan_nome(aluno->aluno.nome);
-                break;
-            case 3:
-                printf("Introduza o numero de matriculas: ");
-                aluno->aluno.ano = p_scan_int();
-                break;
-            case 4:
-                printf("Introduza o nome do curso: ");
-                p_scan_nome(aluno->aluno.curso);
-                break;
-            case 5:
-                aluno->aluno.regime = p_scan_char_cond("dante");
-                break;
-            case 6:
-                return;
-            default:
-                printf("Opcao invalida! Escolha outra opcao...\n");
-                break;
-        }
-    }
-}
-
 Lista_Ptr_Alunos eliminaPtrAluno(Lista_Ptr_Alunos lst, int num) {
     Lista_Ptr_Alunos ant;
     Lista_Ptr_Alunos aluno = pesquisaNumPtrAluno(lst, num);
@@ -228,6 +178,64 @@ Lista_Alunos eliminaAluno(Lista_Alunos lst) {
     free(aluno->aluno.nome);
     free(aluno);
     return lst;
+}
+
+Lista_Alunos modificaAluno(Lista_Alunos lst) {
+    Lista_Alunos aluno, ant, act;
+    int num, escolha = 0;
+    if (lst == NULL) {
+        printf("Nao ha alunos na base de dados! Abortando...\n");
+        return lst;
+    }
+    printf("Numero do aluno a modificar: ");
+    num = p_scan_int();
+    aluno = pesquisaNumAluno(lst, num);
+    while (aluno == NULL) {
+        printf("Nao existe aluno com esse numero! Insira de novo: ");
+        num = p_scan_int();
+        aluno = pesquisaNumAluno(lst, num);
+    }
+    while (escolha != 6) {
+        printf("\nModificar:\n1 - Numero\n2 - Nome\n3 - Matriculas\n4 - Curso\n5 - Regime\n\n6 - Voltar\n\nEscolha a opcao: ");
+        while (scanf("%d", &escolha) == 0)
+            printf("Insira um NUMERO: ");
+        fflush(stdin);
+        switch (escolha) {
+            case 1:
+                printf("Numero do aluno: ");
+                aluno->aluno.num = p_scan_numAluno(lst);
+                procuraAluno(lst, aluno->aluno, &ant, &act);
+                if (aluno->prev)
+                    aluno->prev->next = aluno->next;
+                else
+                    lst = aluno->next;
+                if (aluno->next)
+                    aluno->next->prev = aluno->prev;
+                lst = insereAluno(lst, aluno->aluno);
+                free(aluno);
+                break;
+            case 2:
+                printf("Introduza o novo nome: ");
+                p_scan_nome(aluno->aluno.nome);
+                break;
+            case 3:
+                printf("Introduza o numero de matriculas: ");
+                aluno->aluno.ano = p_scan_int();
+                break;
+            case 4:
+                printf("Introduza o nome do curso: ");
+                p_scan_nome(aluno->aluno.curso);
+                break;
+            case 5:
+                aluno->aluno.regime = p_scan_char_cond("dante");
+                break;
+            case 6:
+                return lst;
+            default:
+                printf("Opcao invalida! Escolha outra opcao...\n");
+                break;
+        }
+    }
 }
 
 void imprimeAluno(Aluno aluno) {
