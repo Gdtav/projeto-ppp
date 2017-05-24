@@ -73,6 +73,8 @@ Lista_Exames insereExame(Lista_Exames lst, Exame exame) {
                 ant->next->prev = no;
             ant->next = no;
         } else {
+            if (lst)
+                lst->prev = no;
             no->next = lst;
             no->prev = NULL;
             lst = no;
@@ -100,6 +102,8 @@ Lista_Ptr_Exames inserePtrExame(Lista_Ptr_Exames lst, Lista_Exames exame) {
                 ant->next->prev = no;
             ant->next = no;
         } else {
+            if (lst)
+                lst->prev = no;
             no->next = lst;
             no->prev = NULL;
             lst = no;
@@ -127,6 +131,8 @@ Lista_Salas insereSala(Lista_Salas lst, char *sala) {
                 ant->next->prev = no;
             ant->next = no;
         } else {
+            if (lst)
+                lst->prev = no;
             no->next = lst;
             no->prev = NULL;
             lst = no;

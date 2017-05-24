@@ -37,6 +37,8 @@ Lista_Disciplinas insereDisciplina(Lista_Disciplinas disciplinas, Disciplina nov
                 no->prev = act;
                 no->next = NULL;
             } else {
+                if (disciplinas)
+                    disciplinas->prev = no;
                 no->prev = NULL;
                 no->next = NULL;
                 disciplinas = no;

@@ -50,16 +50,18 @@ Lista_Alunos insereAluno(Lista_Alunos lst, Aluno aluno) {
     Lista_Alunos no;
     Lista_Alunos ant, act;
     no = (Lista_Alunos) malloc(sizeof(No_Aluno));
-    if (no != NULL) {
+    if (no) {
         no->aluno = aluno;
         procuraAluno(lst, aluno, &ant, &act);
-        if (ant != NULL) {
+        if (ant) {
             no->next = ant->next;
             no->prev = ant;
-            if (ant->next != NULL)
+            if (ant->next)
                 ant->next->prev = no;
             ant->next = no;
         } else {
+            if (lst)
+                lst->prev = no;
             no->next = lst;
             no->prev = NULL;
             lst = no;
@@ -87,6 +89,8 @@ Lista_Ptr_Alunos inserePtrAluno(Lista_Ptr_Alunos lst, Lista_Alunos aluno) {
                 ant->next->prev = no;
             ant->next = no;
         } else {
+            if (lst)
+                lst->prev = no;
             no->next = lst;
             no->prev = NULL;
             lst = no;
@@ -230,12 +234,13 @@ Lista_Alunos modificaAluno(Lista_Alunos lst) {
                 aluno->aluno.regime = p_scan_char_cond("dante");
                 break;
             case 6:
-                return lst;
+                break;
             default:
                 printf("Opcao invalida! Escolha outra opcao...\n");
                 break;
         }
     }
+    return lst;
 }
 
 void imprimeAluno(Aluno aluno) {
