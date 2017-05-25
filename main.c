@@ -10,9 +10,9 @@ int main() {
     Lista_Exames exames = NULL;
     Lista_Alunos alunos = NULL;
     Lista_Disciplinas disciplinas = NULL;
-    f_exames = fopen("Ficheiros/Exames.txt","r");
-    f_alunos = fopen("Ficheiros/Alunos.txt","r");
-    f_disciplinas = fopen("Ficheiros/Disciplinas.txt","r");
+    f_exames = fopen("D:\\projeto-ppp\\Exames.txt","r");
+    f_alunos = fopen("D:\\projeto-ppp\\Alunos.txt","r");
+    f_disciplinas = fopen("D:\\projeto-ppp\\Disciplinas.txt","r");
     if (f_exames == NULL || f_alunos == NULL || f_disciplinas == NULL) {
         printf("Erro. Nao foi possível aceder aos dados. Pressione enter para sair");
         if (getc(stdin))
@@ -21,7 +21,6 @@ int main() {
     exames = NULL;
     alunos = NULL;
     disciplinas = leFicheiroDisciplinas(disciplinas,f_disciplinas);
-    disciplinas = NULL;
     menuPrincipal(&alunos, &exames, &disciplinas);
     return 0;
 }

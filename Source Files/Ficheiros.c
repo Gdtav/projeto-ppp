@@ -7,18 +7,11 @@
 
 
 Lista_Disciplinas leFicheiroDisciplinas(Lista_Disciplinas disc, FILE *fich_disc){
-    char *linha = (char *) malloc(TAM_STR * sizeof(char));
-    while (fgets(linha,TAM_STR,fich_disc)){
-        while(*linha != ';'){
-            disc->disciplina.nome = linha;
-            linha++;
-        }
-        linha++;
-        while(*linha != '\n'){
-            disc->disciplina.docente = linha;
-            linha++;
-        }
-        disc->next;
+    fseek(fich_disc,0L,SEEK_SET);
+    Disciplina *discip = malloc(sizeof(Disciplina));
+    while (fgets(discip->nome,TAM_STR,fich_disc)) {
+        fgets(discip->docente, TAM_STR, fich_disc);
+        insereDisciplina(disc,*discip);
     }
     return disc;
 }
