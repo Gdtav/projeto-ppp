@@ -5,24 +5,11 @@
 #include "Ficheiros.h"
 #include "Estruturas.h"
 
-
-Lista_Disciplinas leFicheiroDisciplinas(Lista_Disciplinas disc, FILE *fich_disc){
-    char *linha = (char *) malloc(TAM_STR * sizeof(char));
-    while (fgets(linha,TAM_STR,fich_disc)){
-        while(*linha != ';'){
-            disc->disciplina.nome = linha;
-            linha++;
-        }
-        linha++;
-        while(*linha != '\n'){
-            disc->disciplina.docente = linha;
-            linha++;
-        }
-        disc->next;
+void leFicheiroDisciplinas(Lista_Disciplinas *disciplinas, FILE *fich_disc){
+    Disciplina *disc = malloc(sizeof(Disciplina));
+    while (fgets(disc->nome,TAM_STR,fich_disc),fgets(disc->docente,TAM_STR,fich_disc)) {
+        *disciplinas = insereDisciplina(*disciplinas,*disc);
+        printf(disc->nome);
+        printf(disc->docente);
     }
-    return disc;
-}
-
-Lista_Alunos leFicheirosAlunos(Lista_Alunos alns, FILE *fich_alns){
-
 }
