@@ -12,7 +12,7 @@ Lista_Exames pesquisaNumExame(Lista_Exames lst, int num) {
 Lista_Ptr_Exames pesquisaNumPtrExame(Lista_Ptr_Exames lst, int num) {
     Lista_Ptr_Exames ptr = lst;
     Lista_Ptr_Exames find;
-    for (find = NULL; ptr != NULL && find == NULL; ptr = ptr->next)
+    for (find = NULL; ptr && find == NULL; ptr = ptr->next)
         find = (ptr->exame->exame.num == num) ? ptr : NULL;
     return find;
 }
@@ -62,14 +62,14 @@ Lista_Exames insereExame(Lista_Exames lst, Exame exame) {
     }
     Lista_Exames no;
     Lista_Exames ant, act;
-    no = (Lista_Exames) malloc(sizeof(No_Aluno));
-    if (no != NULL) {
+    no = malloc(sizeof(No_Aluno));
+    if (no) {
         no->exame = exame;
         procuraExame(lst, exame, &ant, &act);
-        if (ant != NULL) {
+        if (ant) {
             no->next = ant->next;
             no->prev = ant;
-            if (ant->next != NULL)
+            if (ant->next)
                 ant->next->prev = no;
             ant->next = no;
         } else {
@@ -91,14 +91,14 @@ Lista_Ptr_Exames inserePtrExame(Lista_Ptr_Exames lst, Lista_Exames exame) {
     }
     Lista_Ptr_Exames no;
     Lista_Ptr_Exames ant, act;
-    no = (Lista_Ptr_Exames) malloc(sizeof(No_Ptr_Exame));
-    if (no != NULL) {
+    no = malloc(sizeof(No_Ptr_Exame));
+    if (no) {
         no->exame = exame;
         procuraPtrExame(lst, exame->exame, &ant, &act);
-        if (ant != NULL) {
+        if (ant) {
             no->next = ant->next;
             no->prev = ant;
-            if (ant->next != NULL)
+            if (ant->next)
                 ant->next->prev = no;
             ant->next = no;
         } else {
@@ -121,7 +121,7 @@ Lista_Salas insereSala(Lista_Salas lst, char *sala) {
         printf("A sala já está reservada para este exame!\n");
         return lst;
     }
-    no = (Lista_Salas) malloc(sizeof(No_Sala));
+    no = malloc(sizeof(No_Sala));
     if (no != NULL) {
         strcpy(no->nome, sala);
         if (ant != NULL) {
@@ -179,7 +179,7 @@ void atribuiSalas(Lista_Exames exame) {
     Lista_Salas salas = exame->exame.salas;
     Lista_Salas ptr_s;
     Lista_Exames ptr_e;
-    char *str = (char *) malloc(TAM_STR * sizeof(char));
+    char *str = malloc(TAM_STR * sizeof(char));
     char dummy;
     printf("Salas ('/' para terminar): \n");
     gets(str);
@@ -222,8 +222,6 @@ void atribuiSalas(Lista_Exames exame) {
 Lista_Exames criaExame(Lista_Exames exames, Lista_Disciplinas *disciplinas) {
     Exame novo;
     Lista_Disciplinas disc = NULL;
-    char *epoca = (char *) malloc(2 * sizeof(char));
-    int num, duracao;
     char *str = malloc(TAM_STR * sizeof(char));
     printf("Numero do exame: ");
     novo.num = p_scan_numExame(exames);
@@ -239,17 +237,17 @@ Lista_Exames criaExame(Lista_Exames exames, Lista_Disciplinas *disciplinas) {
         else {
             char c;
             Disciplina d;
-            char *docente;
-            printf("Disciplina nao existe na base de dados! Deseja cria-la?");
+            printf("Disciplina nao existe na base de dados! Deseja cria-la [S/N]?");
             c = p_scan_char_cond("snSN");
-            switch(c) {
+            switch (c) {
                 case 's':
                 case 'S':
                     d.nome = str;
                     d.docente = malloc(TAM_STR * sizeof(char));
-                    printf("Nome do docente");
+                    printf("Nome do docente: ");
                     p_scan_nome(d.docente);
                     *disciplinas = insereDisciplina(*disciplinas, d);
+                    novo.disciplina = pesquisaDisciplinas(*disciplinas, str);
                     disc = *disciplinas;
                     break;
                 case 'n':
@@ -263,19 +261,33 @@ Lista_Exames criaExame(Lista_Exames exames, Lista_Disciplinas *disciplinas) {
     }
     fflush(stdin);
     printf("Epoca(n -> Normal, \nr-> Recurso, \ne-> Especial): ");
-    while (gets(epoca) == NULL || *(epoca + 1) != 0 || (*epoca != 'n' && *epoca != 'r' && *epoca != 'e'))
-        printf("Insira Epoca(n -> Normal, \nr-> Recurso, \ne-> Especial): ");
-    novo.epoca = *epoca;
+    novo.epoca = p_scan_char_cond("nre");
     printf("Data do exame: ");
-    novo.data = leData();
+    novo.data = p_leData();
     printf("Hora do exame: ");
-    novo.hora = leHora();
+    novo.hora = p_leHora();
     printf("Duracao do exame(minutos): ");
-    while (scanf("%d", &duracao) == 0)
-        printf("Insira um NUMERO: ");
-    novo.duracao = duracao;
+    novo.duracao = p_scan_int();
+    novo.alunos = NULL;
     exames = insereExame(exames, novo);
     return exames;
+}
+
+Lista_Salas eliminaSala(Lista_Salas lst, char *str) {
+    Lista_Salas ant, act;
+    procuraSala(lst, str, &ant, &act);
+    if (act) {
+        if (act->next)
+            act->next->prev = ant;
+        if (ant)
+            ant->next = act->next;
+        else
+            lst = act->next;
+        free(act->nome);
+        free(act);
+    }
+    return lst;
+    return NULL;
 }
 
 Lista_Ptr_Exames eliminaPtrExame(Lista_Ptr_Exames lst, int num) {
@@ -324,10 +336,170 @@ Lista_Exames eliminaExamesAntigos(Lista_Exames exames) {
     data = leData();
     for (ptr = exames; ptr; ptr = ptr->next) {
         if (cmpData(data, ptr->exame.data) >= 0) {
-                exames = eliminaExame(exames, ptr->exame.num);
+            exames = eliminaExame(exames, ptr->exame.num);
+        }
+    }
+    return exames;
+}
+
+Lista_Exames moveExame(Lista_Exames lst, Lista_Exames exame){
+    Lista_Exames ant, act;
+    if (exame->prev)
+        exame->prev->next = exame->next;
+    else
+        lst = exame->next;
+    if (exame->next)
+        exame->next->prev = exame->prev;
+    procuraExame(lst, exame->exame, &ant, &act);
+    if (ant) {
+        exame->next = ant->next;
+        exame->prev = ant;
+        if (ant->next)
+            ant->next->prev = exame;
+        ant->next = exame;
+    } else {
+        if (lst)
+            lst->prev = exame;
+        exame->next = lst;
+        exame->prev = NULL;
+        lst = exame;
+    }
+    return lst;
+}
+
+void removeConflito(Lista_Exames exame) {
+    Lista_Salas ptr, ptr_s;
+    Lista_Exames ptr_e;
+    int conflito;
+    for (ptr = exame->exame.salas; ptr; ptr = ptr->next) {
+        conflito = 0;
+        for (ptr_e = exame->next; ptr_e && conflito == 0; ptr_e = ptr_e->next) {
+            if (cmpData(ptr_e->exame.data, exame->exame.data))
+                conflito = 1;
+            else if (verifConflito(ptr_e->exame.hora, exame->exame.hora, ptr_e->exame.duracao, exame->exame.duracao) ==
+                     0)
+                conflito = 1;
+            else {
+                for (ptr_s = ptr_e->exame.salas; ptr_s && conflito != 2; ptr_s = ptr_s->next) {
+                    if (strcmp(ptr_s->nome, ptr->nome))
+                        conflito = 2;
+                }
             }
         }
-    return exames;
+        if (conflito == 1)
+            conflito = 0;
+        for (ptr_e = exame->prev; ptr_e && conflito == 0; ptr_e = ptr_e->prev) {
+            if (cmpData(ptr_e->exame.data, exame->exame.data))
+                conflito = 1;
+            else if (verifConflito(ptr_e->exame.hora, exame->exame.hora, ptr_e->exame.duracao, exame->exame.duracao) ==
+                     0)
+                conflito = 1;
+            else {
+                for (ptr_s = ptr_e->exame.salas; ptr_s && conflito != 2; ptr_s = ptr_s->next) {
+                    if (strcmp(ptr_s->nome, ptr->nome))
+                        conflito = 2;
+                }
+            }
+        }
+        if (conflito == 2) {
+            printf("Sala %s em conflito removida.\n", ptr->nome);
+            exame->exame.salas = eliminaSala(exame->exame.salas, ptr->nome);
+        }
+    }
+}
+
+Lista_Exames modificaExame(Lista_Exames lst, Lista_Disciplinas *disciplinas) {
+    Lista_Exames exame;
+    Lista_Disciplinas disc = NULL;
+    char *str;
+    int num, escolha = 0;
+    if (lst == NULL) {
+        printf("Nao ha exames na base de dados! Abortando...\n");
+        return lst;
+    }
+    printf("Numero do exame a modificar: ");
+    num = p_scan_int();
+    exame = pesquisaNumExame(lst, num);
+    while (exame == NULL) {
+        printf("Nao existe exame com esse numero! Insira de novo: ");
+        num = p_scan_int();
+        exame = pesquisaNumExame(lst, num);
+    }
+    while (escolha != 7) {
+        printf("\nModificar:\n1 - Numero\n2 - Disciplina\n3 - Epoca\n4 - Data/Hora\n5 - Hora\n6 - Duracao\n\n7 - Voltar\n\nEscolha a opcao: ");
+        escolha = p_scan_int();
+        fflush(stdin);
+        switch (escolha) {
+            case 1:
+                printf("Numero do exame: ");
+                exame->exame.num = p_scan_numExame(lst);
+                break;
+            case 2:
+                str = malloc(TAM_STR * sizeof(char));
+                printf("Disciplinas:\n");
+                imprimeDisciplinas(*disciplinas);
+                while (disc == NULL) {
+                    printf("Disciplina do exame: ");
+                    fflush(stdin);
+                    gets(str);
+                    disc = pesquisaDisciplinas(*disciplinas, str);
+                    if (disc) {
+                        free(str);
+                        exame->exame.disciplina = disc;
+                    } else {
+                        char c;
+                        Disciplina d;
+                        printf("Disciplina nao existe na base de dados! Deseja cria-la? [S/N]");
+                        c = p_scan_char_cond("snSN");
+                        switch (c) {
+                            case 's':
+                            case 'S':
+                                d.nome = str;
+                                d.docente = malloc(TAM_STR * sizeof(char));
+                                printf("Nome do docente: ");
+                                p_scan_nome(d.docente);
+                                *disciplinas = insereDisciplina(*disciplinas, d);
+                                exame->exame.disciplina = pesquisaDisciplinas(*disciplinas, str);
+                                disc = *disciplinas;
+                                break;
+                            case 'n':
+                            case 'N':
+                                disc = NULL;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+                break;
+            case 3:
+                printf("Epoca(n -> Normal, \nr-> Recurso, \ne-> Especial): ");
+                exame->exame.epoca = p_scan_char_cond("nre");
+                break;
+            case 4:
+                printf("Data do exame: ");
+                exame->exame.data = p_leData();
+                lst = moveExame(lst, exame);
+                removeConflito(exame);
+                break;
+            case 5:
+                printf("Hora do exame: ");
+                exame->exame.hora = p_leHora();
+                lst = moveExame(lst, exame);
+                removeConflito(exame);
+                break;
+            case 6:
+                printf("Duracao do exame(minutos): ");
+                exame->exame.duracao = p_scan_int();
+                break;
+            case 7:
+                break;
+            default:
+                printf("Opcao invalida! Escolha outra opcao...\n");
+                break;
+        }
+    }
+    return lst;
 }
 
 void imprimeExame(Exame exame) {
@@ -356,8 +528,8 @@ void imprimeExame(Exame exame) {
 }
 
 void imprimeExames(Lista_Exames exames) {
-    Lista_Exames ptr = exames;
-    for (ptr; ptr != NULL; ptr = ptr->next) {
+    Lista_Exames ptr;
+    for (ptr = exames; ptr; ptr = ptr->next) {
         imprimeExame(ptr->exame);
     }
 }
@@ -390,7 +562,7 @@ void imprimeExamesAluno(Lista_Alunos lst) {
 
 void inscreveAluno(Lista_Exames exames, Lista_Alunos alunos) {
     int num;
-    Lista_Exames exame;
+    Lista_Exames exame, a;
     Lista_Alunos aluno;
     imprimeExames(exames);
     printf("Numero do exame: ");
@@ -418,8 +590,10 @@ void inscreveAluno(Lista_Exames exames, Lista_Alunos alunos) {
         printf("O aluno referido nao tem acesso a epoca deste exame! Abortando...");
         return;
     }
-    inserePtrExame(aluno->aluno.exames, exame);
-    inserePtrAluno(exame->exame.alunos, aluno);
+    a = exame->next;
+    aluno->aluno.exames = inserePtrExame(aluno->aluno.exames, exame); //
+    exame->exame.alunos = inserePtrAluno(exame->exame.alunos, aluno);
+    exame->next = a;
 }
 
 void removeInscricao(Lista_Exames exames) {
@@ -455,7 +629,7 @@ void removeInscricao(Lista_Exames exames) {
     exame->exame.alunos = eliminaPtrAluno(exame->exame.alunos, num_a);
 }
 
-void verificaSalasSuficientes(Lista_Exames exames){
+void verificaSalasSuficientes(Lista_Exames exames) {
     Lista_Exames ptr = exames;
     Lista_Ptr_Alunos ptr_alunos;
     int exame, extra, resto;
@@ -479,7 +653,6 @@ void verificaSalasSuficientes(Lista_Exames exames){
         if (resto > 0)
             extra++;
         printf("Não há salas suficientes! Por favor acrescente mais %d salas\n", extra);
-    }
-    else
+    } else
         printf("Estao atribuidas salas suficientes para o numero de inscritos.\n");
 }

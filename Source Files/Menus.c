@@ -127,47 +127,67 @@ void menuInscricoes(Lista_Exames exames, Lista_Alunos alunos){
 }
 
 void menuExames(Lista_Alunos alunos, Lista_Exames *exames, Lista_Disciplinas *disciplinas){
-    int opcao, num;
-    printf("Gestao de exames \n Insira o numero da opcao desejada:\n");
-    printf("1 - Criar exame\n");
-    printf("2 - Configurar salas\n");
-    printf("3 - Eliminar exames realizados\n");
-    printf("4 - Listar exames\n");
-    printf("5 - Gerir inscricoes de alunos\n");
-    printf("6 - Listar alunos inscritos em exame\n");
-    printf("7 - Voltar\n");
-    scanf("%d", &opcao);
-    while (opcao < 1 || opcao > 7) {
-        printf("Por favor, insira o numero da operacao desejada (de 1 a 7):");
-        scanf("%d", &opcao);
-    }
-    switch (opcao) {
-        case 1:
-            *exames = criaExame(*exames, disciplinas);
-            break;
-        case 2:
-            menuSalas(*exames);
-            break;
-        case 3:
-            *exames = eliminaExamesAntigos(*exames);
-            break;
-        case 4:
-            imprimeExames(*exames);
-            break;
-        case 5:
-            menuInscricoes(*exames, alunos);
-            break;
-        case 6:
-            imprimeExames(*exames);
-            printf("Insira o numero do exame que pretende ver:\n");
-            while (scanf("%d", &num) == 0)
-                printf("Insira um NUMERO:\n");
-            imprimeAlunosInscritos(pesquisaNumExame(*exames, num)->exame);
-            break;
-        case 7:
-            return;
-        default:
-            break;
+    int opcao = 0, num;
+    while (opcao != 9) {
+        printf("Gestao de exames \n Insira o numero da opcao desejada:\n");
+        printf("1 - Criar exame\n");
+        printf("2 - Modificar exame\n");
+        printf("3 - Configurar salas\n");
+        printf("4 - Eliminar exame\n");
+        printf("5 - Eliminar exames realizados\n");
+        printf("6 - Listar exames\n");
+        printf("7 - Gerir inscricoes de alunos\n");
+        printf("8 - Listar alunos inscritos em exame\n");
+        printf("9 - Voltar\n");
+        opcao = p_scan_int();
+        while (opcao < 1 || opcao > 9) {
+            printf("Por favor, insira o numero da operacao desejada (de 1 a 9):");
+            opcao = p_scan_int();
+        }
+        switch (opcao) {
+            case 1:
+                *exames = criaExame(*exames, disciplinas);
+                break;
+            case 2:
+                *exames = modificaExame(*exames, disciplinas);
+                break;
+            case 3:
+                menuSalas(*exames);
+                break;
+            case 4:
+                if(*exames == NULL)
+                    printf("Nao ha exames para eliminar! Abortando...");
+                else {
+                    imprimeExames(*exames);
+                    printf("Numero do exame a eliminar: ");
+                    num = p_scan_int();
+                    while (pesquisaNumExame(*exames, num) == NULL) {
+                        printf("Nao existe exame com esse numero! Insira de novo: ");
+                        num = p_scan_int();
+                    }
+                    *exames = eliminaExame(*exames, num);
+                }
+                break;
+            case 5:
+                *exames = eliminaExamesAntigos(*exames);
+                break;
+            case 6:
+                imprimeExames(*exames);
+                break;
+            case 7:
+                menuInscricoes(*exames, alunos);
+                break;
+            case 8:
+                imprimeExames(*exames);
+                printf("Insira o numero do exame que pretende ver:\n");
+                num = p_scan_int();
+                imprimeAlunosInscritos(pesquisaNumExame(*exames, num)->exame);
+                break;
+            case 9:
+                break;
+            default:
+                break;
+        }
     }
 }
 

@@ -3,6 +3,7 @@
 
 int p_scan_int() {
     int num, s_check, test = 0;
+    fflush(stdin);
     s_check = scanf("%d", &num);
     test = getchar();
     fflush(stdin);
@@ -18,6 +19,7 @@ int p_scan_int() {
 int p_scan_numAluno(Lista_Alunos alunos) {
     int num, s_check, test = 0;
     Lista_Alunos e_check;
+    fflush(stdin);
     s_check = scanf("%d", &num);
     test = getchar();
     e_check = pesquisaNumAluno(alunos, num);
@@ -38,6 +40,7 @@ int p_scan_numAluno(Lista_Alunos alunos) {
 int p_scan_numExame(Lista_Exames exames) {
     int num, s_check, test = 0;
     Lista_Exames e_check;
+    fflush(stdin);
     s_check = scanf("%d", &num);
     test = getchar();
     e_check = pesquisaNumExame(exames, num);
@@ -57,6 +60,7 @@ int p_scan_numExame(Lista_Exames exames) {
 
 void p_scan_nome(char *str) {
     int is_num = 1;
+    fflush(stdin);
     gets(str);
     fflush(stdin);
     for (int i = 0; *(str + i) && is_num; i++)
@@ -77,6 +81,7 @@ void p_scan_nome(char *str) {
 char p_scan_char() {
     char ch;
     int test = 0;
+    fflush(stdin);
     scanf("%c", &ch);
     test = getchar();
     fflush(stdin);
@@ -92,7 +97,7 @@ char p_scan_char() {
 char p_scan_char_cond(char *alpha) {
     char ch;
     int test = 0, check = 0;
-    printf("-->%s<--\n", alpha);
+    fflush(stdin);
     scanf("%c", &ch);
     test = getchar();
     for (int i = 0; *(alpha + i) && check == 0; i++) {
@@ -122,6 +127,7 @@ char p_scan_char_cond(char *alpha) {
 Data p_leData() {
     int s_check, test = 0;
     Data data;
+    fflush(stdin);
     s_check = scanf("%d/%d/%d", &data.dia, &data.mes, &data.ano);
     test = getchar();
     fflush(stdin);
@@ -137,6 +143,7 @@ Data p_leData() {
 Hora p_leHora() {
     int s_check, test = 0;
     Hora hora;
+    fflush(stdin);
     s_check = scanf("%d:%d", &hora.horas, &hora.minutos);
     test = getchar();
     fflush(stdin);

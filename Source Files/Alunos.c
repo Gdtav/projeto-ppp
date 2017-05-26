@@ -15,7 +15,7 @@ Lista_Alunos pesquisaNumAluno(Lista_Alunos lst, int num) {
 Lista_Ptr_Alunos pesquisaNumPtrAluno(Lista_Ptr_Alunos lst, int num) {
     Lista_Ptr_Alunos ptr = lst;
     Lista_Ptr_Alunos find;
-    for (find = 0; ptr != NULL && find == 0; ptr = ptr->next)
+    for (find = NULL; ptr && find == NULL; ptr = ptr->next)
         find = (ptr->aluno->aluno.num == num) ? ptr : NULL;
     return find;
 }
@@ -73,19 +73,19 @@ Lista_Alunos insereAluno(Lista_Alunos lst, Aluno aluno) {
 
 Lista_Ptr_Alunos inserePtrAluno(Lista_Ptr_Alunos lst, Lista_Alunos aluno) {
     if (pesquisaNumPtrAluno(lst, aluno->aluno.num)) {
-        printf("Já existe um aluno com esse número na base de dados! Abortando...\n");
+        printf("Já existe um aluno com esse número inscrito! Abortando...\n");
         return lst;
     }
     Lista_Ptr_Alunos no;
     Lista_Ptr_Alunos ant, act;
     no = (Lista_Ptr_Alunos) malloc(sizeof(No_Ptr_Aluno));
-    if (no != NULL) {
+    if (no) {
         no->aluno = aluno;
         procuraPtrAluno(lst, aluno->aluno, &ant, &act);
-        if (ant != NULL) {
+        if (ant) {
             no->next = ant->next;
             no->prev = ant;
-            if (ant->next != NULL)
+            if (ant->next)
                 ant->next->prev = no;
             ant->next = no;
         } else {
@@ -208,15 +208,27 @@ Lista_Alunos modificaAluno(Lista_Alunos lst) {
             case 1:
                 printf("Numero do aluno: ");
                 aluno->aluno.num = p_scan_numAluno(lst);
-                procuraAluno(lst, aluno->aluno, &ant, &act);
                 if (aluno->prev)
                     aluno->prev->next = aluno->next;
                 else
                     lst = aluno->next;
                 if (aluno->next)
                     aluno->next->prev = aluno->prev;
-                lst = insereAluno(lst, aluno->aluno);
-                free(aluno);
+                procuraAluno(lst, aluno->aluno, &ant, &act);
+                if (ant) {
+                    aluno->next = ant->next;
+                    aluno->prev = ant;
+                    if (ant->next)
+                        ant->next->prev = aluno;
+                    ant->next = aluno;
+                }
+                else {
+                    if (lst)
+                        lst->prev = aluno;
+                    aluno->next = lst;
+                    aluno->prev = NULL;
+                    lst = aluno;
+                }
                 break;
             case 2:
                 printf("Introduza o novo nome: ");
@@ -275,5 +287,6 @@ void imprimeAlunos(Lista_Alunos alunos) {
     Lista_Alunos ptr = alunos;
     for (ptr; ptr != NULL; ptr = ptr->next) {
         imprimeAluno(ptr->aluno);
+        printf("\n");
     }
 }

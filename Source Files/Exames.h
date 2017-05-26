@@ -32,11 +32,19 @@ void atribuiSalas(Lista_Exames);
 
 Lista_Exames criaExame(Lista_Exames, Lista_Disciplinas *);
 
+Lista_Salas eliminaSala(Lista_Salas, char *);
+
 Lista_Ptr_Exames eliminaPtrExame(Lista_Ptr_Exames, int);
 
 Lista_Exames eliminaExame(Lista_Exames, int);
 
 Lista_Exames eliminaExamesAntigos(Lista_Exames);
+
+Lista_Exames moveExame(Lista_Exames, Lista_Exames);
+
+void removeConflito(Lista_Exames);
+
+Lista_Exames modificaExame(Lista_Exames, Lista_Disciplinas *);
 
 void imprimeExame(Exame);
 
@@ -50,6 +58,6 @@ void inscreveAluno(Lista_Exames, Lista_Alunos);
 
 void removeInscricao(Lista_Exames);
 
-void verificaSalasSuficientes(Lista_Exames );
+void verificaSalasSuficientes(Lista_Exames);
 
 #endif //PROJETO_EXAMES_H
