@@ -20,7 +20,7 @@ int main() {
     }
     exames = NULL;
     alunos = NULL;
-    disciplinas = leFicheiroDisciplinas(disciplinas,f_disciplinas);
+    leFicheiroDisciplinas(&disciplinas,f_disciplinas);
     menuPrincipal(&alunos, &exames, &disciplinas);
     return 0;
 }

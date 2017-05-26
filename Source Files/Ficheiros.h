@@ -8,7 +8,7 @@
 #include "Estruturas.h"
 #include "Disciplinas.h"
 
-Lista_Disciplinas leFicheiroDisciplinas(Lista_Disciplinas ,FILE *);
+void leFicheiroDisciplinas(Lista_Disciplinas *,FILE *);
 
 Lista_Alunos leFicheirosAlunos(Lista_Alunos ,FILE *);
 
