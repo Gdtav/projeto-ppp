@@ -10,6 +10,8 @@
 
 void leFicheiroDisciplinas(Lista_Disciplinas *,FILE *);
 
-Lista_Alunos leFicheirosAlunos(Lista_Alunos ,FILE *);
+void leFicheiroAlunos(Lista_Alunos *,FILE *);
+
+void leFicheiroExames(Lista_Exames *,FILE *);
 
 #endif //PROJETO_FICHEIROS_H
