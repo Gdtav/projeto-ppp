@@ -3,7 +3,6 @@
 //
 
 #include "Ficheiros.h"
-#include "Estruturas.h"
 
 void leFicheiroDisciplinas(Lista_Disciplinas *disciplinas, FILE *fich_disc){
     char *ptr;
@@ -220,7 +219,7 @@ void guardaFicheiroAlunos(Lista_Alunos alunos, FILE *fich_aln){
     }
 }
 
-void guardaFicheiroExames(Lista_Exames exames, FILE *fich_exms, Lista_Alunos alunos, Lista_Disciplinas disciplinas){
+void guardaFicheiroExames(Lista_Exames exames, FILE *fich_exms){
     for (exames; exames != NULL ; exames = exames->next) {
         fprintf(fich_exms,"%d\n",exames->exame.num);
         fprintf(fich_exms,"%d\n",exames->exame.duracao);

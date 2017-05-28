@@ -1,5 +1,4 @@
 #include "Exames.h"
-#include "Estruturas.h"
 
 Lista_Exames pesquisaNumExame(Lista_Exames lst, int num) {
     Lista_Exames ptr = lst;
