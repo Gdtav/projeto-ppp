@@ -34,6 +34,7 @@ void leFicheiroDisciplinas(Lista_Disciplinas *disciplinas, FILE *fich_disc){
 }
 
 void leFicheiroAlunos(Lista_Alunos *alunos, FILE *fich_aln){
+    int in;
     char *ptr;
     char *nome = malloc(TAM_STR * sizeof(char));
     char *curso = malloc(TAM_STR * sizeof(char));
@@ -41,16 +42,18 @@ void leFicheiroAlunos(Lista_Alunos *alunos, FILE *fich_aln){
     int numero, ano;
     char regime;
     while (fgets(nome, TAM_STR, fich_aln), fgets(curso, TAM_STR, fich_aln)) {
-        for(ptr = nome; ptr; ptr++){
+        in = 1;
+        for(ptr = nome; in; ptr++){
             if(*ptr == '\n'){
                 *ptr = '\0';
-                ptr = NULL;
+                in = 0;
             }
         }
-        for(ptr = curso; ptr; ptr++){
+        in = 1;
+        for(ptr = curso; in; ptr++){
             if(*ptr == '\n'){
                 *ptr = '\0';
-                ptr = NULL;
+                in = 0;
             }
         }
         Aluno aln;
@@ -59,19 +62,21 @@ void leFicheiroAlunos(Lista_Alunos *alunos, FILE *fich_aln){
         strcpy(aln.nome, nome);
         strcpy(aln.curso, curso);
         fgets(linha, TAM_STR, fich_aln);
-        for(ptr = linha; ptr; ptr++){
+        in = 1;
+        for(ptr = linha; in; ptr++){
             if(*ptr == '\n'){
                 *ptr = '\0';
-                ptr = NULL;
+                in = 0;
             }
         }
         numero = atoi(linha);
         aln.num = numero;
         fgets(linha, TAM_STR, fich_aln);
-        for(ptr = linha; ptr; ptr++){
+        in = 1;
+        for(ptr = linha; in; ptr++){
             if(*ptr == '\n'){
                 *ptr = '\0';
-                ptr = NULL;
+                in = 0;
             }
         }
         ano = atoi(linha);
@@ -90,91 +95,102 @@ void leFicheiroExames(Lista_Exames *exames, FILE *fich_exm, Lista_Disciplinas di
     char epoca;
     Data data;
     Hora hora;
+    int in;
     int num;
     int duracao;
     Lista_Salas salas = malloc(sizeof(Lista_Salas));
     Lista_Ptr_Alunos alns = malloc(sizeof(Lista_Ptr_Alunos));
     char *linha = malloc(TAM_STR * sizeof(char));
     while (fgets(linha, TAM_STR, fich_exm)) {
-        for(ptr = linha; ptr; ptr++){
+        in = 1;
+        for(ptr = linha; in; ptr++){
             if(*ptr == '\n'){
                 *ptr = '\0';
-                ptr = NULL;
+                in = 0;
             }
         }
         num = atoi(linha);
         fgets(linha, TAM_STR, fich_exm);
-        for(ptr = linha; ptr; ptr++){
+        in = 1;
+        for(ptr = linha; in; ptr++){
             if(*ptr == '\n'){
                 *ptr = '\0';
-                ptr = NULL;
+                in = 0;
             }
         }
         duracao = atoi(linha);
         epoca = (char) fgetc(fich_exm);
         fgets(linha, TAM_STR, fich_exm);
-        for(ptr = linha; ptr; ptr++){
+        in = 1;
+        for(ptr = linha; in; ptr++){
             if(*ptr == '\n'){
                 *ptr = '\0';
-                ptr = NULL;
+                in = 0;
             }
         }
         data.dia = atoi(linha);
         fgets(linha, TAM_STR, fich_exm);
-        for(ptr = linha; ptr; ptr++){
+        in = 1;
+        for(ptr = linha; in; ptr++){
             if(*ptr == '\n'){
                 *ptr = '\0';
-                ptr = NULL;
+                in = 0;
             }
         }
         data.mes = atoi(linha);
         fgets(linha, TAM_STR, fich_exm);
-        for(ptr = linha; ptr; ptr++){
+        in = 1;
+        for(ptr = linha; in; ptr++){
             if(*ptr == '\n'){
                 *ptr = '\0';
-                ptr = NULL;
+                in = 0;
             }
         }
         data.ano = atoi(linha);
         fgets(linha, TAM_STR, fich_exm);
-        for(ptr = linha; ptr; ptr++){
+        in = 1;
+        for(ptr = linha; in; ptr++){
             if(*ptr == '\n'){
                 *ptr = '\0';
-                ptr = NULL;
+                in = 0;
             }
         }
         hora.horas = atoi(linha);
         fgets(linha, TAM_STR, fich_exm);
-        for(ptr = linha; ptr; ptr++){
+        in = 1;
+        for(ptr = linha; in; ptr++){
             if(*ptr == '\n'){
                 *ptr = '\0';
-                ptr = NULL;
+                in = 0;
             }
         }
         hora.minutos = atoi(linha);
         fgets(linha, TAM_STR, fich_exm);
-        for(ptr = linha; ptr; ptr++){
+        in = 1;
+        for(ptr = linha; in; ptr++){
             if(*ptr == '\n'){
                 *ptr = '\0';
-                ptr = NULL;
+                in = 0;
             }
         }
         disciplina = pesquisaDisciplinas(disciplinas, linha);
         fgets(linha, TAM_STR, fich_exm);
-        for(ptr = linha; ptr; ptr++){
+        in = 1;
+        for(ptr = linha; in; ptr++){
             if(*ptr == '\n'){
                 *ptr = '\0';
-                ptr = NULL;
+                in = 0;
             }
         }
         while (!atoi(linha)) {
             strcpy(linha, salas->nome);
             salas = salas->next;
             fgets(linha, TAM_STR, fich_exm);
-            for(ptr = linha; ptr; ptr++){
+            in = 1;
+            for(ptr = linha; in; ptr++){
                 if(*ptr == '\n'){
                     *ptr = '\0';
-                    ptr = NULL;
+                    in = 0;
                 }
             }
         }
@@ -182,10 +198,11 @@ void leFicheiroExames(Lista_Exames *exames, FILE *fich_exm, Lista_Disciplinas di
             alns->aluno = pesquisaNumAluno(alunos, atoi(linha));
             alns = alns->next;
             fgets(linha, TAM_STR, fich_exm);
-            for(ptr = linha; ptr; ptr++){
+            in = 1;
+            for(ptr = linha; in; ptr++){
                 if(*ptr == '\n'){
                     *ptr = '\0';
-                    ptr = NULL;
+                    in = 0;
                 }
             }
         }
