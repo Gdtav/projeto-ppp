@@ -28,8 +28,6 @@ void leFicheiroDisciplinas(Lista_Disciplinas *disciplinas, FILE *fich_disc){
         strcpy(disc.nome, nome);
         strcpy(disc.docente, docente);
         *disciplinas = insereDisciplina(*disciplinas, disc);
-        printf("%s\n", disc.nome);
-        printf("%s\n", disc.docente);
     }
 }
 
@@ -197,11 +195,49 @@ void leFicheiroExames(Lista_Exames *exames, FILE *fich_exm, Lista_Disciplinas di
         exm.data = data;
         exm.duracao = duracao;
         exm.hora = hora;
-        insereExame(*exames, exm);
+        *exames = insereExame(*exames, exm);
+        for (exm.alunos; exm.alunos != NULL ; exm.alunos = exm.alunos->next) {
+            exm.alunos->aluno->aluno.exames = inserePtrExame(exm.alunos->aluno->aluno.exames,*exames);
+        }
         fgets(linha, TAM_STR, fich_exm);
     }
 }
 
 void guardaFicheiroDisciplinas(Lista_Disciplinas disciplinas, FILE *fich_disc){
-    
+    for (disciplinas;disciplinas != NULL; disciplinas = disciplinas->next) {
+        fprintf(fich_disc,"%s\n",disciplinas->disciplina.nome);
+        fprintf(fich_disc,"%s\n",disciplinas->disciplina.docente);
+    }
+}
+
+void guardaFicheiroAlunos(Lista_Alunos alunos, FILE *fich_aln){
+    for (alunos; alunos != NULL ; alunos = alunos->next) {
+        fprintf(fich_aln,"%s\n",alunos->aluno.nome);
+        fprintf(fich_aln,"%s\n",alunos->aluno.curso);
+        fprintf(fich_aln,"%d\n",alunos->aluno.num);
+        fprintf(fich_aln,"%d\n",alunos->aluno.ano);
+        fprintf(fich_aln,"%c\n",alunos->aluno.regime);
+    }
+}
+
+void guardaFicheiroExames(Lista_Exames exames, FILE *fich_exms, Lista_Alunos alunos, Lista_Disciplinas disciplinas){
+    for (exames; exames != NULL ; exames = exames->next) {
+        fprintf(fich_exms,"%d\n",exames->exame.num);
+        fprintf(fich_exms,"%d\n",exames->exame.duracao);
+        fprintf(fich_exms,"%c\n",exames->exame.epoca);
+        fprintf(fich_exms,"%d\n",exames->exame.data.dia);
+        fprintf(fich_exms,"%d\n",exames->exame.data.mes);
+        fprintf(fich_exms,"%d\n",exames->exame.data.ano);
+        fprintf(fich_exms,"%d\n",exames->exame.hora.horas);
+        fprintf(fich_exms,"%d\n",exames->exame.hora.minutos);
+        fprintf(fich_exms,"%s\n",exames->exame.disciplina->disciplina.nome);
+        do {
+            fprintf(fich_exms,"%s\n",exames->exame.salas->nome);
+            exames->exame.salas = exames->exame.salas->next;
+        } while (exames->exame.salas != NULL);
+        do {
+            fprintf(fich_exms,"%d\n",exames->exame.alunos->aluno->aluno.num);
+            exames->exame.alunos = exames->exame.alunos->next;
+        } while (exames->exame.alunos != NULL);
+    }
 }
