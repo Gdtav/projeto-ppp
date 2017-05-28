@@ -62,7 +62,7 @@ Lista_Exames insereExame(Lista_Exames lst, Exame exame) {
     }
     Lista_Exames no;
     Lista_Exames ant, act;
-    no = malloc(sizeof(No_Aluno));
+    no = malloc(sizeof(No_Exame));
     if (no) {
         no->exame = exame;
         procuraExame(lst, exame, &ant, &act);
@@ -268,6 +268,7 @@ Lista_Exames criaExame(Lista_Exames exames, Lista_Disciplinas *disciplinas) {
     novo.hora = p_leHora();
     printf("Duracao do exame(minutos): ");
     novo.duracao = p_scan_int();
+    novo.salas = NULL;
     novo.alunos = NULL;
     exames = insereExame(exames, novo);
     return exames;
