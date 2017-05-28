@@ -132,7 +132,7 @@ Data p_leData() {
     test = getchar();
     fflush(stdin);
     while (s_check != 3 || test != '\n') {
-        printf("Insira a data na forma 'dia/mes/ano': ");
+        printf("Insira a data valida no formato 'dd/mm/aaaa': ");
         s_check = scanf("%d/%d/%d", &data.dia, &data.mes, &data.ano);
         test = getchar();
         fflush(stdin);
@@ -141,15 +141,20 @@ Data p_leData() {
 }
 
 Hora p_leHora() {
-    int s_check, test = 0;
+    int s_check, test = 0, format = 0;
     Hora hora;
     fflush(stdin);
     s_check = scanf("%d:%d", &hora.horas, &hora.minutos);
     test = getchar();
+    if(s_check == 2 || test == '\n')
+        format = (hora.horas > 23 || hora.horas < 0 || hora.minutos > 59 || hora.minutos < 0)? 1 : 0;
     fflush(stdin);
-    while (s_check != 2 || test != '\n') {
+    while (s_check != 2 || test != '\n' || format) {
+        printf("Insira uma hora válida no formato 'hh:mm'");
         s_check = scanf("%d:%d", &hora.horas, &hora.minutos);
         test = getchar();
+        if(s_check == 2 || test == '\n')
+            format = (hora.horas > 23 || hora.horas < 0 || hora.minutos > 59 || hora.minutos < 0)? 1 : 0;
         fflush(stdin);
     }
     return hora;

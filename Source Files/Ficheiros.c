@@ -1,25 +1,26 @@
 //
 // Created by guilh on 23/05/2017.
 //
-
 #include "Ficheiros.h"
-#include "Estruturas.h"
 
 void leFicheiroDisciplinas(Lista_Disciplinas *disciplinas, FILE *fich_disc){
-    char *ptr;
-    char *nome = malloc(TAM_STR * sizeof(char));
-    char *docente = malloc(TAM_STR * sizeof(char));
-    while (fgets(nome, TAM_STR, fich_disc), fgets(docente, TAM_STR, fich_disc)) {
-        for(ptr = nome; ptr; ptr++){
+    char *ptr = NULL;
+    int in = 1;
+    char *nome;
+    char *docente = (char *) malloc(TAM_STR * sizeof(char));
+    nome = malloc(TAM_STR * sizeof(char));
+    while (fgets(nome, TAM_STR, fich_disc) && fgets(docente, TAM_STR, fich_disc)) {
+        for(ptr = nome; in; ptr++){
             if(*ptr == '\n'){
                 *ptr = '\0';
-                ptr = NULL;
+                in = 0;
             }
         }
-        for(ptr = docente; ptr; ptr++){
+        in = 1;
+        for(ptr = docente; in; ptr++){
             if(*ptr == '\n'){
                 *ptr = '\0';
-                ptr = NULL;
+                in = 0;
             }
         }
         Disciplina disc;
