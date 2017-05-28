@@ -34,55 +34,24 @@ void leFicheiroDisciplinas(Lista_Disciplinas *disciplinas, FILE *fich_disc){
 }
 
 void leFicheiroAlunos(Lista_Alunos *alunos, FILE *fich_aln){
-    int in;
-    char *ptr;
-    char *nome = malloc(TAM_STR * sizeof(char));
-    char *curso = malloc(TAM_STR * sizeof(char));
-    char *linha = malloc(TAM_STR * sizeof(char));
+    char *str1 = malloc(TAM_STR * sizeof(char));
+    char *str2 = malloc(TAM_STR * sizeof(char));
     int numero, ano;
     char regime;
-    while (fgets(nome, TAM_STR, fich_aln), fgets(curso, TAM_STR, fich_aln)) {
-        in = 1;
-        for(ptr = nome; in; ptr++){
-            if(*ptr == '\n'){
-                *ptr = '\0';
-                in = 0;
-            }
-        }
-        in = 1;
-        for(ptr = curso; in; ptr++){
-            if(*ptr == '\n'){
-                *ptr = '\0';
-                in = 0;
-            }
-        }
+    while (fscanf(fich_aln, "%[^\n]\n%[^\n]\n%d\n%d\n%c\n", str1, str2, &numero, &ano, &regime) == 5) {
         Aluno aln;
         aln.nome = malloc(TAM_STR * sizeof(char));
         aln.curso = malloc(TAM_STR * sizeof(char));
-        strcpy(aln.nome, nome);
-        strcpy(aln.curso, curso);
-        fgets(linha, TAM_STR, fich_aln);
-        in = 1;
-        for(ptr = linha; in; ptr++){
-            if(*ptr == '\n'){
-                *ptr = '\0';
-                in = 0;
-            }
-        }
-        numero = atoi(linha);
+        strcpy(aln.nome, str1);
+        printf("%s\n", aln.nome);
+        strcpy(aln.curso, str2);
+        printf("%s\n", aln.curso);
         aln.num = numero;
-        fgets(linha, TAM_STR, fich_aln);
-        in = 1;
-        for(ptr = linha; in; ptr++){
-            if(*ptr == '\n'){
-                *ptr = '\0';
-                in = 0;
-            }
-        }
-        ano = atoi(linha);
+        printf("%d\n", numero);
         aln.ano = ano;
-        regime = (char) fgetc(fich_aln);
+        printf("%d\n", ano);
         aln.regime = regime;
+        printf("%c\n", regime);
         aln.exames = NULL;
         *alunos = insereAluno(*alunos, aln);
     }

@@ -309,10 +309,17 @@ Lista_Ptr_Exames eliminaPtrExame(Lista_Ptr_Exames lst, int num) {
 Lista_Exames eliminaExame(Lista_Exames lst, int num) {
     Lista_Exames exame;
     Lista_Ptr_Alunos ptr;
-    exame = pesquisaNumExame(lst, num);
-    if (exame == NULL) {
-        printf("Nao existe exame na base de dados com esse numero! Abortando...\n");
+    if (lst == NULL) {
+        printf("Nao ha exames na base de dados! Abortando...\n");
         return lst;
+    }
+    printf("Numero do exame a modificar: ");
+    num = p_scan_int();
+    exame = pesquisaNumExame(lst, num);
+    while (exame == NULL) {
+        printf("Nao existe exame com esse numero! Insira de novo: ");
+        num = p_scan_int();
+        exame = pesquisaNumExame(lst, num);
     }
     if (exame->next != NULL)
         exame->next->prev = exame->prev;
@@ -541,20 +548,9 @@ void imprimeAlunosInscritos(Exame exame) {
     }
 }
 
-void imprimeExamesAluno(Lista_Alunos lst) {
+void imprimeExamesAluno(Aluno aluno) {
     Lista_Ptr_Exames ptr;
-    int num;
-    Lista_Alunos no;
-    printf("Numero do aluno: ");
-    scanf("%d", &num);
-    while (scanf("%d", &num) == 0)
-        printf("Insira um NUMERO: ");
-    no = pesquisaNumAluno(lst, num);
-    if (no == NULL) {
-        printf("Nao existe aluno na base de dados com esse numero! Abortando...\n");
-        return;
-    }
-    for (ptr = no->aluno.exames; ptr; ptr = ptr->next) {
+    for (ptr = aluno.exames; ptr; ptr = ptr->next) {
         imprimeExame(ptr->exame->exame);
         printf("\n");
     }

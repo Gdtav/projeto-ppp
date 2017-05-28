@@ -52,7 +52,7 @@ void imprimeExames(Lista_Exames);
 
 void imprimeAlunosInscritos(Exame);
 
-void imprimeExamesAluno(Lista_Alunos);
+void imprimeExamesAluno(Aluno);
 
 void inscreveAluno(Lista_Exames, Lista_Alunos);
 

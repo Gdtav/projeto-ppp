@@ -79,15 +79,18 @@ Lista_Disciplinas criaDisciplina(Lista_Disciplinas disciplinas){
 Lista_Disciplinas eliminaDisciplina(Lista_Disciplinas disciplinas, Lista_Exames *exames){
     Lista_Disciplinas no;
     Lista_Exames ptr;
-    printf("Insira o nome da disciplina que deseja eliminar:\n");
-    imprimeDisciplinas(disciplinas);
     char *nome = (char *) malloc(TAM_STR * sizeof(char));
+    imprimeDisciplinas(disciplinas);
+    printf("Insira o nome da disciplina que deseja eliminar:\n");
     fflush(stdin);
     gets(nome);
     no = pesquisaDisciplinas(disciplinas, nome);
-    if (no == NULL) {
-        printf("Essa disciplina nao existe. Abortando...");
-        return disciplinas;
+    fflush(stdin);
+    while (no == NULL) {
+        printf("Essa disciplina nao existe! Insira de novo: ");
+        gets(nome);
+        no = pesquisaDisciplinas(disciplinas, nome);
+        fflush(stdin);
     }
     for (ptr = (*exames); ptr; ptr = ptr->next) {
         if (ptr->exame.disciplina == no) {
@@ -108,19 +111,26 @@ Lista_Disciplinas eliminaDisciplina(Lista_Disciplinas disciplinas, Lista_Exames 
 
 Lista_Disciplinas modificaDisciplina(Lista_Disciplinas disciplinas){
     Lista_Disciplinas no;
-    printf("Insira o nome da disciplina que deseja modificar:\n");
-    imprimeDisciplinas(disciplinas);
     char *nome = (char *) malloc(TAM_STR * sizeof(char));
     char *docente = (char *) malloc(TAM_STR * sizeof(char));
+    if (disciplinas == NULL) {
+        printf("Nao ha exames na base de dados! Abortando...\n");
+        return disciplinas;
+    }
+    printf("Disciplinas:\n");
+    imprimeDisciplinas(disciplinas);
+    printf("Insira o nome da disciplina que deseja modificar:\n");
     fflush(stdin);
     gets(nome);
     no = pesquisaDisciplinas(disciplinas, nome);
-    if (no == NULL) {
-        printf("Essa disciplina nao existe. Abortando...");
-        return disciplinas;
+    fflush(stdin);
+    while (no == NULL) {
+        printf("Essa disciplina nao existe! Insira de novo: ");
+        gets(nome);
+        no = pesquisaDisciplinas(disciplinas, nome);
+        fflush(stdin);
     }
     printf("Insira o novo nome da disciplina:\n");
-    fflush(stdin);
     gets(nome);
     no->disciplina.nome = nome;
     printf("Insira o novo nome do docente:\n");

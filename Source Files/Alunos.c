@@ -166,9 +166,18 @@ Lista_Alunos eliminaAluno(Lista_Alunos lst) {
     int num;
     Lista_Alunos aluno;
     Lista_Ptr_Exames ptr;
-    printf("Numero do aluno a eliminar: ");
-    num = p_scan_numAluno(lst);
+    if (lst == NULL) {
+        printf("Nao ha alunos na base de dados! Abortando...\n");
+        return lst;
+    }
+    printf("Numero do aluno a modificar: ");
+    num = p_scan_int();
     aluno = pesquisaNumAluno(lst, num);
+    while (aluno == NULL) {
+        printf("Nao existe aluno com esse numero! Insira de novo: ");
+        num = p_scan_int();
+        aluno = pesquisaNumAluno(lst, num);
+    }
     if (aluno->next != NULL)
         aluno->next->prev = aluno->prev;
     if (aluno->prev != NULL)

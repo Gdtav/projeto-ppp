@@ -6,6 +6,8 @@
 
 void menuAlunos(Lista_Alunos *alunos){
     int opcao = 0;
+    int num;
+    Lista_Alunos aluno;
     while (opcao != 6) {
         printf("Gestao de alunos \n Insira o numero da opcao desejada:\n");
         printf("1 - Adicionar aluno\n");
@@ -30,7 +32,19 @@ void menuAlunos(Lista_Alunos *alunos){
                 *alunos = eliminaAluno(*alunos);
                 break;
             case 4:
-                imprimeExamesAluno(*alunos);
+                if (*alunos == NULL) {
+                    printf("Nao ha alunos na base de dados! Abortando...\n");
+                    return;
+                }
+                printf("Numero do aluno: ");
+                num = p_scan_int();
+                aluno = pesquisaNumAluno(*alunos, num);
+                while (aluno == NULL) {
+                    printf("Nao existe aluno com esse numero! Insira de novo: ");
+                    num = p_scan_int();
+                    aluno = pesquisaNumAluno(*alunos, num);
+                }
+                imprimeExamesAluno(aluno->aluno);
                 break;
             case 5:
                 imprimeAlunos(*alunos);
@@ -128,6 +142,7 @@ void menuInscricoes(Lista_Exames exames, Lista_Alunos alunos){
 
 void menuExames(Lista_Alunos alunos, Lista_Exames *exames, Lista_Disciplinas *disciplinas){
     int opcao = 0, num;
+    Lista_Exames exame;
     while (opcao != 9) {
         printf("Gestao de exames \n Insira o numero da opcao desejada:\n");
         printf("1 - Criar exame\n");
@@ -179,9 +194,19 @@ void menuExames(Lista_Alunos alunos, Lista_Exames *exames, Lista_Disciplinas *di
                 break;
             case 8:
                 imprimeExames(*exames);
+                if (*exames == NULL) {
+                    printf("Nao ha exames na base de dados! Abortando...\n");
+                    break;
+                }
                 printf("Insira o numero do exame que pretende ver:\n");
                 num = p_scan_int();
-                imprimeAlunosInscritos(pesquisaNumExame(*exames, num)->exame);
+                exame = pesquisaNumExame(*exames, num);
+                while (exame == NULL) {
+                    printf("Nao existe exame com esse numero! Insira de novo: ");
+                    num = p_scan_int();
+                    exame = pesquisaNumExame(*exames, num);
+                }
+                imprimeAlunosInscritos(exame->exame);
                 break;
             case 9:
                 break;
