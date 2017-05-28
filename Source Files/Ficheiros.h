@@ -8,8 +8,10 @@
 #include "Estruturas.h"
 #include "Disciplinas.h"
 
-void leFicheiroDisciplinas(Lista_Disciplinas *,FILE *);
+void leFicheiroDisciplinas(Lista_Disciplinas *,FILE * );
 
-Lista_Alunos leFicheirosAlunos(Lista_Alunos ,FILE *);
+void leFicheiroAlunos(Lista_Alunos *,FILE * );
+
+void leFicheiroExames(Lista_Exames *,FILE * ,Lista_Disciplinas ,Lista_Alunos );
 
 #endif //PROJETO_FICHEIROS_H

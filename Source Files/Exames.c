@@ -587,7 +587,7 @@ void inscreveAluno(Lista_Exames exames, Lista_Alunos alunos) {
             printf("Insira um NUMERO: ");
     }
     aluno = pesquisaNumAluno(alunos, num);
-    if (exame->exame.epoca == 'e' && aluno->aluno.regime == 'n') {
+    if (exame->exame.epoca == 'e' && (((aluno->aluno.regime == 'n') && (aluno->aluno.ano != 3)) || (aluno->aluno.regime == 'e'))) {
         printf("O aluno referido nao tem acesso a epoca deste exame! Abortando...");
         return;
     }
@@ -616,12 +616,12 @@ void removeInscricao(Lista_Exames exames) {
     imprimeExame(exame->exame);
     printf("Alunos inscritos:\n");
     imprimeAlunosInscritos(exame->exame);
-    printf("\nNumero do aluno a inscrever: ");
+    printf("\nNumero do aluno a desinscrever: ");
     while (scanf("%d", &num_a) == 0)
         printf("Insira um NUMERO: ");
     while (pesquisaNumPtrAluno(exame->exame.alunos, num_a) == NULL) {
         printf("Nao existe aluno na base de dados com esse numero!\n");
-        printf("Numero do aluno a inscrever: ");
+        printf("Numero do aluno a desinscrever: ");
         while (scanf("%d", &num_a) == 0)
             printf("Insira um NUMERO: ");
     }

@@ -14,13 +14,13 @@ int main() {
     f_alunos = fopen("Alunos.txt","r");
     f_disciplinas = fopen("Disciplinas.txt","r");
     if (f_exames == NULL || f_alunos == NULL || f_disciplinas == NULL) {
-        printf("Erro. Nao foi possível aceder aos dados. Pressione enter para sair");
+        printf("Erro. Nao foi possivel aceder aos dados. Pressione enter para sair");
         if (getc(stdin))
             return -1;
     }
-    exames = NULL;
-    alunos = NULL;
     leFicheiroDisciplinas(&disciplinas,f_disciplinas);
+    leFicheiroAlunos(&alunos,f_alunos);
+    exames = NULL;
     menuPrincipal(&alunos, &exames, &disciplinas);
     return 0;
 }
