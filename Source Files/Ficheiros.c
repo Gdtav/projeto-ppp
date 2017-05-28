@@ -209,6 +209,8 @@ void guardaFicheiroAlunos(Lista_Alunos alunos, FILE *fich_aln){
 }
 
 void guardaFicheiroExames(Lista_Exames exames, FILE *fich_exms){
+    Lista_Salas ptr = malloc(sizeof(Lista_Salas));
+    Lista_Ptr_Alunos ptr_aln = malloc(sizeof(Lista_Ptr_Alunos));
     for (exames; exames != NULL ; exames = exames->next) {
         fprintf(fich_exms,"%d\n",exames->exame.num);
         fprintf(fich_exms,"%d\n",exames->exame.duracao);
@@ -219,13 +221,15 @@ void guardaFicheiroExames(Lista_Exames exames, FILE *fich_exms){
         fprintf(fich_exms,"%d\n",exames->exame.hora.horas);
         fprintf(fich_exms,"%d\n",exames->exame.hora.minutos);
         fprintf(fich_exms,"%s\n",exames->exame.disciplina->disciplina.nome);
-        do {
-            fprintf(fich_exms,"%s\n",exames->exame.salas->nome);
-            exames->exame.salas = exames->exame.salas->next;
-        } while (exames->exame.salas != NULL);
-        do {
-            fprintf(fich_exms,"%d\n",exames->exame.alunos->aluno->aluno.num);
-            exames->exame.alunos = exames->exame.alunos->next;
-        } while (exames->exame.alunos != NULL);
+        while (ptr != NULL) {
+            ptr = exames->exame.salas;
+            fprintf(fich_exms,"%s\n",ptr->nome);
+            ptr = ptr->next;
+        }
+        while (ptr_aln != NULL) {
+            ptr_aln = exames->exame.alunos;
+            fprintf(fich_exms,"%d\n",ptr_aln->aluno->aluno.num);
+            ptr_aln = ptr_aln->next;
+        }
     }
 }
