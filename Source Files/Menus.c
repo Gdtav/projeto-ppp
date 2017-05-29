@@ -16,10 +16,10 @@ void menuAlunos(Lista_Alunos *alunos){
         printf("4 - Listar exames do aluno\n");
         printf("5 - Listar todos os alunos\n");
         printf("6 - Voltar\n");
-        scanf("%d", &opcao);
+        opcao = p_scan_int();
         while (opcao < 1 || opcao > 6) {
             printf("Por favor, insira o numero da operacao desejada (de 1 a 6):");
-            scanf("%d", &opcao);
+            opcao = p_scan_int();
         }
         switch (opcao) {
             case 1:
@@ -65,10 +65,10 @@ void menuDisciplinas(Lista_Disciplinas *disciplinas, Lista_Exames *exames){
     printf("3 - Eliminar disciplina\n");
     printf("4 - Listar todas as disciplinas\n");
     printf("5 - Voltar\n");
-    scanf("%d", &opcao);
+    opcao = p_scan_int();
     while (opcao < 1 || opcao > 5) {
         printf("Por favor, insira o numero da operacao desejada (de 1 a 5):");
-        scanf("%d", &opcao);
+        opcao = p_scan_int();
     }
     switch (opcao) {
         case 1:
@@ -96,10 +96,10 @@ void menuSalas(Lista_Exames exames){
     printf("1 - Atribuir salas a exame\n");
     printf("2 - Verificar salas suficientes\n");
     printf("3 - Voltar\n");
-    scanf("%d", &opcao);
+    opcao = p_scan_int();
     while (opcao < 1 || opcao > 3) {
         printf("Por favor, insira o numero da operacao desejada (de 1 a 3):");
-        scanf("%d", &opcao);
+        opcao = p_scan_int();
     }
     switch (opcao) {
         case 1:
@@ -121,10 +121,10 @@ void menuInscricoes(Lista_Exames exames, Lista_Alunos alunos){
     printf("1 - Adicionar aluno a exame\n");
     printf("2 - Remover aluno de exame\n");
     printf("3 - Voltar\n");
-    scanf("%d", &opcao);
+    opcao = p_scan_int();
     while (opcao < 1 || opcao > 3) {
         printf("Por favor, insira o numero da operacao desejada (de 1 a 3):");
-        scanf("%d", &opcao);
+        opcao = p_scan_int();
     }
     switch (opcao) {
         case 1:
@@ -224,10 +224,10 @@ void menuPrincipal(Lista_Alunos *alunos, Lista_Exames *exames, Lista_Disciplinas
         printf("2 - gerir disciplinas\n");
         printf("3 - Gerir exames\n");
         printf("4 - Sair\n");
-        scanf("%d", &opcao);
+        opcao = p_scan_int();
         while (opcao < 1 || opcao > 4) {
             printf("Por favor, insira o numero da operacao desejada (de 1 a 4):");
-            scanf("%d", &opcao);
+            opcao = p_scan_int();
         }
         switch (opcao) {
             case 1:

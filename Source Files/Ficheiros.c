@@ -43,15 +43,15 @@ void leFicheiroAlunos(Lista_Alunos *alunos, FILE *fich_aln){
         aln.nome = malloc(TAM_STR * sizeof(char));
         aln.curso = malloc(TAM_STR * sizeof(char));
         strcpy(aln.nome, str1);
-        printf("%s\n", aln.nome);
+        //printf("%s\n", aln.nome);
         strcpy(aln.curso, str2);
-        printf("%s\n", aln.curso);
+        //printf("%s\n", aln.curso);
         aln.num = numero;
-        printf("%d\n", numero);
+        //printf("%d\n", numero);
         aln.ano = ano;
-        printf("%d\n", ano);
+        //printf("%d\n", ano);
         aln.regime = regime;
-        printf("%c\n", regime);
+        //printf("%c\n", regime);
         aln.exames = NULL;
         *alunos = insereAluno(*alunos, aln);
     }
