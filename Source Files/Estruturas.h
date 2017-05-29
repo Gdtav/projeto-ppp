@@ -65,7 +65,8 @@ typedef struct no_ptr_exame {
 
 typedef struct aluno {
     char *nome;
-    int num, ano;
+    long num;
+    long ano;
     char *curso;
     char regime;// n -> normal, t -> trabalhador-estudante, a -> atleta, d -> dirigente associativo, e -> aluno de Erasmus
     Lista_Ptr_Exames exames;

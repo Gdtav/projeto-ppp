@@ -117,6 +117,7 @@ void menuSalas(Lista_Exames exames){
 
 void menuInscricoes(Lista_Exames exames, Lista_Alunos alunos){
     int opcao;
+    Lista_Exames exame;
     printf("Gestao de inscricoes \n Por favor insira a opcao desejada:\n");
     printf("1 - Adicionar aluno a exame\n");
     printf("2 - Remover aluno de exame\n");
@@ -176,11 +177,13 @@ void menuExames(Lista_Alunos alunos, Lista_Exames *exames, Lista_Disciplinas *di
                     imprimeExames(*exames);
                     printf("Numero do exame a eliminar: ");
                     num = p_scan_int();
-                    while (pesquisaNumExame(*exames, num) == NULL) {
+                    exame = pesquisaNumExame(*exames, num);
+                    while (exame == NULL) {
                         printf("Nao existe exame com esse numero! Insira de novo: ");
                         num = p_scan_int();
+                        exame = pesquisaNumExame(*exames, num);
                     }
-                    *exames = eliminaExame(*exames, num);
+                    *exames = eliminaExame(*exames, exame);
                 }
                 break;
             case 5:

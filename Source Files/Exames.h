@@ -36,7 +36,7 @@ Lista_Salas eliminaSala(Lista_Salas, char *);
 
 Lista_Ptr_Exames eliminaPtrExame(Lista_Ptr_Exames, int);
 
-Lista_Exames eliminaExame(Lista_Exames, int);
+Lista_Exames eliminaExame(Lista_Exames, Lista_Exames);
 
 Lista_Exames eliminaExamesAntigos(Lista_Exames);
 

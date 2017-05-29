@@ -2,7 +2,6 @@
 // Created by guilh on 23/05/2017.
 //
 #include "Ficheiros.h"
-#include "Estruturas.h"
 
 void leFicheiroDisciplinas(Lista_Disciplinas *disciplinas, FILE *fich_disc){
     char *ptr = NULL;
@@ -105,8 +104,8 @@ void guardaFicheiroAlunos(Lista_Alunos alunos, FILE *fich_aln){
     for (alunos; alunos != NULL ; alunos = alunos->next) {
         fprintf(fich_aln,"%s\n",alunos->aluno.nome);
         fprintf(fich_aln,"%s\n",alunos->aluno.curso);
-        fprintf(fich_aln,"%d\n",alunos->aluno.num);
-        fprintf(fich_aln,"%d\n",alunos->aluno.ano);
+        fprintf(fich_aln,"%ld\n",alunos->aluno.num);
+        fprintf(fich_aln,"%ld\n",alunos->aluno.ano);
         fprintf(fich_aln,"%c\n",alunos->aluno.regime);
     }
 }
@@ -130,7 +129,7 @@ void guardaFicheiroExames(Lista_Exames exames, FILE *fich_exms){
         fprintf(fich_exms,"/\n");
         ptr_aln = exames->exame.alunos;
         while (ptr_aln) {
-            fprintf(fich_exms,"%d\n",ptr_aln->aluno->aluno.num);
+            fprintf(fich_exms,"%ld\n",ptr_aln->aluno->aluno.num);
             ptr_aln = ptr_aln->next;
         }
     }

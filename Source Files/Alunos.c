@@ -265,10 +265,10 @@ Lista_Alunos modificaAluno(Lista_Alunos lst) {
 }
 
 void imprimeAluno(Aluno aluno) {
-    printf("Numero: %d\n", aluno.num);
+    printf("Numero: %ld\n", aluno.num);
     printf("Nome: %s\n", aluno.nome);
     printf("Curso: %s\n", aluno.curso);
-    printf("Matriculas: %d\n", aluno.ano);
+    printf("Matriculas: %ld\n", aluno.ano);
     printf("Regime: ");
     switch (aluno.regime) {
         case 'n':

@@ -13,9 +13,9 @@
 #include "Disciplinas.h"
 #include "Tempo.h"
 
-int p_scan_int();
+long p_scan_int();
 
-int p_scan_numAluno(Lista_Alunos );
+long p_scan_numAluno(Lista_Alunos );
 
 int p_scan_numExame(Lista_Exames );
 

@@ -92,9 +92,12 @@ Lista_Disciplinas eliminaDisciplina(Lista_Disciplinas disciplinas, Lista_Exames 
         no = pesquisaDisciplinas(disciplinas, nome);
         fflush(stdin);
     }
-    for (ptr = (*exames); ptr; ptr = ptr->next) {
-        if (ptr->exame.disciplina == no) {
-            *exames = eliminaExame(*exames, ptr->exame.num);
+    ptr = (*exames);
+    while(ptr){
+        Lista_Exames ptr2 = ptr;
+        ptr = ptr->next;
+        if (ptr2->exame.disciplina == no) {
+            *exames = eliminaExame(*exames, ptr2);
         }
     }
     if (no->next != NULL)

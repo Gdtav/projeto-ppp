@@ -306,21 +306,8 @@ Lista_Ptr_Exames eliminaPtrExame(Lista_Ptr_Exames lst, int num) {
     return lst;
 }
 
-Lista_Exames eliminaExame(Lista_Exames lst, int num) {
-    Lista_Exames exame;
+Lista_Exames eliminaExame(Lista_Exames lst, Lista_Exames exame) {
     Lista_Ptr_Alunos ptr;
-    if (lst == NULL) {
-        printf("Nao ha exames na base de dados! Abortando...\n");
-        return lst;
-    }
-    printf("Numero do exame a modificar: ");
-    num = p_scan_int();
-    exame = pesquisaNumExame(lst, num);
-    while (exame == NULL) {
-        printf("Nao existe exame com esse numero! Insira de novo: ");
-        num = p_scan_int();
-        exame = pesquisaNumExame(lst, num);
-    }
     if (exame->next != NULL)
         exame->next->prev = exame->prev;
     if (exame->prev != NULL)
@@ -341,9 +328,12 @@ Lista_Exames eliminaExamesAntigos(Lista_Exames exames) {
     Data data;
     printf("Por favor insira a data até onde quer eliminar (inclusive):\n");
     data = leData();
-    for (ptr = exames; ptr; ptr = ptr->next) {
+    ptr = exames;
+    while(ptr){
+        Lista_Exames ptr2 = ptr;
+        ptr = ptr->next;
         if (cmpData(data, ptr->exame.data) >= 0) {
-            exames = eliminaExame(exames, ptr->exame.num);
+            exames = eliminaExame(exames, ptr2);
         }
     }
     return exames;
@@ -544,7 +534,7 @@ void imprimeExames(Lista_Exames exames) {
 void imprimeAlunosInscritos(Exame exame) {
     Lista_Ptr_Alunos ptr;
     for (ptr = exame.alunos; ptr; ptr = ptr->next) {
-        printf("%d - %s\n", ptr->aluno->aluno.num, ptr->aluno->aluno.nome);
+        printf("%ld - %s\n", ptr->aluno->aluno.num, ptr->aluno->aluno.nome);
     }
 }
 
