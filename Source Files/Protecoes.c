@@ -134,14 +134,14 @@ Data p_leData() {
     s_check = scanf("%2u/%2u/%4u", &data.dia, &data.mes, &data.ano);
     test = getchar();
     if (s_check == 2 && test == '\n')
-        format = (data.dia > 31 || data.dia == 0 || data.mes > 12 || data.mes == 0 || data.ano == 0) ? 1 : 0;
+        format = (data.dia > 31 || data.dia < 0 || data.mes > 12 || data.mes < 0 || data.ano < 0) ? 1 : 0;
     fflush(stdin);
     while (s_check != 3 || test != '\n' || format) {
         printf("Insira a data valida no formato 'dd/mm/aaaa': ");
         s_check = scanf("%2u/%2u/%4u", &data.dia, &data.mes, &data.ano);
         test = getchar();
         if (s_check == 3 && test == '\n')
-            format = (data.dia > 31 || data.dia == 0 || data.mes > 12 || data.mes == 0 || data.ano == 0) ? 1 : 0;
+            format = (data.dia > 31 || data.dia < 0 || data.mes > 12 || data.mes < 0 || data.ano < 0) ? 1 : 0;
         fflush(stdin);
     }
     return data;
@@ -154,14 +154,14 @@ Hora p_leHora() {
     s_check = scanf("%2u:%2u", &hora.horas, &hora.minutos);
     test = getchar();
     if (s_check == 2 && test == '\n')
-        format = (hora.horas > 23 || hora.horas == 0 || hora.minutos > 59 || hora.minutos == 0) ? 1 : 0;
+        format = (hora.horas > 23 || hora.horas < 0 || hora.minutos > 59 || hora.minutos < 0) ? 1 : 0;
     fflush(stdin);
     while (s_check != 2 || test != '\n' || format) {
         printf("Insira uma hora valida no formato 'hh:mm'");
         s_check = scanf("%2u:%2u", &hora.horas, &hora.minutos);
         test = getchar();
         if (s_check == 2 && test == '\n')
-            format = (hora.horas > 23 || hora.horas == 0 || hora.minutos > 59 || hora.minutos == 0) ? 1 : 0;
+            format = (hora.horas > 23 || hora.horas < 0 || hora.minutos > 59 || hora.minutos < 0) ? 1 : 0;
         fflush(stdin);
     }
     return hora;
