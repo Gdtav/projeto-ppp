@@ -240,6 +240,7 @@ void menuExames(Lista_Alunos alunos, Lista_Exames *exames, Lista_Disciplinas *di
                 *exames = criaExame(*exames, disciplinas);
                 break;
             case 2:
+                imprimeExames(*exames);
                 *exames = modificaExame(*exames, disciplinas);
                 break;
             case 3:
