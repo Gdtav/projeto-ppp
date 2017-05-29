@@ -58,5 +58,5 @@ void imprimeData(Data d) {
 }
 
 void imprimeHora(Hora h) {
-    printf("%d:%2d", h.horas, h.minutos);
+    printf("%d:%02d", h.horas, h.minutos);
 }

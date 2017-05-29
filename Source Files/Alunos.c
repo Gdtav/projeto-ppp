@@ -34,11 +34,11 @@ void procuraAluno(Lista_Alunos lst, Aluno chave, Lista_Alunos *ant, Lista_Alunos
 void procuraPtrAluno(Lista_Ptr_Alunos lst, Aluno chave, Lista_Ptr_Alunos *ant, Lista_Ptr_Alunos *act) {
     *ant = NULL;
     *act = lst;
-    while ((*act) != NULL && strcmpi((*act)->aluno->aluno.nome, chave.nome) < 0) {
+    while ((*act) != NULL && (*act)->aluno->aluno.num < chave.num) {
         *ant = *act;
         *act = (*act)->next;
     }
-    if ((*act) != NULL && strcmpi((*act)->aluno->aluno.nome, chave.nome) != 0)
+    if ((*act) != NULL && (*act)->aluno->aluno.num != chave.num)
         *act = NULL; /* Se elemento não encontrado*/
 }
 

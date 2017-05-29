@@ -122,6 +122,7 @@ Lista_Salas insereSala(Lista_Salas lst, char *sala) {
     }
     no = malloc(sizeof(No_Sala));
     if (no != NULL) {
+        no->nome = malloc(TAM_STR * sizeof(char));
         strcpy(no->nome, sala);
         if (ant != NULL) {
             no->next = ant->next;
@@ -179,10 +180,9 @@ void atribuiSalas(Lista_Exames exame) {
     Lista_Salas ptr_s;
     Lista_Exames ptr_e;
     char *str = malloc(TAM_STR * sizeof(char));
-    char dummy;
     printf("Salas ('/' para terminar): \n");
+    fflush(stdin);
     gets(str);
-    scanf("%c", &dummy);
     while (*str != '/') {
         int conflito = 0;
         for (ptr_e = exame->next; ptr_e && conflito == 0; ptr_e = ptr_e->next) {
@@ -213,8 +213,8 @@ void atribuiSalas(Lista_Exames exame) {
         }
         if (conflito != 2)
             exame->exame.salas = insereSala(salas, str);
+        fflush(stdin);
         gets(str);
-        scanf("%c", &dummy);
     }
 }
 
@@ -648,7 +648,7 @@ void verificaSalasSuficientes(Lista_Exames exames) {
         resto = (inscricoes - salas * 30) % 30;
         if (resto > 0)
             extra++;
-        printf("Não há salas suficientes! Por favor acrescente mais %d salas\n", extra);
+        printf("Nao ha salas suficientes! Por favor acrescente mais %d salas\n", extra);
     } else
         printf("Estao atribuidas salas suficientes para o numero de inscritos.\n");
 }
