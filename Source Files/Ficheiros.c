@@ -83,7 +83,7 @@ void leFicheiroExames(Lista_Exames *exames, FILE *fich_exm, Lista_Disciplinas di
         while(fscanf(fich_exm, "%[^\n]\n",linha) && *linha != '/') {
             exm.salas = insereSala(exm.salas, linha);
         }
-        while(fscanf(fich_exm,"%d\n", &num) == 1)
+        while(fscanf(fich_exm,"%d\n", &num) == 1 && num)
             exm.alunos = inserePtrAluno(exm.alunos, pesquisaNumAluno(alunos, num));
         *exames = insereExame(*exames, exm);
         ptr_exm = pesquisaNumExame(*exames, exm.num);
@@ -132,5 +132,6 @@ void guardaFicheiroExames(Lista_Exames exames, FILE *fich_exms){
             fprintf(fich_exms,"%ld\n",ptr_aln->aluno->aluno.num);
             ptr_aln = ptr_aln->next;
         }
+        fprintf(fich_exms, "0\n");
     }
 }
