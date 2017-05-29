@@ -49,8 +49,7 @@ void procuraSala(Lista_Salas lst, char *chave, Lista_Salas *ant, Lista_Salas *ac
         *ant = *act;
         *act = (*act)->next;
     }
-    if ((*act) != NULL &&
-        (strcmpi((*act)->nome, chave) != 0 || strcmpi((*act)->nome, chave) != 0))
+    if ((*act) != NULL && (strcmpi((*act)->nome, chave) != 0 || strcmpi((*act)->nome, chave) != 0))
         *act = NULL; /* Se elemento não encontrado*/
 }
 
@@ -180,45 +179,41 @@ void atribuiSalas(Lista_Exames exame) {
     Lista_Salas ptr_s;
     Lista_Exames ptr_e;
     char *str = malloc(TAM_STR * sizeof(char));
-    printf("Salas ('/' para terminar): \n");
+    printf("Insira o nome da sala pretendida: \n");
     fflush(stdin);
     gets(str);
-    while (*str != '/') {
-        int conflito = 0;
-        for (ptr_e = exame->next; ptr_e && conflito == 0; ptr_e = ptr_e->next) {
-            if (cmpData(ptr_e->exame.data, exame->exame.data))
-                conflito = 1;
-            else if (verifConflito(ptr_e->exame.hora, exame->exame.hora, ptr_e->exame.duracao, exame->exame.duracao) ==
-                     0)
-                conflito = 1;
-            else {
-                for (ptr_s = ptr_e->exame.salas; ptr_s && conflito != 2; ptr_s = ptr_s->next) {
-                    if (strcmp(ptr_s->nome, str) == 0)
-                        conflito = 2;
-                }
+    int conflito = 0;
+    for (ptr_e = exame->next; ptr_e && conflito == 0; ptr_e = ptr_e->next) {
+        if (cmpData(ptr_e->exame.data, exame->exame.data))
+            conflito = 1;
+        else if (verifConflito(ptr_e->exame.hora, exame->exame.hora, ptr_e->exame.duracao, exame->exame.duracao) == 0)
+            conflito = 1;
+        else {
+            for (ptr_s = ptr_e->exame.salas; ptr_s && conflito != 2; ptr_s = ptr_s->next) {
+                if (strcmp(ptr_s->nome, str) == 0)
+                    conflito = 2;
             }
         }
-        for (ptr_e = exame->prev; ptr_e && conflito == 0; ptr_e = ptr_e->prev) {
-            if (cmpData(ptr_e->exame.data, exame->exame.data))
-                conflito = 1;
-            else if (verifConflito(ptr_e->exame.hora, exame->exame.hora, ptr_e->exame.duracao, exame->exame.duracao) ==
-                     0)
-                conflito = 1;
-            else {
-                for (ptr_s = ptr_e->exame.salas; ptr_s && conflito != 2; ptr_s = ptr_s->next) {
-                    if (strcmp(ptr_s->nome, str) == 0)
-                        conflito = 2;
-                }
-            }
-        }
-        if (conflito != 2)
-            exame->exame.salas = insereSala(salas, str);
-        else
-            printf("Sala em conflito! Nao foi adicionada.\n");
-        fflush(stdin);
-        printf("Proxima Sala:\n");
-        gets(str);
     }
+    for (ptr_e = exame->prev; ptr_e && conflito == 0; ptr_e = ptr_e->prev) {
+        if (cmpData(ptr_e->exame.data, exame->exame.data))
+            conflito = 1;
+        else if (verifConflito(ptr_e->exame.hora, exame->exame.hora, ptr_e->exame.duracao, exame->exame.duracao) == 0)
+            conflito = 1;
+        else {
+            for (ptr_s = ptr_e->exame.salas; ptr_s && conflito != 2; ptr_s = ptr_s->next) {
+                if (strcmp(ptr_s->nome, str) == 0)
+                    conflito = 2;
+            }
+        }
+    }
+    if (conflito != 2) {
+        salas = insereSala(salas, str);
+        exame->exame.salas = salas;
+    }
+    else
+        printf("Sala em conflito! Nao foi adicionada.\n");
+    fflush(stdin);
 }
 
 Lista_Exames criaExame(Lista_Exames exames, Lista_Disciplinas *disciplinas) {
@@ -288,9 +283,9 @@ Lista_Salas eliminaSala(Lista_Salas lst, char *str) {
             lst = act->next;
         free(act->nome);
         free(act);
+
     }
     return lst;
-    return NULL;
 }
 
 Lista_Ptr_Exames eliminaPtrExame(Lista_Ptr_Exames lst, int num) {
