@@ -8,7 +8,7 @@ void menuAlunos(Lista_Alunos *alunos){
     int opcao = 0;
     int num;
     Lista_Alunos aluno;
-    while (opcao != 6) {
+    while (1) {
         printf("Gestao de alunos \n Insira o numero da opcao desejada:\n");
         printf("1 - Adicionar aluno\n");
         printf("2 - Modificar aluno\n");
@@ -34,7 +34,7 @@ void menuAlunos(Lista_Alunos *alunos){
             case 4:
                 if (*alunos == NULL) {
                     printf("Nao ha alunos na base de dados! Abortando...\n");
-                    return;
+                    break;
                 }
                 printf("Numero do aluno: ");
                 num = p_scan_int();
@@ -59,92 +59,98 @@ void menuAlunos(Lista_Alunos *alunos){
 
 void menuDisciplinas(Lista_Disciplinas *disciplinas, Lista_Exames *exames){
     int opcao;
-    printf("Gestao de disciplinas \n Insira o numero da opcao desejada:\n");
-    printf("1 - Adicionar disciplina\n");
-    printf("2 - Modificar disciplina\n");
-    printf("3 - Eliminar disciplina\n");
-    printf("4 - Listar todas as disciplinas\n");
-    printf("5 - Voltar\n");
-    opcao = p_scan_int();
-    while (opcao < 1 || opcao > 5) {
-        printf("Por favor, insira o numero da operacao desejada (de 1 a 5):");
+    while (1) {
+        printf("Gestao de disciplinas \n Insira o numero da opcao desejada:\n");
+        printf("1 - Adicionar disciplina\n");
+        printf("2 - Modificar disciplina\n");
+        printf("3 - Eliminar disciplina\n");
+        printf("4 - Listar todas as disciplinas\n");
+        printf("5 - Voltar\n");
         opcao = p_scan_int();
-    }
-    switch (opcao) {
-        case 1:
-            *disciplinas = criaDisciplina(*disciplinas);
-            break;
-        case 2:
-            modificaDisciplina(*disciplinas);
-            break;
-        case 3:
-            *disciplinas = eliminaDisciplina(*disciplinas, exames);
-            break;
-        case 4:
-            imprimeDisciplinas(*disciplinas);
-            break;
-        case 5:
-            return;
-        default:
-            break;
+        while (opcao < 1 || opcao > 5) {
+            printf("Por favor, insira o numero da operacao desejada (de 1 a 5):");
+            opcao = p_scan_int();
+        }
+        switch (opcao) {
+            case 1:
+                *disciplinas = criaDisciplina(*disciplinas);
+                break;
+            case 2:
+                modificaDisciplina(*disciplinas);
+                break;
+            case 3:
+                *disciplinas = eliminaDisciplina(*disciplinas, exames);
+                break;
+            case 4:
+                imprimeDisciplinas(*disciplinas);
+                break;
+            case 5:
+                return;
+            default:
+                break;
+        }
     }
 }
 
 void menuSalas(Lista_Exames exames){
     int opcao;
-    printf("Gestao de salas \n Por favor insira a opcao desejada:\n");
-    printf("1 - Atribuir salas a exame\n");
-    printf("2 - Verificar salas suficientes\n");
-    printf("3 - Voltar\n");
-    opcao = p_scan_int();
-    while (opcao < 1 || opcao > 3) {
-        printf("Por favor, insira o numero da operacao desejada (de 1 a 3):");
+    while (1) {
+        printf("Gestao de salas \n Por favor insira a opcao desejada:\n");
+        printf("1 - Atribuir salas a exame\n");
+        printf("2 - Verificar salas suficientes\n");
+        printf("3 - Voltar\n");
         opcao = p_scan_int();
-    }
-    switch (opcao) {
-        case 1:
-            atribuiSalas(exames);
-            break;
-        case 2:
-            verificaSalasSuficientes(exames);
-            break;
-        case 3:
-            return;
-        default:
-            break;
+        while (opcao < 1 || opcao > 3) {
+            printf("Por favor, insira o numero da operacao desejada (de 1 a 3):");
+            opcao = p_scan_int();
+        }
+        switch (opcao) {
+            case 1:
+                atribuiSalas(exames);
+                break;
+            case 2:
+                verificaSalasSuficientes(exames);
+                break;
+            case 3:
+                return;
+            default:
+                break;
+        }
     }
 }
 
 void menuInscricoes(Lista_Exames exames, Lista_Alunos alunos){
     int opcao;
     Lista_Exames exame;
-    printf("Gestao de inscricoes \n Por favor insira a opcao desejada:\n");
-    printf("1 - Adicionar aluno a exame\n");
-    printf("2 - Remover aluno de exame\n");
-    printf("3 - Voltar\n");
-    opcao = p_scan_int();
-    while (opcao < 1 || opcao > 3) {
-        printf("Por favor, insira o numero da operacao desejada (de 1 a 3):");
+    while (1) {
+        printf("Gestao de inscricoes \n Por favor insira a opcao desejada:\n");
+        printf("1 - Adicionar aluno a exame\n");
+        printf("2 - Remover aluno de exame\n");
+        printf("3 - Voltar\n");
         opcao = p_scan_int();
-    }
-    switch (opcao) {
-        case 1:
-            inscreveAluno(exames, alunos);
-            break;
-        case 2:
-            removeInscricao(exames);
-            break;
-        case 3:
-            return;
-        default:
-            break;
+        while (opcao < 1 || opcao > 3) {
+            printf("Por favor, insira o numero da operacao desejada (de 1 a 3):");
+            opcao = p_scan_int();
+        }
+        switch (opcao) {
+            case 1:
+                inscreveAluno(exames, alunos);
+                break;
+            case 2:
+                removeInscricao(exames);
+                break;
+            case 3:
+                return;
+            default:
+                break;
+        }
     }
 }
 
 void menuExames(Lista_Alunos alunos, Lista_Exames *exames, Lista_Disciplinas *disciplinas){
     int opcao = 0, num;
     Lista_Exames exame;
-    while (opcao != 9) {
+    while (1) {
         printf("Gestao de exames \n Insira o numero da opcao desejada:\n");
         printf("1 - Criar exame\n");
         printf("2 - Modificar exame\n");
@@ -212,7 +218,7 @@ void menuExames(Lista_Alunos alunos, Lista_Exames *exames, Lista_Disciplinas *di
                 imprimeAlunosInscritos(exame->exame);
                 break;
             case 9:
-                break;
+                return;
             default:
                 break;
         }
