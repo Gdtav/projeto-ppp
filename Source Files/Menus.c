@@ -154,7 +154,7 @@ void menuSalas(Lista_Exames exames) {
                         fflush(stdin);
                         procuraSala(exame->exame.salas, str, &ant, &act);
                     }
-                    eliminaSala(exame->exame.salas, str);
+                    exame->exame.salas = eliminaSala(exame->exame.salas, str);
                     exame = NULL;
                 }
                 break;
