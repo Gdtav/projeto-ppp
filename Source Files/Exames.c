@@ -216,6 +216,7 @@ void atribuiSalas(Lista_Exames exame) {
         else
             printf("Sala em conflito! Nao foi adicionada.\n");
         fflush(stdin);
+        printf("Proxima Sala:\n");
         gets(str);
     }
 }

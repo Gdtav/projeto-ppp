@@ -4,3 +4,5 @@ Principios de Programacao Procedimental
 Marco Vieira
 Arquitetura de Computadores
 Paulo Peixoto
+Estatistica
+Cristina Martins
