@@ -170,6 +170,7 @@ Lista_Alunos eliminaAluno(Lista_Alunos lst) {
         printf("Nao ha alunos na base de dados! Abortando...\n");
         return lst;
     }
+    imprimeAlunos(lst);
     printf("Numero do aluno a modificar: ");
     num = p_scan_int();
     aluno = pesquisaNumAluno(lst, num);
@@ -200,6 +201,7 @@ Lista_Alunos modificaAluno(Lista_Alunos lst) {
         printf("Nao ha alunos na base de dados! Abortando...\n");
         return lst;
     }
+    imprimeAlunos(lst);
     printf("Numero do aluno a modificar: ");
     num = p_scan_int();
     aluno = pesquisaNumAluno(lst, num);
