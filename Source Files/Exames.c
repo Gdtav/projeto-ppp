@@ -556,6 +556,15 @@ void imprimeExamesAluno(Aluno aluno) {
     }
 }
 
+void imprimeSalas(Exame exame){
+    Lista_Salas ptr;
+    for(ptr = exame.salas; ptr && ptr->next; ptr = ptr->next){
+        printf("%s, ",ptr->nome);
+    }
+    if (exame.salas)
+        printf("%s", ptr->nome);
+}
+
 void inscreveAluno(Lista_Exames exames, Lista_Alunos alunos) {
     int num;
     Lista_Exames exame, a;
