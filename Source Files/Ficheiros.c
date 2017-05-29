@@ -2,6 +2,7 @@
 // Created by guilh on 23/05/2017.
 //
 #include "Ficheiros.h"
+#include "Estruturas.h"
 
 void leFicheiroDisciplinas(Lista_Disciplinas *disciplinas, FILE *fich_disc){
     char *ptr = NULL;
@@ -58,136 +59,38 @@ void leFicheiroAlunos(Lista_Alunos *alunos, FILE *fich_aln){
 }
 
 void leFicheiroExames(Lista_Exames *exames, FILE *fich_exm, Lista_Disciplinas disciplinas, Lista_Alunos alunos){
-    char *ptr;
-    Exame exm;
-    Lista_Disciplinas disciplina;
+    Lista_Ptr_Alunos ptr_aln;
+    Lista_Exames ptr_exm;
     char epoca;
     Data data;
     Hora hora;
-    int in;
     int num;
     int duracao;
     Lista_Salas salas = malloc(sizeof(Lista_Salas));
     Lista_Ptr_Alunos alns = malloc(sizeof(Lista_Ptr_Alunos));
     char *linha = malloc(TAM_STR * sizeof(char));
-    while (fgets(linha, TAM_STR, fich_exm)) {
-        in = 1;
-        for(ptr = linha; in; ptr++){
-            if(*ptr == '\n'){
-                *ptr = '\0';
-                in = 0;
-            }
-        }
-        num = atoi(linha);
-        fgets(linha, TAM_STR, fich_exm);
-        in = 1;
-        for(ptr = linha; in; ptr++){
-            if(*ptr == '\n'){
-                *ptr = '\0';
-                in = 0;
-            }
-        }
-        duracao = atoi(linha);
-        epoca = (char) fgetc(fich_exm);
-        fgets(linha, TAM_STR, fich_exm);
-        in = 1;
-        for(ptr = linha; in; ptr++){
-            if(*ptr == '\n'){
-                *ptr = '\0';
-                in = 0;
-            }
-        }
-        data.dia = atoi(linha);
-        fgets(linha, TAM_STR, fich_exm);
-        in = 1;
-        for(ptr = linha; in; ptr++){
-            if(*ptr == '\n'){
-                *ptr = '\0';
-                in = 0;
-            }
-        }
-        data.mes = atoi(linha);
-        fgets(linha, TAM_STR, fich_exm);
-        in = 1;
-        for(ptr = linha; in; ptr++){
-            if(*ptr == '\n'){
-                *ptr = '\0';
-                in = 0;
-            }
-        }
-        data.ano = atoi(linha);
-        fgets(linha, TAM_STR, fich_exm);
-        in = 1;
-        for(ptr = linha; in; ptr++){
-            if(*ptr == '\n'){
-                *ptr = '\0';
-                in = 0;
-            }
-        }
-        hora.horas = atoi(linha);
-        fgets(linha, TAM_STR, fich_exm);
-        in = 1;
-        for(ptr = linha; in; ptr++){
-            if(*ptr == '\n'){
-                *ptr = '\0';
-                in = 0;
-            }
-        }
-        hora.minutos = atoi(linha);
-        fgets(linha, TAM_STR, fich_exm);
-        in = 1;
-        for(ptr = linha; in; ptr++){
-            if(*ptr == '\n'){
-                *ptr = '\0';
-                in = 0;
-            }
-        }
-        disciplina = pesquisaDisciplinas(disciplinas, linha);
-        fgets(linha, TAM_STR, fich_exm);
-        in = 1;
-        for(ptr = linha; in; ptr++){
-            if(*ptr == '\n'){
-                *ptr = '\0';
-                in = 0;
-            }
-        }
-        while (!atoi(linha)) {
-            strcpy(linha, salas->nome);
-            salas = salas->next;
-            fgets(linha, TAM_STR, fich_exm);
-            in = 1;
-            for(ptr = linha; in; ptr++){
-                if(*ptr == '\n'){
-                    *ptr = '\0';
-                    in = 0;
-                }
-            }
-        }
-        while (atoi(linha)) {
-            alns->aluno = pesquisaNumAluno(alunos, atoi(linha));
-            alns = alns->next;
-            fgets(linha, TAM_STR, fich_exm);
-            in = 1;
-            for(ptr = linha; in; ptr++){
-                if(*ptr == '\n'){
-                    *ptr = '\0';
-                    in = 0;
-                }
-            }
-        }
+    while (fscanf(fich_exm, "%d\n%d\n%c\n%d/%d/%d\n%d:%d\n%[^\n]\n", &num, &duracao, &epoca, &data.dia, &data.mes, &data.ano, &hora.horas, &hora.minutos, linha) == 9) {
+        Exame exm;
         exm.num = num;
-        exm.disciplina = disciplina;
+        exm.disciplina = pesquisaDisciplinas(disciplinas, linha);
         exm.alunos = alns;
         exm.salas = salas;
         exm.epoca = epoca;
         exm.data = data;
         exm.duracao = duracao;
         exm.hora = hora;
-        *exames = insereExame(*exames, exm);
-        for (exm.alunos; exm.alunos != NULL ; exm.alunos = exm.alunos->next) {
-            exm.alunos->aluno->aluno.exames = inserePtrExame(exm.alunos->aluno->aluno.exames,*exames);
+        exm.salas = NULL;
+        exm.alunos = NULL;
+        while(fscanf(fich_exm, "%[^\n]\n",linha) && *linha != '/') {
+            exm.salas = insereSala(exm.salas, linha);
         }
-        fgets(linha, TAM_STR, fich_exm);
+        while(fscanf(fich_exm,"%d\n", &num) == 1)
+            exm.alunos = inserePtrAluno(exm.alunos, pesquisaNumAluno(alunos, num));
+        *exames = insereExame(*exames, exm);
+        ptr_exm = pesquisaNumExame(*exames, exm.num);
+        for (ptr_aln = ptr_exm->exame.alunos; ptr_aln; ptr_aln = ptr_aln->next) {
+            ptr_aln->aluno->aluno.exames = inserePtrExame(ptr_aln->aluno->aluno.exames, ptr_exm);
+        }
     }
 }
 
@@ -209,25 +112,24 @@ void guardaFicheiroAlunos(Lista_Alunos alunos, FILE *fich_aln){
 }
 
 void guardaFicheiroExames(Lista_Exames exames, FILE *fich_exms){
-    Lista_Salas ptr = malloc(sizeof(Lista_Salas));
-    Lista_Ptr_Alunos ptr_aln = malloc(sizeof(Lista_Ptr_Alunos));
-    for (exames; exames != NULL ; exames = exames->next) {
-        fprintf(fich_exms,"%d\n",exames->exame.num);
-        fprintf(fich_exms,"%d\n",exames->exame.duracao);
-        fprintf(fich_exms,"%c\n",exames->exame.epoca);
-        fprintf(fich_exms,"%d\n",exames->exame.data.dia);
-        fprintf(fich_exms,"%d\n",exames->exame.data.mes);
-        fprintf(fich_exms,"%d\n",exames->exame.data.ano);
-        fprintf(fich_exms,"%d\n",exames->exame.hora.horas);
-        fprintf(fich_exms,"%d\n",exames->exame.hora.minutos);
-        fprintf(fich_exms,"%s\n",exames->exame.disciplina->disciplina.nome);
-        while (ptr != NULL) {
-            ptr = exames->exame.salas;
-            fprintf(fich_exms,"%s\n",ptr->nome);
-            ptr = ptr->next;
+    Lista_Salas ptr_s;
+    Lista_Ptr_Alunos ptr_aln;
+    Lista_Exames ptr_exm;
+    for (ptr_exm = exames; ptr_exm; ptr_exm = ptr_exm->next) {
+        fprintf(fich_exms,"%d\n",ptr_exm->exame.num);
+        fprintf(fich_exms,"%d\n",ptr_exm->exame.duracao);
+        fprintf(fich_exms,"%c\n",ptr_exm->exame.epoca);
+        fprintf(fich_exms,"%d/%d/%d\n",ptr_exm->exame.data.dia, ptr_exm->exame.data.mes, ptr_exm->exame.data.ano);
+        fprintf(fich_exms,"%d:%d\n",ptr_exm->exame.hora.horas, ptr_exm->exame.hora.minutos);
+        fprintf(fich_exms,"%s\n",ptr_exm->exame.disciplina->disciplina.nome);
+        ptr_s = exames->exame.salas;
+        while (ptr_s) {
+            fprintf(fich_exms,"%s\n",ptr_s->nome);
+            ptr_s = ptr_s->next;
         }
-        while (ptr_aln != NULL) {
-            ptr_aln = exames->exame.alunos;
+        fprintf(fich_exms,"/\n");
+        ptr_aln = exames->exame.alunos;
+        while (ptr_aln) {
             fprintf(fich_exms,"%d\n",ptr_aln->aluno->aluno.num);
             ptr_aln = ptr_aln->next;
         }
