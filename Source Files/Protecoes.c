@@ -157,7 +157,7 @@ Hora p_leHora() {
         format = (hora.horas > 23 || hora.horas < 0 || hora.minutos > 59 || hora.minutos < 0) ? 1 : 0;
     fflush(stdin);
     while (s_check != 2 || test != '\n' || format) {
-        printf("Insira uma hora valida no formato 'hh:mm'");
+        printf("Insira uma hora valida no formato 'hh:mm': ");
         s_check = scanf("%2u:%2u", &hora.horas, &hora.minutos);
         test = getchar();
         if (s_check == 2 && test == '\n')

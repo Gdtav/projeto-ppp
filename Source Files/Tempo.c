@@ -36,7 +36,7 @@ Hora adicionaMinutos(Hora h, int minutos) {
 
 int verifConflito(Hora h1, Hora h2, int dur1, int dur2) {
     Hora fim1 = adicionaMinutos(h1, dur1), fim2 = adicionaMinutos(h2, dur2);
-    if (cmpHora(fim1, h2) <= 0 || cmpHora(h1, fim2) <= 0)
+    if (cmpHora(fim1, h2) <= 0 || cmpHora(fim2, h1) <= 0)
         return 0;
     return 1;
 }

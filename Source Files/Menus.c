@@ -4,7 +4,7 @@
 
 #include "Menus.h"
 
-void menuAlunos(Lista_Alunos *alunos){
+void menuAlunos(Lista_Alunos *alunos) {
     int opcao = 0;
     int num;
     Lista_Alunos aluno;
@@ -57,7 +57,7 @@ void menuAlunos(Lista_Alunos *alunos){
     }
 }
 
-void menuDisciplinas(Lista_Disciplinas *disciplinas, Lista_Exames *exames){
+void menuDisciplinas(Lista_Disciplinas *disciplinas, Lista_Exames *exames) {
     int opcao;
     printf("Gestao de disciplinas \n Insira o numero da opcao desejada:\n");
     printf("1 - Adicionar disciplina\n");
@@ -90,32 +90,99 @@ void menuDisciplinas(Lista_Disciplinas *disciplinas, Lista_Exames *exames){
     }
 }
 
-void menuSalas(Lista_Exames exames){
+void menuSalas(Lista_Exames exames) {
     int opcao;
+    int num;
+    char *str = malloc(TAM_STR * sizeof(char));
+    Lista_Exames exame = NULL;
+    Lista_Salas ant, act;
     printf("Gestao de salas \n Por favor insira a opcao desejada:\n");
     printf("1 - Atribuir salas a exame\n");
-    printf("2 - Verificar salas suficientes\n");
-    printf("3 - Voltar\n");
+    printf("2 - Remover sala de um exame\n");
+    printf("3 - Listar salas de um exame\n");
+    printf("4 - Verificar salas suficientes\n");
+    printf("5 - Voltar\n");
     opcao = p_scan_int();
-    while (opcao < 1 || opcao > 3) {
-        printf("Por favor, insira o numero da operacao desejada (de 1 a 3):");
+    while (opcao < 1 || opcao > 5) {
+        printf("Por favor, insira o numero da operacao desejada (de 1 a 5):");
         opcao = p_scan_int();
     }
     switch (opcao) {
         case 1:
-            atribuiSalas(exames);
+            if (exames == NULL)
+                printf("Nao ha exames! Abortando...");
+            else {
+                imprimeExames(exames);
+                printf("Numero do exame: ");
+                num = p_scan_int();
+                exame = pesquisaNumExame(exames, num);
+                while (exame == NULL) {
+                    printf("Nao existe exame com esse numero! Insira de novo: ");
+                    num = p_scan_int();
+                    exame = pesquisaNumExame(exames, num);
+                }
+                imprimeSalas(exame->exame);
+                atribuiSalas(exame);
+                exame = NULL;
+            }
             break;
         case 2:
-            verificaSalasSuficientes(exames);
+            if (exames == NULL)
+                printf("Nao ha exames! Abortando...");
+            else {
+                imprimeExames(exames);
+                printf("Numero do exame: ");
+                num = p_scan_int();
+                exame = pesquisaNumExame(exames, num);
+                while (exame == NULL) {
+                    printf("Nao existe exame com esse numero! Insira de novo: ");
+                    num = p_scan_int();
+                    exame = pesquisaNumExame(exames, num);
+                }
+                imprimeSalas(exame->exame);
+                printf("Nome da sala a remover: ");
+                fflush(stdin);
+                gets(str);
+                fflush(stdin);
+                procuraSala(exame->exame.salas, str, &ant, &act);
+                while (act == NULL) {
+                    printf("Essa sala nao esta atribuida a este exame, insira de novo: ");
+                    gets(str);
+                    fflush(stdin);
+                    procuraSala(exame->exame.salas, str, &ant, &act);
+                }
+                eliminaSala(exame->exame.salas, str);
+                exame = NULL;
+            }
             break;
         case 3:
+            if (exames == NULL)
+                printf("Nao ha exames! Abortando...");
+            else {
+                imprimeExames(exames);
+                printf("Numero do exame: ");
+                num = p_scan_int();
+                exame = pesquisaNumExame(exames, num);
+                while (exame == NULL) {
+                    printf("Nao existe exame com esse numero! Insira de novo: ");
+                    num = p_scan_int();
+                    exame = pesquisaNumExame(exames, num);
+                }
+                imprimeSalas(exame->exame);
+                exame = NULL;
+            }
+            break;
+        case 4:
+            verificaSalasSuficientes(exames);
+            break;
+        case 5:
             return;
         default:
             break;
     }
 }
 
-void menuInscricoes(Lista_Exames exames, Lista_Alunos alunos){
+void menuInscricoes(Lista_Exames exames, Lista_Alunos alunos) {
     int opcao;
     Lista_Exames exame;
     printf("Gestao de inscricoes \n Por favor insira a opcao desejada:\n");
@@ -141,7 +208,7 @@ void menuInscricoes(Lista_Exames exames, Lista_Alunos alunos){
     }
 }
 
-void menuExames(Lista_Alunos alunos, Lista_Exames *exames, Lista_Disciplinas *disciplinas){
+void menuExames(Lista_Alunos alunos, Lista_Exames *exames, Lista_Disciplinas *disciplinas) {
     int opcao = 0, num;
     Lista_Exames exame;
     while (opcao != 9) {
@@ -171,7 +238,7 @@ void menuExames(Lista_Alunos alunos, Lista_Exames *exames, Lista_Disciplinas *di
                 menuSalas(*exames);
                 break;
             case 4:
-                if(*exames == NULL)
+                if (*exames == NULL)
                     printf("Nao ha exames para eliminar! Abortando...");
                 else {
                     imprimeExames(*exames);
@@ -219,7 +286,7 @@ void menuExames(Lista_Alunos alunos, Lista_Exames *exames, Lista_Disciplinas *di
     }
 }
 
-void menuPrincipal(Lista_Alunos *alunos, Lista_Exames *exames, Lista_Disciplinas *disciplinas){
+void menuPrincipal(Lista_Alunos *alunos, Lista_Exames *exames, Lista_Disciplinas *disciplinas) {
     int opcao;
     do {
         printf("Bem vindo ao gestor de exames do DEI. \n Por favor insira a opcao desejada:\n");

@@ -54,6 +54,8 @@ void imprimeAlunosInscritos(Exame);
 
 void imprimeExamesAluno(Aluno);
 
+void imprimeSalas(Exame);
+
 void inscreveAluno(Lista_Exames, Lista_Alunos);
 
 void removeInscricao(Lista_Exames);

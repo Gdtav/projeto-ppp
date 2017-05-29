@@ -193,7 +193,7 @@ void atribuiSalas(Lista_Exames exame) {
                 conflito = 1;
             else {
                 for (ptr_s = ptr_e->exame.salas; ptr_s && conflito != 2; ptr_s = ptr_s->next) {
-                    if (strcmp(ptr_s->nome, str))
+                    if (strcmp(ptr_s->nome, str) == 0)
                         conflito = 2;
                 }
             }
@@ -206,13 +206,15 @@ void atribuiSalas(Lista_Exames exame) {
                 conflito = 1;
             else {
                 for (ptr_s = ptr_e->exame.salas; ptr_s && conflito != 2; ptr_s = ptr_s->next) {
-                    if (strcmp(ptr_s->nome, str))
+                    if (strcmp(ptr_s->nome, str) == 0)
                         conflito = 2;
                 }
             }
         }
         if (conflito != 2)
             exame->exame.salas = insereSala(salas, str);
+        else
+            printf("Sala em conflito! Nao foi adicionada.\n");
         fflush(stdin);
         gets(str);
     }
@@ -378,7 +380,7 @@ void removeConflito(Lista_Exames exame) {
                 conflito = 1;
             else {
                 for (ptr_s = ptr_e->exame.salas; ptr_s && conflito != 2; ptr_s = ptr_s->next) {
-                    if (strcmp(ptr_s->nome, ptr->nome))
+                    if (strcmp(ptr_s->nome, ptr->nome) == 0)
                         conflito = 2;
                 }
             }
@@ -393,7 +395,7 @@ void removeConflito(Lista_Exames exame) {
                 conflito = 1;
             else {
                 for (ptr_s = ptr_e->exame.salas; ptr_s && conflito != 2; ptr_s = ptr_s->next) {
-                    if (strcmp(ptr_s->nome, ptr->nome))
+                    if (strcmp(ptr_s->nome, ptr->nome) == 0)
                         conflito = 2;
                 }
             }
@@ -552,7 +554,7 @@ void imprimeSalas(Exame exame){
         printf("%s, ",ptr->nome);
     }
     if (exame.salas)
-        printf("%s", ptr->nome);
+        printf("%s\n", ptr->nome);
 }
 
 void inscreveAluno(Lista_Exames exames, Lista_Alunos alunos) {
