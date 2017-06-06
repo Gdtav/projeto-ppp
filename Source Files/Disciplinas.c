@@ -109,11 +109,12 @@ Lista_Disciplinas eliminaDisciplina(Lista_Disciplinas disciplinas, Lista_Exames 
     free(no->disciplina.nome);
     free(no->disciplina.docente);
     free(no);
+    free(nome);
     return disciplinas;
 }
 
 Lista_Disciplinas modificaDisciplina(Lista_Disciplinas disciplinas){
-    Lista_Disciplinas no;
+    Lista_Disciplinas no, no2;
     char *nome = (char *) malloc(TAM_STR * sizeof(char));
     char *docente = (char *) malloc(TAM_STR * sizeof(char));
     if (disciplinas == NULL) {
@@ -133,8 +134,17 @@ Lista_Disciplinas modificaDisciplina(Lista_Disciplinas disciplinas){
         no = pesquisaDisciplinas(disciplinas, nome);
         fflush(stdin);
     }
-    printf("Insira o novo nome da disciplina:\n");
+    printf("Insira o novo nome da disciplina: \n");
+    fflush(stdin);
     gets(nome);
+    no2 = pesquisaDisciplinas(disciplinas, nome);
+    fflush(stdin);
+    while (no2) {
+        printf("Essa disciplina já existe! Insira de novo: ");
+        gets(nome);
+        no2 = pesquisaDisciplinas(disciplinas, nome);
+        fflush(stdin);
+    }
     no->disciplina.nome = nome;
     printf("Insira o novo nome do docente:\n");
     fflush(stdin);
