@@ -325,7 +325,7 @@ Lista_Exames eliminaExamesAntigos(Lista_Exames exames) {
     Lista_Exames ptr;
     Data data;
     printf("Por favor insira a data até onde quer eliminar (inclusive):\n");
-    data = leData();
+    data = p_leData();
     ptr = exames;
     while(ptr){
         Lista_Exames ptr2 = ptr;

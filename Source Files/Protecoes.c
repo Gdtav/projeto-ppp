@@ -81,7 +81,7 @@ void p_scan_nome(char *str) {
     }
 }
 
-char p_scan_char() {
+/*char p_scan_char() {
     char ch;
     int test = 0;
     fflush(stdin);
@@ -95,7 +95,7 @@ char p_scan_char() {
         fflush(stdin);
     }
     return ch;
-}
+}*/
 
 char p_scan_char_cond(char *alpha) {
     char ch;
@@ -133,7 +133,7 @@ Data p_leData() {
     fflush(stdin);
     s_check = scanf("%2u/%2u/%4u", &data.dia, &data.mes, &data.ano);
     test = getchar();
-    if (s_check == 2 && test == '\n')
+    if (s_check == 3 && test == '\n')
         format = (data.dia > 31 || data.dia < 0 || data.mes > 12 || data.mes < 0 || data.ano < 0) ? 1 : 0;
     fflush(stdin);
     while (s_check != 3 || test != '\n' || format) {
